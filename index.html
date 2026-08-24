@@ -755,6 +755,12 @@ h1{margin:2px 0 0;font:700 30px/1.2 "Songti SC",serif;letter-spacing:.02em}
   .habit-year-view .dash-week-view .dwv-grid{gap:4px !important}
   .habit-year-view .dash-week-view .dwv-d{min-height:54px !important;font-size:11.5px !important;padding:4px 3px !important;border-radius:7px !important}
 }
+/* R134-1: 桌面端日历速览卡片月视图缩小（去掉 aspect-ratio:1/1）+ 年度坚持日历进一步缩 */
+@media(min-width:901px){
+  .dash-cal .dash-month-view .dmv-grid{gap:4px !important}
+  .dash-cal .dash-month-view .dmv-d{aspect-ratio:auto !important;min-height:34px !important;font-size:11px !important;padding:3px 2px !important;border-radius:7px !important}
+  .habit-year-view .dash-month-view .dmv-d{min-height:28px !important;font-size:10.5px !important;padding:2px 1px !important}
+}
 /* R114: 月视图/周视图移动端适配（窄屏≤560px）—— 不缩到太小，保证日期数字可读；宽度跟随视口 */
 @media(max-width:560px){
   .habit-year-view .dash-month-view{max-width:100%}
@@ -786,13 +792,17 @@ h1{margin:2px 0 0;font:700 30px/1.2 "Songti SC",serif;letter-spacing:.02em}
 /* R107-3: 习惯 dmv-bar 标题字号与主页一致 */
 .habit-year-view .dmv-bar .dmv-title{font:600 14px/1.3 inherit}
 /* R107-1: 题材 chip 与徽章配色（区分于情节/标签的 tagColors） */
-.theme-chip{font-size:11px;padding:4px 11px;border-radius:999px;border:1px solid #FBF9FE;background:#fff;color:#7C7596;cursor:pointer;transition:all .15s}
-  .theme-chip:hover{border-color:#A8A0E0;color:#A8A0E0}
-  .theme-chip.active{background:#fff;border-color:#A8A0E0;color:#A8A0E0;font-weight:600}
+/* R129-2: 题材 chip 配色与情节/标签完全一致（统一用 --line/--card/--muted/--plum* 色板，零硬编码色） */
+.theme-chip{font-size:11px;padding:4px 11px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer;transition:all .15s}
   .theme-chip:hover{border-color:var(--plum);color:var(--plum-deep);transform:translateY(-1px)}
   .theme-chip.active{background:var(--plum-soft);border-color:var(--plum);color:var(--plum-deep);font-weight:600}
-.theme-chip.active{background:#aac4ed;color:#fff;border-color:#7a9ed4}
-.theme-chip:hover{background:#d8e4f5}
+  /* R130-2: .theme-chip 选中态配色与 .tag-chip 完全一致（沿用 var(--plum*) 色板，零硬编码） */
+  /* R130-3: chip 右上角小 × 删除按钮（沿用 --rose/--rose-soft 色板，hover 全显） */
+  /* R132-2: chip-x 常驻可见（之前 display:none + hover 触发，移动端无 hover 完全看不到删除按钮） */
+  .chip-x{position:absolute;top:-6px;right:-6px;width:16px;height:16px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--muted);font-size:11px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;transition:all .15s;opacity:.55}
+  .tag-chip,.theme-chip{position:relative;display:inline-flex;align-items:center;gap:4px}
+  .tag-chip:hover .chip-x,.theme-chip:hover .chip-x{opacity:1}
+  .chip-x:hover{color:var(--rose);border-color:var(--rose);background:var(--rose-soft);opacity:1}
 .tag-badge.theme-1{background:#e8f0fe;color:#5d7fb8}
 .tag-badge.theme-2{background:#dde7d5;color:#5b7a4a}
 .tag-badge.theme-3{background:#f4ecdc;color:#9a7d4e}
@@ -1347,6 +1357,12 @@ h1{margin:2px 0 0;font:700 30px/1.2 "Songti SC",serif;letter-spacing:.02em}
 .cal-tl-item.search-hit{outline:2px solid var(--rose);outline-offset:-2px;background:var(--rose-soft)}
 .cal-tl-item.search-hit .cal-tl-title{color:var(--rose);font-weight:700}
 
+/* R129-3: 时间轴单条记录右侧删除按钮（封面墙/时间轴通用，沿用 --line/--muted/--plum 色板，零新颜色） */
+.cal-tl-item{position:relative}
+.cal-tl-item-del{position:absolute;right:8px;top:8px;width:26px;height:26px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;opacity:0;transition:all .15s}
+  .cal-tl-item:hover .cal-tl-item-del{opacity:1}
+  .cal-tl-item-del:hover{color:var(--rose);border-color:var(--rose);background:var(--rose-soft)}
+
 .cal-tl-cover{width:44px;height:60px;border-radius:6px;background:#e8e3f0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--plum-deep);font-weight:700;flex-shrink:0;overflow:hidden}
 
 .cal-tl-cover img{width:100%;height:100%;object-fit:cover}
@@ -1413,6 +1429,17 @@ h1{margin:2px 0 0;font:700 30px/1.2 "Songti SC",serif;letter-spacing:.02em}
 .pie-wrap.pie-wrap--stack .chart-legend{flex-direction:row;flex-wrap:wrap;justify-content:flex-start;gap:6px 14px;margin-top:auto}
 .pie-wrap.pie-wrap--stack .chart-legend>span{flex:0 1 auto;display:inline-flex;align-items:center;white-space:nowrap}
 .pie-wrap.pie-wrap--stack .chart-legend .lbl{max-width:none}
+/* R134-3: 饼图+图例左右分布（PC）；窄屏保持堆叠 */
+/* R135-2: 饼图与图例左右分布自适应（卡片内整体居中；图例增多时饼图列可压缩、间距随视口微调） */
+.pie-wrap.pie-wrap--split{display:grid !important;grid-template-columns:minmax(0,200px) minmax(0,1fr) !important;gap:clamp(12px,2vw,24px) !important;align-items:center !important;justify-content:center !important;justify-items:start !important;width:100% !important;max-width:480px !important;margin:0 auto !important}
+.pie-wrap.pie-wrap--split > svg{margin:0 !important;max-width:clamp(120px,22vw,200px) !important;width:100% !important}
+.pie-wrap.pie-wrap--split .chart-legend{flex-direction:column !important;align-items:flex-start !important;width:auto !important;gap:8px !important;margin-top:0 !important;min-width:0 !important}
+.pie-wrap.pie-wrap--split .chart-legend>span{flex:0 0 auto !important}
+@media(max-width:860px){
+  .pie-wrap.pie-wrap--split{display:flex !important;flex-direction:column !important;align-items:center !important;max-width:none !important;margin:0 !important;gap:14px !important}
+  .pie-wrap.pie-wrap--split .chart-legend{flex-direction:row !important;flex-wrap:wrap !important;justify-content:center !important;width:100% !important}
+  .pie-wrap.pie-wrap--split > svg{max-width:180px !important}
+}
 
 .pie-wrap .chart-legend>span{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap}
 
@@ -2222,7 +2249,8 @@ body.sb-locked > *:not(#sbSyncModal){pointer-events:none}
 .cloud-sync-time{font-size:11.5px;color:var(--muted,#8a86a3);margin-top:4px}
 
 /* R67: 本地导入弹窗（简易版） */
-.lbi-modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:200}
+/* R134-4: lbi-modal 提升 z-index 至 500（在 mediaOptionsManageOverlay 300 之上），保证删除标签等 showConfirm 弹窗不被管理菜单遮挡 */
+.lbi-modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:500}
 .lbi-mask{position:absolute;inset:0;background:rgba(28,22,46,.5);backdrop-filter:blur(2px)}
 .lbi-card{position:relative;background:#fff;border-radius:18px;padding:20px 22px;max-width:480px;width:calc(100% - 32px);box-shadow:0 18px 50px rgba(60,40,120,.25)}
 .lbi-card h3{margin:0 0 6px;font-size:17px;color:#2a2540}
@@ -2664,7 +2692,7 @@ body.sb-locked > *:not(#sbSyncModal){pointer-events:none}
           </div>
 
           <!-- R122: 消费结构（现位于中列容器内，紧跟月度对比下方） -->
-          <article data-page-node-id="nrAaubvhzzFK9ZnS9vdLtP" class="panel" style="width:100%; box-sizing:border-box; margin:0; display:flex; flex-direction:column"><div data-page-node-id="scj8YQ3c5uNmFSEFfummYv" style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:14px"><h3 data-page-node-id="hIL06LQSiJQARHPZJPwMu9" style="font-size:14px;font-weight:700;margin:0"><!--pnid:vsrRhazEw8iYhgHZgOhLaf-->消费结构</h3><span style="font-size:12px;font-weight:600;color:var(--muted)" id="consumeYearLabel"></span></div><div data-page-node-id="5aU7chtTaW8kb3an9iqVn7" class="pie-wrap pie-wrap--stack" style="flex:1;min-height:0"><svg data-page-node-id="sBw0MyAohwmdIzwk9iY2v0" aria-label="消费结构饼图" id="moneyPie" viewBox="0 0 260 260" style="height:auto; max-width:180px; width:100%;flex-shrink:0"></svg><div data-page-node-id="Wf24ML7q6LzG2WWPH9PLCk" class="chart-legend" id="moneyLegend" style="width:100%;margin-top:10px"></div></div></article>
+          <article data-page-node-id="nrAaubvhzzFK9ZnS9vdLtP" class="panel" style="width:100%; box-sizing:border-box; margin:0; display:flex; flex-direction:column"><div data-page-node-id="scj8YQ3c5uNmFSEFfummYv" style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:14px"><h3 data-page-node-id="hIL06LQSiJQARHPZJPwMu9" style="font-size:14px;font-weight:700;margin:0"><!--pnid:vsrRhazEw8iYhgHZgOhLaf-->消费结构</h3><span style="font-size:12px;font-weight:600;color:var(--muted)" id="consumeYearLabel"></span></div><div data-page-node-id="5aU7chtTaW8kb3an9iqVn7" class="pie-wrap pie-wrap--split" style="flex:1;min-height:0"><svg data-page-node-id="sBw0MyAohwmdIzwk9iY2v0" aria-label="消费结构饼图" id="moneyPie" viewBox="0 0 260 260" style="height:auto; max-width:180px; width:100%;flex-shrink:0"></svg><div data-page-node-id="Wf24ML7q6LzG2WWPH9PLCk" class="chart-legend" id="moneyLegend" style="width:100%;margin-top:10px"></div></div></article>
 
           <!-- R124-5: 各账户余额卡片移到中列消费结构卡片下方（原在左列 grid-column:1，现并入中列 flex 容器自定位） -->
           <article data-page-node-id="3EGAdd0Sj9OXITMrn5RhzI" class="panel" style="margin:0; width:100%; box-sizing:border-box"><div data-page-node-id="iceyKru9UbgfJJqE5pArER" class="panel-head"><div data-page-node-id="0GDt8OjAxqoZOkbJscEM87"><p data-page-node-id="pA6lFKC1xH12ylwpLMH56F" class="eyebrow"><!--pnid:RBOYBRroBK52V742O5vOG2-->各账户余额金额</p><h2 data-page-node-id="lvSFmcxKqLnrKd7QUEhCJ3"><!--pnid:KPzqsgc80KOKLuY3OM4knW-->资产分布</h2></div><button data-page-node-id="ijmJHuhkxFF5NndO68Rg6A" class="btn ghost compact" data-action="open-accounts-edit" onclick="openAccountsEdit()"><svg data-page-node-id="wymlFYDo6qFGlkmWPbmR52"><use data-page-node-id="PpeMwCgO6Kt8kx6wf1d9NM" href="#i-plus"/></svg><!--pnid:nXr4BPwTvVmWlxR0f94U8E-->编辑账户</button></div><div data-page-node-id="n6dq6uqHDr8R0D7XlRBYoa" class="acc-table-wrap" id="accountGrid"></div><p data-page-node-id="ETZ8FPVzjOs3pLS6uCQXYm" class="mini-note" style="margin-top:8px"><!--pnid:1GorF6p6iCmPiEj7KWzp1i-->点击「编辑账户」设置账户名称与期初余额</p></article>
@@ -3545,6 +3573,7 @@ body.sb-locked > *:not(#sbSyncModal){pointer-events:none}
         <button data-page-node-id="mliQetHdje0PjDTpVS0KEX" class="btn ghost compact active" data-mom-tab="types" type="button" style="flex:1"><!--pnid:IfYEuBD0DYNAL0g1GHbLAl-->类型</button>
 
         <button data-page-node-id="9t9m8XF3uVqTmo72o3154j" class="btn ghost compact" data-mom-tab="platforms" type="button" style="flex:1"><!--pnid:s84kyvg1M9Os6K6YNGREjj-->平台</button>
+        <button class="btn ghost compact" data-mom-tab="tags" type="button" style="flex:1">标签</button>
 
       </div>
 
@@ -4388,7 +4417,9 @@ body.sb-locked > *:not(#sbSyncModal){pointer-events:none}
 
     if(!all) r=r.filter(function(x){return !x.sample;});
 
-    r.sort(function(a,b){ return a.date<b.date?1:a.date>b.date?-1:0; });
+    /* R137-1: 智能清单(planner)以今天为基准从近到远 (asc),其他类型保留最近在上 (desc) */
+    var _sortDir137 = (type==='planner')?-1:1;
+    r.sort(function(a,b){ return a.date<b.date?_sortDir137:a.date>b.date?-_sortDir137:0; });
 
     return r;
 
@@ -5324,7 +5355,9 @@ body.sb-locked > *:not(#sbSyncModal){pointer-events:none}
 
       else if(act==='save') saveHabitCellEdit(habitId,date,pop);
 
-      else if(act==='clear') clearHabitCellData(habitId,date);
+      /* R129-4: 清空时加 confirm 二次确认（防止误触丢当日数据） */
+      /* R131-2: 改用 showConfirm 二次确认弹窗（与时间轴删除弹窗统一） */
+      else if(act==='clear'){ showConfirm({title:'清空当日打卡',body:'确定清空该日的所有<打卡、备注、跳过标记>吗？',detail:'该操作会从本机和云端同时移除，<b>不可恢复</b>。',danger:true,confirmText:'清空',onConfirm:function(){ clearHabitCellData(habitId,date); }}); }
 
     });
 
@@ -5920,7 +5953,7 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
     var groups={}; filtered.forEach(function(r){ (groups[r.date]=groups[r.date]||[]).push(r); });
 
-    document.getElementById('plannerList').innerHTML = Object.keys(groups).length? Object.keys(groups).map(function(d,i){ return '<details class="date-group" '+(i<3?'open':'')+'><summary><strong>'+formatDateHeading(d)+'</strong><span>'+groups[d].filter(function(x){return !x.data.done;}).length+' 件待完成</span></summary><div class="group-body">'+groups[d].map(function(r){ return '<div class="task-item" data-action="edit-planner-row" data-id="'+r.id+'" role="button" tabindex="0" onclick="if(typeof editPlannerRow===\'function\'){editPlannerRow(this.dataset.id)}" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();if(typeof editPlannerRow===\'function\'){editPlannerRow(this.dataset.id)}}"><button class="check-btn '+(r.data.done?'checked':'')+'" data-action="toggle-task" data-id="'+r.id+'" onclick="event.stopPropagation()">'+(r.data.done?icon('i-check'):'')+'</button><span><strong>'+esc(r.data.title)+'</strong><small>'+(r.data.time||'全天')+' · '+esc(r.data.list)+prioBadge(r.data.priority)+'</small></span><button class="delete-btn" data-action="delete" data-id="'+r.id+'" onclick="event.stopPropagation()">'+icon('i-trash')+'</button></div>'; }).join('')+'</div></details>'; }).join('') : empty('这个智能清单里暂时没有事项');
+    document.getElementById('plannerList').innerHTML = Object.keys(groups).length? Object.keys(groups).map(function(d,i){ return '<details class="date-group" '+(i<3?'open':'')+'><summary><strong>'+formatDateHeading(d)+'</strong><span>'+groups[d].filter(function(x){return !x.data.done;}).length+' 件待完成</span></summary><div class="group-body">'+groups[d].map(function(r){ return '<div class="task-item" data-action="edit-planner-row" data-id="'+r.id+'" role="button" tabindex="0" onclick="if(typeof editPlannerRow===\'function\'){editPlannerRow(this.dataset.id)}" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();if(typeof editPlannerRow===\'function\'){editPlannerRow(this.dataset.id)}}"><button class="check-btn '+(r.data.done?'checked':'')+'" data-action="toggle-task" data-id="'+r.id+'" onclick="event.stopPropagation();if(typeof toggleTask===\'function\'){toggleTask(this.dataset.id);return false;}">'+(r.data.done?icon('i-check'):'')+'</button><span><strong>'+esc(r.data.title)+'</strong><small>'+(r.data.time||'全天')+' · '+esc(r.data.list)+prioBadge(r.data.priority)+'</small></span><button class="delete-btn" data-action="delete" data-id="'+r.id+'" onclick="event.stopPropagation();if(typeof sbConfirmDelete===\'function\'){sbConfirmDelete(this.dataset.id);return false;}">'+icon('i-trash')+'</button></div>'; }).join('')+'</div></details>'; }).join('') : empty('这个智能清单里暂时没有事项');
 
   }
 
@@ -5944,7 +5977,7 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
     var filtered=recs.filter(function(r){return filter==='all'||(filter==='pending'&&!r.data.bought)||(filter==='bought'&&r.data.bought);});
 
-    document.getElementById('homeList').innerHTML = filtered.length? filtered.map(function(r){ return '<div class="shopping-row '+(r.data.bought?'bought':'')+' pri-'+(r.data.priority||'normal')+'" data-action="edit-home-row" data-id="'+r.id+'" role="button" tabindex="0" onclick="if(typeof editHomeRow===\'function\'){editHomeRow(this.dataset.id)}" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();if(typeof editHomeRow===\'function\'){editHomeRow(this.dataset.id)}}"><button class="check-btn '+(r.data.bought?'checked':'')+'" data-action="toggle-shopping" data-id="'+r.id+'" onclick="event.stopPropagation()">'+(r.data.bought?icon('i-check'):'')+'</button><span class="shopping-main"><strong>'+(r.data.priority==='high'?'<i class="urgent-dot"></i>':'')+esc(r.data.name)+'</strong><small>'+esc(r.data.quantity||'数量未填')+' · '+esc(r.data.category||'其他')+(r.data.note?(' · '+esc(r.data.note)):'')+'</small></span><span class="shopping-price"><strong>'+(r.data.price?money(r.data.price):'待定')+'</strong><small>'+(r.data.bought?'已买':'预计')+'</small></span><button class="delete-btn" data-action="delete" data-id="'+r.id+'" onclick="event.stopPropagation()">'+icon('i-trash')+'</button></div>'; }).join('') : empty(filter==='pending'?'待买清单已经清空':'这里还没有物品');
+    document.getElementById('homeList').innerHTML = filtered.length? filtered.map(function(r){ return '<div class="shopping-row '+(r.data.bought?'bought':'')+' pri-'+(r.data.priority||'normal')+'" data-action="edit-home-row" data-id="'+r.id+'" role="button" tabindex="0" onclick="if(typeof editHomeRow===\'function\'){editHomeRow(this.dataset.id)}" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();if(typeof editHomeRow===\'function\'){editHomeRow(this.dataset.id)}}"><button class="check-btn '+(r.data.bought?'checked':'')+'" data-action="toggle-shopping" data-id="'+r.id+'" onclick="event.stopPropagation();if(typeof toggleShopping===\'function\'){toggleShopping(this.dataset.id);return false;}">'+(r.data.bought?icon('i-check'):'')+'</button><span class="shopping-main"><strong>'+(r.data.priority==='high'?'<i class="urgent-dot"></i>':'')+esc(r.data.name)+'</strong><small>'+esc(r.data.quantity||'数量未填')+' · '+esc(r.data.category||'其他')+(r.data.note?(' · '+esc(r.data.note)):'')+'</small></span><span class="shopping-price"><strong>'+(r.data.price?money(r.data.price):'待定')+'</strong><small>'+(r.data.bought?'已买':'预计')+'</small></span><button class="delete-btn" data-action="delete" data-id="'+r.id+'" onclick="event.stopPropagation();if(typeof sbConfirmDelete===\'function\'){sbConfirmDelete(this.dataset.id);return false;}">'+icon('i-trash')+'</button></div>'; }).join('') : empty(filter==='pending'?'待买清单已经清空':'这里还没有物品');
 
   }
 
@@ -6024,7 +6057,7 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
     if(arr && arr.length){
       input.placeholder = '已按「'+typeValue+'」过滤：' + arr.slice(0,4).join('、') + (arr.length>4?'…':'');
     } else if(typeValue){
-      input.placeholder = '「'+typeValue+'」暂无关联，可手动输入或先去管理添加';
+      input.placeholder = '「'+typeValue+'」暂无关联，可手动输入；保存后自动建立关联';
     } else {
       input.placeholder = '选择或输入新平台';
     }
@@ -6045,8 +6078,7 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
       box.dataset.state = 'linked';
     } else if(typeValue){
       box.innerHTML =
-        '<span class="mom-rel-empty">「'+esc(typeValue)+'」暂无关联平台，下拉将列出全部；</span>' +
-        '<button type="button" class="btn ghost compact" data-relaction="open-mgmt">去管理添加 →</button>';
+        '<span class="mom-rel-empty">「'+esc(typeValue)+'」暂无关联平台，可手动输入；保存记录时将自动建立关联</span>';
       box.dataset.state = 'empty';
     } else {
       box.innerHTML = '<span class="mom-rel-empty">先选「类型」可按关联自动过滤平台（也可手动输入新平台）</span>';
@@ -6067,13 +6099,8 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
       }
       var mgmt = e.target.closest('[data-relaction="open-mgmt"]');
       if(mgmt){
-        var tab = document.querySelector('[data-mom-tab="types"]');
-        if(tab) tab.click();
-        var sec = document.getElementById('view-media');
-        if(sec){
-          sec.scrollIntoView({behavior:'smooth', block:'start'});
-          setTimeout(function(){ var mg=document.getElementById('mediaOptionsManageList'); if(mg) mg.scrollIntoView({behavior:'smooth', block:'center'}); }, 200);
-        }
+        /* R132-1: 直接打开「类型/平台管理」弹窗，不再 scrollIntoView 兜底（管理 UI 在弹窗内而非分节） */
+        if(typeof openMediaOptionsManage==='function'){ openMediaOptionsManage('types'); }
         toast('已切换到类型管理，可关联平台');
       }
     });
@@ -6115,7 +6142,7 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
         box.innerHTML=tags.slice(0,14).map(function(t){
 
-      return '<button type="button" class="tag-chip" data-action="tag-preset" data-id="'+esc(t)+'">'+esc(t)+'</button>';
+      return '<button type="button" class="tag-chip" data-action="tag-preset" data-id="'+esc(t)+'">'+esc(t)+'<button type="button" class="chip-x" data-action="tag-x" data-id="'+esc(t)+'" aria-label="删除该标签" title="删除该标签">&times;</button></button>';
 
     }).join('');
 
@@ -6133,7 +6160,7 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
     box.innerHTML=themes.slice(0,14).map(function(t){
 
-      return '<button type="button" class="theme-chip" data-action="theme-preset" data-id="'+esc(t)+'">'+esc(t)+'</button>';
+      return '<button type="button" class="theme-chip" data-action="theme-preset" data-id="'+esc(t)+'">'+esc(t)+'<button type="button" class="chip-x" data-action="theme-x" data-id="'+esc(t)+'" aria-label="删除该题材" title="删除该题材">&times;</button></button>';
 
     }).join('');
 
@@ -6465,6 +6492,14 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
     if(tl && !tl.dataset._editBound){
       tl.dataset._editBound='1';
       tl.addEventListener('click', function(e){
+        /* R129-3: 删除按钮优先判定（点删除不应触发修改弹窗） */
+        var delBtn=e.target.closest('[data-action="tl-del"]');
+        if(delBtn && delBtn.dataset.id){
+          e.stopPropagation();
+          e.preventDefault();
+          confirmDeleteMediaItem(delBtn.dataset.id);
+          return;
+        }
         var item=e.target.closest('.cal-tl-item');
         if(!item || !item.dataset.id) return;
         openMediaEdit(item.dataset.id);
@@ -6575,7 +6610,11 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
         /* R125-3: 单条记录搜索命中打标（不再整日框选） */
         var itemHit = (q && typeof matchesFn==='function' && matchesFn(i)) ? ' search-hit' : '';
 
-        return '<div class="cal-tl-item'+itemHit+'" data-id="'+esc(i.id)+'"'+(itemHit?' data-search-hit="1"':'')+' role="button" tabindex="0" title="'+(itemHit?'匹配项 · 点击修改':'点击修改')+'"><div class="cal-tl-cover">'+(i.cover?'<img referrerpolicy="no-referrer" loading="lazy" src="'+esc(i.cover)+'" alt="'+esc(i.name)+'">':'<span>'+esc(i.name.slice(0,2))+'</span>')+'</div><div class="cal-tl-meta"><div class="cal-tl-title">'+esc(i.name)+'</div><div class="cal-tl-row2"><span>评分</span>'+(i.rating?'★'.repeat(i.rating):'未评')+'</div><div class="cal-tl-row2"><span>平台</span>'+esc(i.platform||'未指定')+'</div><div class="cal-tl-row2"><span>类型</span>'+esc(i.type)+'</div>'+(i.tags&&i.tags.length?'<div class="cal-tl-row2"><span>标签</span>'+i.tags.map(function(t){return '<span class="tag-chip">'+esc(t)+'</span>';}).join('')+'</div>':'')+(i.review?'<div class="cal-tl-row2"><span>短评</span><em>'+esc(i.review)+'</em></div>':'')+'</div></div>';
+        /* R129-3: cal-tl-item 右侧加删除按钮（事件 stopPropagation 防止冒泡触发修改） */
+        return '<div class="cal-tl-item'+itemHit+'" data-id="'+esc(i.id)+'"'+(itemHit?' data-search-hit="1"':'')+' role="button" tabindex="0" title="'+(itemHit?'匹配项 · 点击修改':'点击修改')+'"><div class="cal-tl-cover">'+(i.cover?'<img referrerpolicy="no-referrer" loading="lazy" src="'+esc(i.cover)+'" alt="'+esc(i.name)+'">':'<span>'+esc(i.name.slice(0,2))+'</span>')+'</div><div class="cal-tl-meta"><div class="cal-tl-title">'+esc(i.name)+'</div><div class="cal-tl-row2"><span>评分</span>'+(i.rating?'★'.repeat(i.rating):'未评')+'</div><div class="cal-tl-row2"><span>平台</span>'+esc(i.platform||'未指定')+'</div><div class="cal-tl-row2"><span>类型</span>'+esc(i.type)+'</div>'+(i.tags&&i.tags.length?'<div class="cal-tl-row2"><span>标签</span>'+i.tags.map(function(t){return '<span class="tag-chip">'+esc(t)+'</span>';}).join('')+'</div>':'')+(i.review?'<div class="cal-tl-row2"><span>短评</span><em>'+esc(i.review)+'</em></div>':'')+
+          /* R129-3: 右侧删除按钮，stopPropagation 防止冒泡触发 cal-tl-item 的修改弹窗 */
+          '<button type="button" class="cal-tl-item-del" data-action="tl-del" data-id="'+esc(i.id)+'" title="删除该记录" aria-label="删除该记录"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash"/></svg></button>'+
+        '</div></div>';
 
       }).join('')+'</div></div>';
 
@@ -6870,7 +6909,34 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
     return tab==='types' ? _momSelectedTypes : _momSelectedPlatforms;
   }
 
+  function renderMomTagsTab(){
+    var tagsArr = state.settings.mediaTags = state.settings.mediaTags||[];
+    var themesArr = state.settings.mediaThemes = state.settings.mediaThemes||[];
+    function _grp(title, arr, group){
+      var L = [];
+      L.push('<div style="font-size:12px;font-weight:600;color:var(--muted);margin:14px 0 6px">'+title+'</div>');
+      L.push('<div class="mom-list">');
+      arr.forEach(function(v,i){
+        L.push('<div class="manage-row mom-row" data-mom-group="'+group+'">');
+        L.push('<input type="text" class="mom-input-tag" data-group="'+group+'" data-i="'+i+'" value="'+esc(v)+'" style="flex:1;padding:7px 10px;border:1px solid var(--line);border-radius:9px;font-size:14px">');
+        L.push('<button class="btn ghost compact" data-mom-action="del" data-mom-group="'+group+'" data-i="'+i+'" title="删除">×</button>');
+        L.push('</div>');
+      });
+      L.push('<div class="manage-row">');
+      L.push('<input type="text" id="momNewInput'+group+'" data-mom-group="'+group+'" placeholder="+ 新增'+title+'" style="flex:1;padding:7px 10px;border:1px solid var(--line);border-radius:9px;font-size:14px">');
+      L.push('<button class="btn primary compact" data-mom-action="add" data-mom-group="'+group+'" title="添加">+</button>');
+      L.push('</div>');
+      L.push('</div>');
+      return L.join('');
+    }
+    return _grp('情节标签', tagsArr, 'tags') + _grp('题材标签', themesArr, 'themes') +
+      '<p class="mini-note" style="margin-top:10px;text-align:center">编辑后即生效，会同步更新录入表单的候选标签</p>';
+  }
+
   function renderMediaOptionsManage(){
+
+    /* R133-1: 标签 tab 走独立渲染（情节/题材标签统一管理） */
+    if(_momCurrentTab==='tags'){ var _tb=document.getElementById('mediaOptionsManageList'); if(_tb) _tb.innerHTML=renderMomTagsTab(); return; }
 
     var box=document.getElementById('mediaOptionsManageList');
     if(!box) return;
@@ -6958,10 +7024,34 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
   function handleMediaUnlink(type){
     var rels = getMediaTypePlatforms();
-    if(rels[type]){ delete rels[type]; saveState(); renderMediaOptionsManage(); renderMedia(); toast('已删除「'+type+'」的关联'); }
+    var ps = rels[type]||[];
+    if(rels[type]){
+      /* R130-4: 关联删除加二次确认 */
+      showConfirm({title:'删除类型×平台关联',body:'确定要删除类型 <b>'+esc(type)+'</b> 的平台关联吗？',detail:'已关联的平台：'+esc(ps.join('、')||'无')+'。<br/>该操作只解除关联，不影响作品记录。',danger:true,confirmText:'删除',onConfirm:function(){
+        delete rels[type]; saveState(); renderMediaOptionsManage(); renderMedia(); toast('已删除「'+type+'」的关联');
+      }});
+    }
   }
 
-  function handleMediaOptionAction(action,i){
+  function handleMediaOptionAction(action,i,group){
+
+    /* R133-1: 标签 tab 的增删走 mediaTags/mediaThemes，不走通用单数组 */
+    if(_momCurrentTab==='tags' && group){
+      var _tarr = group==='themes' ? (state.settings.mediaThemes=state.settings.mediaThemes||[]) : (state.settings.mediaTags=state.settings.mediaTags||[]);
+      var _ti=Number(i);
+      if(action==='del'){
+        showConfirm({title:'删除标签',body:'确定要删除标签 <b>'+esc(_tarr[_ti]||'')+'</b> 吗？',detail:'该操作不可恢复。已有作品仍保留此标签文本，但候选列表不再显示。',danger:true,confirmText:'删除',onConfirm:function(){ var _delV6=_tarr[_ti]; _tarr.splice(_ti,1); saveState(); /* R136: 级联清除 mediaItems 中残留的该标签/题材 */ var _cascK6=group==='themes'?'theme':(group==='tags'?'tags':null); if(_cascK6 && _delV6){ state.mediaItems.forEach(function(_mi6){ if(Array.isArray(_mi6[_cascK6])){ _mi6[_cascK6]=_mi6[_cascK6].filter(function(_x6){return _x6!==_delV6;}); } else if(_mi6[_cascK6]===_delV6){ _mi6[_cascK6]=[]; } }); } renderMediaOptionsManage(); mediaOptionLists(); renderMediaTagPresets(); renderMediaThemePresets(); }});
+      } else if(action==='add'){
+        var _inp=document.getElementById('momNewInput'+group);
+        if(_inp){
+          var _v=(_inp.value||'').trim();
+          if(!_v){ toast('请输入标签名称'); }
+          else if(_tarr.indexOf(_v)>=0){ toast('「'+_v+'」已存在'); }
+          else { _tarr.push(_v); _inp.value=''; toast('已新增「'+_v+'」'); saveState(); renderMediaOptionsManage(); mediaOptionLists(); renderMediaTagPresets(); renderMediaThemePresets(); }
+        }
+      }
+      return;
+    }
 
     var arr=getMediaOptionsArr();
 
@@ -6971,7 +7061,10 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
     else if(action==='down' && idx<arr.length-1){ var t=arr[idx]; arr[idx]=arr[idx+1]; arr[idx+1]=t; }
 
-    else if(action==='del'){ arr.splice(idx,1); }
+    else if(action==='del'){
+      /* R130-4: 选项删除加二次确认（保序引用会影响新默认） */
+      showConfirm({title:'删除选项',body:'确定要删除选项 <b>'+esc(arr[idx]||'')+'</b> 吗？',detail:'该操作不可恢复。已有作品仍保留，但后续录入将无法再选该选项。',danger:true,confirmText:'删除',onConfirm:function(){ arr.splice(idx,1); saveMediaOptionsArr(arr); saveState(); }});
+    }
 
     else if(action==='add'){
 
@@ -6985,7 +7078,20 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
         else if(arr.indexOf(v)>=0){ toast('「'+v+'」已存在'); }
 
-        else { arr.push(v); inp.value=''; toast('已新增「'+v+'」'); }
+        else {
+          arr.push(v); inp.value='';
+          /* R133-2: 平台 tab 新增时，若已选类型则自动关联该类型 */
+          if(_momCurrentTab==='platforms' && _momSelectedTypes.length){
+            var _rels=getMediaTypePlatforms();
+            _momSelectedTypes.forEach(function(_t){
+              if(!_rels[_t]) _rels[_t]=[];
+              if(_rels[_t].indexOf(v)<0) _rels[_t].push(v);
+            });
+            toast('已新增「'+v+'」并自动关联 '+_momSelectedTypes.length+' 个类型');
+          } else {
+            toast('已新增「'+v+'」');
+          }
+        }
 
       }
 
@@ -7003,6 +7109,99 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
     renderMedia();
 
+  }
+
+  /* R130-4: 通用二次确认弹窗工具（沿用 .lbi-modal 类，内含 fixed+flex 居中样式，移动端自动居中）；参数 opts={title, body, detail, danger, confirmText, onConfirm} */
+  function showConfirm(opts){
+    opts=opts||{};
+    var modal=document.createElement('div'); modal.className='lbi-modal';
+    modal.innerHTML=
+      '<div class="lbi-mask" data-sc="close"></div>'+
+      '<div class="lbi-card" role="dialog" aria-modal="true">'+
+        '<h3>'+esc(opts.title||'确认操作')+'</h3>'+
+        (opts.body?('<p>'+opts.body+'</p>'):'')+
+        (opts.detail?('<p style="color:var(--muted);font-size:12px;margin-top:-6px">'+opts.detail+'</p>'):'')+
+        '<div class="lbi-foot">'+
+          '<button class="btn ghost" type="button" data-sc="close">取消</button>'+
+          '<button class="btn primary" type="button" data-sc="confirm" style="'+(opts.danger?'background:var(--rose);box-shadow:0 4px 12px rgba(196,106,115,.30);':'')+'">'+(opts.confirmText||'确定')+'</button>'+
+        '</div>'+
+      '</div>';
+    document.body.appendChild(modal);
+    modal.addEventListener('click',function(e){
+      var act=e.target.dataset&&e.target.dataset.sc;
+      if(act==='close'){ modal.remove(); }
+      else if(act==='confirm'){
+        modal.remove();
+        try{ if(typeof opts.onConfirm==='function') opts.onConfirm(); }catch(err){ try{console.error(err);}catch(_){} }
+      }
+    });
+  }
+  /* R130-4: 流水记录删除二次确认（供 inline onclick 调用，避免在内联字符串里内嵌复杂对象字面量引发引号转义问题） */
+  /* R131-1+R131-6: 按 _rec.type 适配"分类项+备注"显示，文案不再硬编码"流水" */
+  function sbConfirmDelete(id){
+    var _rec=state.records.find(function(r){return r.id===id;}); if(!_rec) return;
+    var _d=_rec.data||{};
+    var _typeLabel, _display;
+    if(_rec.type==='money'){
+      _typeLabel='流水';
+      var _cat=(_d.category||'').trim(), _note=(_d.note||'').trim();
+      _display=(_cat?_cat+(_note?' · '+_note:''):_note?_note:_cat)||_rec.date||'该记录';
+      if(!_display||_display===' · '||_display==='·')_display='该记录';
+    } else if(_rec.type==='planner'){
+      _typeLabel='日程';
+      _display=(_d.title||'').trim()||_rec.date||'该日程';
+    } else if(_rec.type==='home'){
+      _typeLabel='待买';
+      var _nm=(_d.name||'').trim(), _qty=(_d.quantity||'').trim();
+      _display=_nm+(_qty?' · '+_qty:''); _display=_display.replace(/^\s*·\s*$/,'')||_rec.date||'该待买';
+    } else if(_rec.type==='cycle'){
+      _typeLabel='经期';
+      _display='经期记录 · '+_rec.date;
+    } else {
+      _typeLabel='记录';
+      _display=_rec.date||'该记录';
+    }
+    showConfirm({
+      title:'删除'+_typeLabel,
+      body:'确定要删除 <b>'+esc(_display)+'</b> 这条'+_typeLabel+'吗？',
+      detail:'该操作会从本机和云端同时移除，<b>不可恢复</b>。',
+      danger:true,
+      confirmText:'删除',
+      onConfirm:function(){ deleteRecord(id); }
+    });
+  }
+  /* R129-3: 阅读日历时间轴记录删除（带二次确认弹窗） */
+  function confirmDeleteMediaItem(mediaId){
+    var m=state.mediaItems.find(function(x){return x.id===mediaId;}); if(!m) return;
+    var name=m.name||'该记录';
+    var modal=document.createElement('div'); modal.className='lbi-modal'; modal.id='tlDelModal';
+    modal.innerHTML=
+      '<div class="lbi-mask" data-tl-del="close"></div>'+
+      '<div class="lbi-card" role="dialog" aria-modal="true">'+
+      '<h3>删除书影音记录</h3>'+
+      '<p>确定要删除 <b>'+esc(name)+'</b> 吗？</p>'+
+      '<p style="color:var(--muted);font-size:12px;margin-top:-6px">该操作会从本机和云端同时移除，<b>不可恢复</b>。</p>'+
+      '<div class="lbi-foot">'+
+        '<button class="btn ghost" type="button" data-tl-del="close">取消</button>'+
+        '<button class="btn primary" type="button" data-tl-del="confirm" data-id="'+esc(mediaId)+'">删除</button>'+
+      '</div></div>';
+    document.body.appendChild(modal);
+    modal.addEventListener('click',function(e){
+      var act=e.target.dataset&&e.target.dataset.tlDel;
+      if(act==='close'){ modal.remove(); }
+      else if(act==='confirm'){
+        var id=e.target.dataset.id;
+        var it=state.mediaItems.find(function(x){return x.id===id;});
+        if(it){
+          if(it.remoteId){ try{ dbDelete(DB_MEDIA, it.remoteId); }catch(e){} }
+          state.mediaItems=state.mediaItems.filter(function(x){return x.id!==id;});
+          saveState();
+          try{ toast('已删除：'+name); }catch(e){}
+          try{ renderAll(); }catch(e){}
+        }
+        modal.remove();
+      }
+    });
   }
 
   /* ── 书书编辑条目（封面墙点击） ── */
@@ -7029,8 +7228,9 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
     f.elements.cover.value=m.cover||'';
 
-    f.elements.tags.value=(m.tags||[]).join(', ');
-    var _themeInput=document.getElementById('mediaThemeInput'); if(_themeInput) _themeInput.value=(m.theme||[]).join(', ');
+    /* R130-1: 回填时去重（保序） + 用全角中文逗号「，」作为分隔，跟国内标点习惯一致 */
+    f.elements.tags.value=Array.from(new Set(m.tags||[])).join('，');
+    var _themeInput=document.getElementById('mediaThemeInput'); if(_themeInput) _themeInput.value=Array.from(new Set(m.theme||[])).join('，');
 
     f.elements.favorite.value=m.favorite?'1':'0';
 
@@ -7279,7 +7479,7 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
     document.getElementById('homeForm').addEventListener('submit',function(e){ e.preventDefault(); var d=Object.fromEntries(new FormData(e.currentTarget)); var homeName=(d.name||'').trim(), homePriority=d.priority; var editId=e.currentTarget.dataset.editingId; if(editId){ var rec=state.records.find(function(r){return r.id===editId;}); if(rec){ rec.date=isoDate(); rec.data={name:homeName,quantity:(d.quantity||'').trim(),category:d.category,price:Number(d.price||0),priority:homePriority,note:(d.note||'').trim(),bought:rec.data.bought}; if(rec.type==='home') pushShopping(rec); saveState(); renderAll(); toast('已更新待买'); } delete e.currentTarget.dataset.editingId; var sub=e.currentTarget.querySelector('button[type="submit"]'); if(sub) sub.textContent='加入待买'; } else { if(addRecord('home',isoDate(),{name:homeName,quantity:(d.quantity||'').trim(),category:d.category,price:Number(d.price||0),priority:homePriority,note:(d.note||'').trim(),bought:false})){ if(homePriority==='high'){ var ht=isoDate(), htitle='待买：'+homeName; if(!state.records.some(function(r){return r.type==='planner'&&r.date===ht&&r.data.title===htitle;})){ addRecord('planner',ht,{title:htitle,time:'',list:'待买',priority:'normal',note:(d.quantity||'').trim(),remind:false,done:false}); } } clearDraft(e.currentTarget); } } });
 
-    document.getElementById('mediaForm').addEventListener('submit',function(e){ e.preventDefault(); var d=Object.fromEntries(new FormData(e.currentTarget)); var tagsRaw=(d.tags||'').trim(); var editId=document.getElementById('mediaForm').dataset.editingId; var data={name:(d.name||'').trim(),type:(d.type||'').trim()||'电影',status:d.status,rating:Number(d.rating||0),author:(d.author||'').trim(),review:(d.review||'').trim(),date:d.date||isoDate(),cover:(d.cover||'').trim(),platform:(d.platform||'').trim(),tags:tagsRaw?tagsRaw.split(/[,，]/).map(function(t){return t.trim();}).filter(Boolean):[],theme:(d.theme||'').trim()?((d.theme||'').split(/[,，]/).map(function(t){return t.trim();}).filter(Boolean)):[],startDate:d.startDate||'',endDate:d.endDate||'',favorite:d.favorite==='1'}; collectMediaOption('type',d.type,'mediaTypes'); collectMediaOption('platform',d.platform,'mediaPlatforms'); collectMediaTagsFrom(tagsRaw); collectMediaThemeFrom(d.theme||''); if(editId){ var m=state.mediaItems.find(function(x){return x.id===editId;}); if(m){ Object.keys(data).forEach(function(k){ m[k]=data[k]; }); if(m.remoteId) pushMedia(m); toast('已更新作品'); } delete document.getElementById('mediaForm').dataset.editingId; var sub=document.querySelector('#mediaForm button[type="submit"]'); if(sub) sub.textContent='加入我的书影音'; } else { var item=Object.assign({id:uid()},data); state.mediaItems.push(item); pushMedia(item); toast('已加入书影音清单'); } saveState(); renderAll(); clearDraft(e.currentTarget); });
+    document.getElementById('mediaForm').addEventListener('submit',function(e){ e.preventDefault(); var d=Object.fromEntries(new FormData(e.currentTarget)); var tagsRaw=(d.tags||'').trim(); var editId=document.getElementById('mediaForm').dataset.editingId; var data={name:(d.name||'').trim(),type:(d.type||'').trim()||'电影',status:d.status,rating:Number(d.rating||0),author:(d.author||'').trim(),review:(d.review||'').trim(),date:d.date||isoDate(),cover:(d.cover||'').trim(),platform:(d.platform||'').trim(),tags:tagsRaw?tagsRaw.split(/[,，]/).map(function(t){return t.trim();}).filter(Boolean):[],theme:(d.theme||'').trim()?((d.theme||'').split(/[,，]/).map(function(t){return t.trim();}).filter(Boolean)):[],startDate:d.startDate||'',endDate:d.endDate||'',favorite:d.favorite==='1'}; collectMediaOption('type',d.type,'mediaTypes'); collectMediaOption('platform',d.platform,'mediaPlatforms'); collectMediaTagsFrom(tagsRaw); collectMediaThemeFrom(d.theme||''); if(editId){ var m=state.mediaItems.find(function(x){return x.id===editId;}); if(m){ Object.keys(data).forEach(function(k){ m[k]=data[k]; }); if(m.remoteId) pushMedia(m); toast('已更新作品'); } delete document.getElementById('mediaForm').dataset.editingId; var sub=document.querySelector('#mediaForm button[type="submit"]'); if(sub) sub.textContent='加入我的书影音'; } else { var item=Object.assign({id:uid()},data); state.mediaItems.push(item); pushMedia(item); /* R134-5: 保存记录时自动建立类型↔平台关联（若 type 与 platform 都已选定且该平台不在该类型的关联列表里） */ if(data.type && data.platform){ state.settings.mediaTypePlatforms=state.settings.mediaTypePlatforms||{}; var _rels5=state.settings.mediaTypePlatforms; if(!_rels5[data.type]) _rels5[data.type]=[]; if(_rels5[data.type].indexOf(data.platform)<0){ _rels5[data.type].push(data.platform); } } toast('已加入书影音清单'); } saveState(); renderAll(); clearDraft(e.currentTarget); });
 
     /* 书影音标签预设 chips：点选即加入/移出标签输入框 */
 
@@ -7293,31 +7493,73 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
       box.innerHTML=MEDIA_TAG_PRESETS.map(function(t){ return '<button type="button" class="tag-chip" data-tag="'+esc(t)+'">'+esc(t)+'</button>'; }).join('');
 
       box.addEventListener('click',function(e){
-
+        /* R130-3: chip-x 优先判定（点删除不应触发 tag toggle），且 stopPropagation 防止冒泡到 L8354 委托再触发 tag-preset toggle */
+        var xb=e.target.closest('.chip-x'); if(xb){
+          var xt=xb.dataset.id, xcur=input.value.split(/[,，]/).map(function(s){return s.trim();}).filter(Boolean), xi=xcur.indexOf(xt);
+          if(xi>-1){ xcur.splice(xi,1); input.value=xcur.join('，'); state.drafts['mediaForm'].tags=input.value; saveState(); syncMediaChipActiveStates(xcur,(themeInput.value||'').split(/[,，]/).map(function(s){return s.trim();}).filter(Boolean)); }
+          e.stopPropagation(); return;
+        }
         var b=e.target.closest('.tag-chip'); if(!b) return;
-
-        var tag=b.dataset.tag, cur=input.value.split(/[,，]/).map(function(s){return s.trim();}).filter(Boolean);
-
+        var tag=b.dataset.id||b.dataset.tag, cur=input.value.split(/[,，]/).map(function(s){return s.trim();}).filter(Boolean);
         var idx=cur.indexOf(tag);
-
         if(idx>-1){ cur.splice(idx,1); b.classList.remove('active'); } else { cur.push(tag); b.classList.add('active'); }
-
-        input.value=cur.join(', ');
-
+        input.value=cur.join('，');
         state.drafts['mediaForm']=state.drafts['mediaForm']||{}; state.drafts['mediaForm'].tags=input.value; saveState();
+        syncMediaChipActiveStates(cur,(themeInput.value||'').split(/[,，]/).map(function(s){return s.trim();}).filter(Boolean));
+        /* R131-4: 阻止冒泡到 document 的 tag-preset 委托，避免 toggle 二次执行（添加后立即移除，视觉像"点击无效"） */
+        e.stopPropagation();
+      });
 
+      /* R129-1: 题材 chip 输入规则与情节/标签完全一致（toggle 添加/移出 + active 视觉）—— 拆出独立 listener，之前被嵌套在 tag box 的 click 回调里导致死代码 */
       if(themeBox && themeInput){
-      themeBox.addEventListener('click',function(e){
-        var b=e.target.closest('.theme-chip'); if(!b) return;
-        var thm=b.dataset.id, cur=(themeInput.value||'').split(/[,，]/).map(function(s){return s.trim();}).filter(Boolean);
-        var idx=cur.indexOf(thm);
-        if(idx>-1){ cur.splice(idx,1); b.classList.remove('active'); } else { cur.push(thm); b.classList.add('active'); }
-        themeInput.value=cur.join(', ');
-        state.drafts['mediaForm']=state.drafts['mediaForm']||{}; state.drafts['mediaForm'].theme=themeInput.value; saveState();
-      });
+        themeBox.addEventListener('click',function(e){
+          /* R130-3: theme chip-x 优先判定 */
+          var xb=e.target.closest('.chip-x'); if(xb){
+            var xt=xb.dataset.id, xcur=(themeInput.value||'').split(/[,，]/).map(function(s){return s.trim();}).filter(Boolean), xi=xcur.indexOf(xt);
+            if(xi>-1){ xcur.splice(xi,1); themeInput.value=xcur.join('，'); state.drafts['mediaForm'].theme=themeInput.value; saveState(); syncMediaChipActiveStates((input.value||'').split(/[,，]/).map(function(s){return s.trim();}).filter(Boolean),xcur); }
+            e.stopPropagation(); return;
+          }
+          var b=e.target.closest('.theme-chip'); if(!b) return;
+          var thm=b.dataset.id, cur=(themeInput.value||'').split(/[,，]/).map(function(s){return s.trim();}).filter(Boolean);
+          var idx=cur.indexOf(thm);
+          if(idx>-1){ cur.splice(idx,1); b.classList.remove('active'); } else { cur.push(thm); b.classList.add('active'); }
+          themeInput.value=cur.join('，');
+          state.drafts['mediaForm']=state.drafts['mediaForm']||{}; state.drafts['mediaForm'].theme=themeInput.value; saveState();
+          syncMediaChipActiveStates((input.value||'').split(/[,，]/).map(function(s){return s.trim();}).filter(Boolean),cur);
+          /* R131-4: 阻止冒泡到 document 的 theme-preset 委托，避免 toggle 二次执行（添加后立即移除，视觉像"点击无效"） */
+          e.stopPropagation();
+        });
       }
+      /* R130-1: 同步两个 chip 区域的 active 视觉（input 值变化时统一刷一次） */
+      if(!window.syncMediaChipActiveStates){
+        window.syncMediaChipActiveStates=function(tags,themes){
+          try{
+            var tb=document.getElementById('mediaTagPresets'); if(tb){ tb.querySelectorAll('.tag-chip').forEach(function(b){ var id=b.dataset.id||b.dataset.tag; if(id&&tags.indexOf(id)>=0) b.classList.add('active'); else b.classList.remove('active'); }); }
+            var xb=document.getElementById('mediaThemePresets'); if(xb){ xb.querySelectorAll('.theme-chip').forEach(function(b){ var id=b.dataset.id; if(id&&themes.indexOf(id)>=0) b.classList.add('active'); else b.classList.remove('active'); }); }
+          }catch(e){}
+        };
+      }
+      /* R130-1: 编辑初始化 + 输入变化时同步 active 视觉（用户输入新词时不影响已有 chip，新加的 tag 未点 chip 不会进入 input） */
+      var _initSync=function(){
+        var tc=(input.value||'').split(/[,，]/).map(function(s){return s.trim();}).filter(Boolean);
+        var xc=(themeInput.value||'').split(/[,，]/).map(function(s){return s.trim();}).filter(Boolean);
+        syncMediaChipActiveStates(tc,xc);
+      };
+      input.addEventListener('input',_initSync);
+      if(themeInput) themeInput.addEventListener('input',_initSync);
+      setTimeout(_initSync,0);
 
-      });
+      /* R131-5: 类型项 change 触发平台预设/关联 chips 刷新 —— 之前缺监听，换类型后平台列表不更新 */
+      var _mediaTypeInput=document.querySelector('#mediaForm input[name="type"]');
+      if(_mediaTypeInput){
+        _mediaTypeInput.addEventListener('change',function(){
+          var _tv=_currentMediaTypeValue();
+          if(typeof applyMediaTypeToPlatforms==='function') applyMediaTypeToPlatforms(_tv);
+          var _dl=document.getElementById('mediaPlatformsList');
+          var _arr=typeof _getFilteredPlatformsForType==='function' ? _getFilteredPlatformsForType(_tv) : (state.settings.mediaPlatforms||[]);
+          if(_dl){ var _seen={}, _opts=''; (_arr||[]).forEach(function(v){ if(v&&!_seen[v]){ _seen[v]=1; _opts+='<option value="'+esc(v)+'"></option>'; } }); _dl.innerHTML=_opts; }
+        });
+      }
 
     })();
 
@@ -7500,6 +7742,26 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
   function updateHabit(id,op,val){ var h=state.habits.find(function(x){return x.id===id;}); if(!h) return; var t=h.type==='check'?1:h.target, today=isoDate(), cur=Number(h.entries[today]||0); if(op==='plus') h.entries[today]=cur+1; if(op==='minus') h.entries[today]=Math.max(0,cur-1); if(op==='toggle') h.entries[today]=habitDone(h)?0:t; if(op==='number') h.entries[today]=clamp(Number(val||0),0,9999); pushHabit(h,today); var just=habitDone(h); saveState(); renderAll(); if(just){ celebrate(); toast(h.name+'，完成得漂亮'); } }
 
   function toggleTask(id){ var t=state.records.find(function(r){return r.id===id&&r.type==='planner';}); if(!t) return; t.data.done=!t.data.done; updateRemotePlan(t); saveState(); renderAll(); if(t.data.done){ celebrate(); toast('完成一项，心里轻一点'); } }
+
+  function toggleShopping(id){
+    var it=state.records.find(function(r){return r.id===id&&r.type==='home';});
+    if(!it) return;
+    var wasBought=!!it.data.bought;
+    it.data.bought=!it.data.bought;
+    it.data.boughtDate=it.data.bought?isoDate():null;
+    updateRemoteShopping(it);
+    if(it.data.bought && !wasBought){
+      var price=Number(it.data.price||0);
+      if(price>0 && !it.data.moneyRecordId){
+        var mrec={id:uid(),type:'money',date:isoDate(),createdAt:Date.now(),sample:false,remoteId:null,data:{flow:'expense',amount:price,category:it.data.category||'其他',note:'待买: '+it.data.name+(it.data.quantity?(' × '+it.data.quantity):'')}};
+        state.records.push(mrec);
+        pushMoney(mrec);
+        it.data.moneyRecordId=mrec.id;
+      }
+    }
+    saveState(); renderAll();
+    if(it.data.bought){ celebrate(); toast(it.data.moneyRecordId?'已自动记账 · 买到了':'买到了，已移入完成'); }
+  }
 
 
 
@@ -8043,7 +8305,7 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
           if(act.dataset.momAction==='link'){ handleMediaLinkAction(); return; }
           if(act.dataset.momAction==='clear-sel'){ _momResetSelection(); renderMediaOptionsManage(); return; }
           if(act.dataset.momAction==='unlink'){ handleMediaUnlink(act.dataset.relType); return; }
-          handleMediaOptionAction(act.dataset.momAction, act.dataset.i);
+          handleMediaOptionAction(act.dataset.momAction, act.dataset.i, act.dataset.momGroup);
           return;
         }
 
@@ -8059,6 +8321,8 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
       if(e.target.classList && e.target.classList.contains('mom-input')){
 
+        if(_momCurrentTab==='tags') return;
+
         var row=e.target.closest('[data-i]'); if(!row) return;
 
         var i=Number(row.dataset.i);
@@ -8069,6 +8333,17 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
       }
 
+    });
+
+    /* R133-1: 标签 tab 输入框实时保存（mediaTags/mediaThemes，使用 .mom-input-tag 避免与 .mom-input 通用逻辑冲突） */
+    document.addEventListener('input',function(e){
+      if(e.target.classList && e.target.classList.contains('mom-input-tag')){
+        var row=e.target.closest('[data-i]'); if(!row) return;
+        var g=row.dataset.group; if(!g) return;
+        var arr = g==='themes' ? (state.settings.mediaThemes=state.settings.mediaThemes||[]) : (state.settings.mediaTags=state.settings.mediaTags||[]);
+        var i=Number(row.dataset.i);
+        if(i>=0 && i<arr.length){ arr[i]=e.target.value; saveState(); mediaOptionLists(); renderMediaTagPresets(); renderMediaThemePresets(); }
+      }
     });
 
     document.getElementById('habitAddedOverlay').addEventListener('click',function(e){ if(e.target.id==='habitAddedOverlay') closeHabitAdded(); });
@@ -8160,7 +8435,11 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
       if(type==='edit-planner-row'){ editPlannerRow(id); return; }
       if(type==='edit-home-row'){ editHomeRow(id); return; }
 
-      if(type==='delete') deleteRecord(id);
+      /* R130-4+R131-3+R131-6: 所有类型记录（流水/日程/待买/经期）删除统一走 sbConfirmDelete（已按 _rec.type 适配 title/display） */
+      if(type==='delete'){
+        if(typeof sbConfirmDelete==='function'){ sbConfirmDelete(id); }
+        return;
+      }
 
       if(type==='toggle-task') toggleTask(id);
 
@@ -8296,7 +8575,14 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
       if(type==='open-lists-edit') openListsEdit(); if(type==='close-lists') closeListsEdit();
 
-      if(type==='tag-preset'){ var inp=document.getElementById('mediaTagsInput'); if(inp){ var cur=(inp.value||'').trim(); inp.value=cur?(cur+', '+id):id; inp.focus(); } }
+      /* R130-1: tag-preset/theme-preset 改 toggle 行为（split→has 删/no push→join 用全角逗号)；重复点击同一 chip 是取消选中，input 自然去重 */
+      if(type==='tag-preset'){ var inp=document.getElementById('mediaTagsInput'); if(inp){ var cur=(inp.value||'').split(/[,，]/).map(function(s){return s.trim();}).filter(Boolean); var idx=cur.indexOf(id); if(idx>-1) cur.splice(idx,1); else cur.push(id); inp.value=cur.join('，'); inp.focus(); syncMediaChipActiveStates(cur,(document.getElementById('mediaThemeInput').value||'').split(/[,，]/).map(function(s){return s.trim();}).filter(Boolean)); } }
+      /* R130-3: tag-x 删除（从输入框移除该 tag，stopPropagation 防止冒泡触发 tag-preset toggle） */
+      else if(type==='tag-x'){ var inp2=document.getElementById('mediaTagsInput'); if(inp2){ var cur2=(inp2.value||'').split(/[,，]/).map(function(s){return s.trim();}).filter(Boolean); var idx2=cur2.indexOf(id); if(idx2>-1){ cur2.splice(idx2,1); inp2.value=cur2.join('，'); } } }
+      /* R130-3: theme-x 删除（同步移除 theme） */
+      else if(type==='theme-x'){ var inpT=document.getElementById('mediaThemeInput'); if(inpT){ var curT=(inpT.value||'').split(/[,，]/).map(function(s){return s.trim();}).filter(Boolean); var idxT=curT.indexOf(id); if(idxT>-1){ curT.splice(idxT,1); inpT.value=curT.join('，'); syncMediaChipActiveStates((document.getElementById('mediaTagsInput').value||'').split(/[,，]/).map(function(s){return s.trim();}).filter(Boolean),curT); } } }
+      /* R130-1: theme-preset 同步 toggle（之前只走 L7374 box click，但当 chip 是动态生成/委托触发时不依赖 box click） */
+      else if(type==='theme-preset'){ var inpTT=document.getElementById('mediaThemeInput'); if(inpTT){ var curTT=(inpTT.value||'').split(/[,，]/).map(function(s){return s.trim();}).filter(Boolean); var idxTT=curTT.indexOf(id); if(idxTT>-1) curTT.splice(idxTT,1); else curTT.push(id); inpTT.value=curTT.join('，'); syncMediaChipActiveStates((document.getElementById('mediaTagsInput').value||'').split(/[,，]/).map(function(s){return s.trim();}).filter(Boolean),curTT); } }
 
       
 
@@ -8342,9 +8628,9 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
       /* 分类编辑操作 */
 
-      if(type.indexOf('cat-e-')===0){ var cc=state.settings.customCategories=state.settings.customCategories||{}; cc.expense=cc.expense||[]; var ci=Number(a.dataset.i||0); if(type==='cat-e-up'&&ci>0){ var t=cc.expense[ci]; cc.expense[ci]=cc.expense[ci-1]; cc.expense[ci-1]=t; renderCategoriesEditor(); try{renderHomeCategoryOptions();}catch(e){} } if(type==='cat-e-down'&&ci<cc.expense.length-1){ var t=cc.expense[ci]; cc.expense[ci]=cc.expense[ci+1]; cc.expense[ci+1]=t; renderCategoriesEditor(); try{renderHomeCategoryOptions();}catch(e){} } if(type==='cat-e-del'){ cc.expense.splice(ci,1); renderCategoriesEditor(); try{renderHomeCategoryOptions();}catch(e){} } if(type==='cat-e-add'){ var input=document.getElementById('newExpenseCat'); if(input&&input.value.trim()){ cc.expense.push(input.value.trim()); input.value=''; renderCategoriesEditor(); try{renderHomeCategoryOptions();}catch(e){} } } }
+      if(type.indexOf('cat-e-')===0){ var cc=state.settings.customCategories=state.settings.customCategories||{}; cc.expense=cc.expense||[]; var ci=Number(a.dataset.i||0); if(type==='cat-e-up'&&ci>0){ var t=cc.expense[ci]; cc.expense[ci]=cc.expense[ci-1]; cc.expense[ci-1]=t; renderCategoriesEditor(); try{renderHomeCategoryOptions();}catch(e){} } if(type==='cat-e-down'&&ci<cc.expense.length-1){ var t=cc.expense[ci]; cc.expense[ci]=cc.expense[ci+1]; cc.expense[ci+1]=t; renderCategoriesEditor(); try{renderHomeCategoryOptions();}catch(e){} } if(type==='cat-e-del'){ showConfirm({title:'删除支出分类',body:'确定要删除支出分类 <b>'+esc(cc.expense[ci]||'')+'</b> 吗？',detail:'该分类下已有流水不会被删除，但后续录入将无法再选该分类。',danger:true,confirmText:'删除',onConfirm:function(){ cc.expense.splice(ci,1); renderCategoriesEditor(); try{renderHomeCategoryOptions();}catch(e){} }}); return; } if(type==='cat-e-add'){ var input=document.getElementById('newExpenseCat'); if(input&&input.value.trim()){ cc.expense.push(input.value.trim()); input.value=''; renderCategoriesEditor(); try{renderHomeCategoryOptions();}catch(e){} } } }
 
-      if(type.indexOf('cat-i-')===0){ var cc=state.settings.customCategories=state.settings.customCategories||{}; cc.income=cc.income||[]; var ci=Number(a.dataset.i||0); if(type==='cat-i-up'&&ci>0){ var t=cc.income[ci]; cc.income[ci]=cc.income[ci-1]; cc.income[ci-1]=t; renderCategoriesEditor(); try{renderHomeCategoryOptions();}catch(e){} } if(type==='cat-i-down'&&ci<cc.income.length-1){ var t=cc.income[ci]; cc.income[ci]=cc.income[ci+1]; cc.income[ci+1]=t; renderCategoriesEditor(); try{renderHomeCategoryOptions();}catch(e){} } if(type==='cat-i-del'){ cc.income.splice(ci,1); renderCategoriesEditor(); try{renderHomeCategoryOptions();}catch(e){} } if(type==='cat-i-add'){ var input=document.getElementById('newIncomeCat'); if(input&&input.value.trim()){ cc.income.push(input.value.trim()); input.value=''; renderCategoriesEditor(); try{renderHomeCategoryOptions();}catch(e){} } } }
+      if(type.indexOf('cat-i-')===0){ var cc=state.settings.customCategories=state.settings.customCategories||{}; cc.income=cc.income||[]; var ci=Number(a.dataset.i||0); if(type==='cat-i-up'&&ci>0){ var t=cc.income[ci]; cc.income[ci]=cc.income[ci-1]; cc.income[ci-1]=t; renderCategoriesEditor(); try{renderHomeCategoryOptions();}catch(e){} } if(type==='cat-i-down'&&ci<cc.income.length-1){ var t=cc.income[ci]; cc.income[ci]=cc.income[ci+1]; cc.income[ci+1]=t; renderCategoriesEditor(); try{renderHomeCategoryOptions();}catch(e){} } if(type==='cat-i-del'){ showConfirm({title:'删除收入分类',body:'确定要删除收入分类 <b>'+esc(cc.income[ci]||'')+'</b> 吗？',detail:'该分类下已有流水不会被删除，但后续录入将无法再选该分类。',danger:true,confirmText:'删除',onConfirm:function(){ cc.income.splice(ci,1); renderCategoriesEditor(); try{renderHomeCategoryOptions();}catch(e){} }}); return; } if(type==='cat-i-add'){ var input=document.getElementById('newIncomeCat'); if(input&&input.value.trim()){ cc.income.push(input.value.trim()); input.value=''; renderCategoriesEditor(); try{renderHomeCategoryOptions();}catch(e){} } } }
 
     });
 
@@ -9366,7 +9652,9 @@ function sortedRecords(type, all){
 
     if(!all) r=r.filter(function(x){return !x.sample;});
 
-    r.sort(function(a,b){ return a.date<b.date?1:a.date>b.date?-1:0; });
+    /* R137-1: 智能清单(planner)以今天为基准从近到远 (asc),其他类型保留最近在上 (desc) */
+    var _sortDir137 = (type==='planner')?-1:1;
+    r.sort(function(a,b){ return a.date<b.date?_sortDir137:a.date>b.date?-_sortDir137:0; });
 
     return r;
 
@@ -9378,7 +9666,7 @@ function recordRow(r){
 
     var cat = r.type==='money'?r.data.category : r.type==='planner'?'日程' : r.type==='cycle'?'经期':'待买';
 
-    var acctTag=(r.type==='money'&&r.data.account)?' <span class="rec-account">'+esc(r.data.account)+'</span>':''; return '<div class="record-row" data-record-id="'+esc(r.id)+'" onclick="if(typeof openRecordEdit===\'function\'){openRecordEdit(this.dataset.recordId)}" role="button" tabindex="0" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();if(typeof openRecordEdit===\'function\'){openRecordEdit(this.dataset.recordId)}}"><div class="rec-cat" style="background:'+tone+'">'+esc(cat.slice(0,2))+'</div><div class="record-main"><strong>'+esc(recordTitle(r))+acctTag+'</strong><small>'+r.date+'</small></div><span class="rec-amt">'+esc(recordValue(r))+'</span><button class="delete-btn" data-action="delete" data-id="'+r.id+'" onclick="if(typeof deleteRecord===\'function\'){event.stopPropagation();deleteRecord(this.dataset.id);return false;}" aria-label="删除">'+icon('i-trash')+'</button></div>';
+    var acctTag=(r.type==='money'&&r.data.account)?' <span class="rec-account">'+esc(r.data.account)+'</span>':''; return '<div class="record-row" data-record-id="'+esc(r.id)+'" onclick="if(typeof openRecordEdit===\'function\'){openRecordEdit(this.dataset.recordId)}" role="button" tabindex="0" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();if(typeof openRecordEdit===\'function\'){openRecordEdit(this.dataset.recordId)}}"><div class="rec-cat" style="background:'+tone+'">'+esc(cat.slice(0,2))+'</div><div class="record-main"><strong>'+esc(recordTitle(r))+acctTag+'</strong><small>'+r.date+'</small></div><span class="rec-amt">'+esc(recordValue(r))+'</span><button class="delete-btn" data-action="delete" data-id="'+r.id+'" onclick="if(typeof sbConfirmDelete===\'function\'){event.stopPropagation();sbConfirmDelete(this.dataset.id);return false;}" aria-label="删除">'+icon('i-trash')+'</button></div>';
 
   }
 
@@ -9441,7 +9729,7 @@ function renderCycle(){
 
     var list=s.recs.slice().reverse();
 
-    document.getElementById('cycleList').innerHTML = list.length? list.map(function(r){ return '<div class="record-row"><div class="rec-cat" style="background:#cf8aa0">经期</div><div class="record-main"><strong>开始日 '+r.date+(r.data.endDate?' → '+r.data.endDate:'')+'</strong><small>经期'+r.data.periodLen+'天 · 流量'+r.data.flow+(r.data.symptoms?(' · '+r.data.symptoms):'')+'</small></div><span class="rec-amt"></span><button class="delete-btn" data-action="delete" data-id="'+r.id+'" onclick="if(typeof deleteRecord===\'function\'){event.stopPropagation();deleteRecord(this.dataset.id);return false;}">'+icon('i-trash')+'</button></div>'; }).join('') : empty('还没有经期记录');
+    document.getElementById('cycleList').innerHTML = list.length? list.map(function(r){ return '<div class="record-row"><div class="rec-cat" style="background:#cf8aa0">经期</div><div class="record-main"><strong>开始日 '+r.date+(r.data.endDate?' → '+r.data.endDate:'')+'</strong><small>经期'+(r.data.endDate?(daysBetween(r.date,r.data.endDate)+1):(Number(r.data.periodLen)||(state.settings.cycleDefaults&&state.settings.cycleDefaults.periodLen)||5))+'天 · 流量'+r.data.flow+(r.data.symptoms?(' · '+r.data.symptoms):'')+'</small></div><span class="rec-amt"></span><button class="delete-btn" data-action="delete" data-id="'+r.id+'" onclick="if(typeof sbConfirmDelete===\'function\'){event.stopPropagation();sbConfirmDelete(this.dataset.id);return false;}">'+icon('i-trash')+'</button></div>'; }).join('') : empty('还没有经期记录');
 
   }
 
@@ -10209,6 +10497,9 @@ function submitCycleForm(formEl){ if(!formEl) return; var d=Object.fromEntries(n
   window.editPlannerRow=editPlannerRow;
   window.editHomeRow=editHomeRow;
   window.openGlobalSearch=openGlobalSearch;
+  /* R137-2B: 暴露 toggleTask/toggleShopping 到 window (修复 inline onclick 调不到 IIFE 闭包函数问题) */
+  window.toggleTask=toggleTask;
+  window.toggleShopping=toggleShopping;
   window.closeGlobalSearch=closeGlobalSearch;
   window.jumpToRecord=jumpToRecord;
 
@@ -10368,6 +10659,10 @@ function submitCycleForm(formEl){ if(!formEl) return; var d=Object.fromEntries(n
      修复整段代码位于 IIFE 内、全局作用域无法访问这些函数（typeof X==='function' 恒为 false）导致删除/编辑失效的问题 */
   window.deleteRecord = deleteRecord;
   window.openRecordEdit = openRecordEdit;
+  /* R130-4: showConfirm 暴露到 window，供 inline onclick 字符串里调用 */
+  window.showConfirm = showConfirm;
+  /* R130-4: sbConfirmDelete 暴露到 window，供内联 onclick 调用（替代内嵌复杂对象字面量，规避引号转义风险） */
+  window.sbConfirmDelete = sbConfirmDelete;
 
 })();
 
