@@ -10016,7 +10016,9 @@ function submitCycleForm(formEl){ if(!formEl) return; var d=Object.fromEntries(n
       // 全量覆盖 state（保留关键运行时字段：normalizeState 通常已经把这些过滤过；这里再保险一次）
       Object.keys(state).forEach(function(k){ delete state[k]; });
       Object.assign(state, normalized);
-      sbSetConfig(curCfg); sbSetSlotKey(curSlot);
+      // R128: R112 已删除 sbSetSlotKey（slot_key 改由 sbGetConfig() 派生，不再有手动 setter）
+      //      调用 sbSetSlotKey(curSlot) 会抛 ReferenceError: slotKey is not defined
+      sbSetConfig(curCfg);
       saveState();
       try{renderAll();}catch(e){}
       sbSchedulePush();
