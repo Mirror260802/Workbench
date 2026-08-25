@@ -779,6 +779,11 @@ h1{margin:2px 0 0;font:700 30px/1.2 "Songti SC",serif;letter-spacing:.02em}
   .dash-popover{position:fixed !important;top:50% !important;left:50% !important;right:auto !important;bottom:auto !important;transform:translate(-50%,-50%) !important;width:calc(100vw - 32px) !important;max-width:360px !important}
   .dash-popover::before{display:none}
 }
+
+@media (max-width:1280px){
+  .yd-note-tip{position:fixed !important;top:50% !important;left:50% !important;right:auto !important;bottom:auto !important;transform:translate(-50%,-50%) !important;width:calc(100vw - 32px) !important;max-width:420px !important;min-width:0 !important}
+  .yd-note-tip.show{transform:translate(-50%,-50%) !important}
+}
 .habit-year-view .dash-week-view .dwv-d.done .dwv-num,.habit-year-view .dash-week-view .dwv-d.done .dwv-wd{color:#fff}
 .habit-year-view .dash-week-view .dwv-d.partial{background:var(--plum-soft);color:#6b6477}
 .habit-year-view .dash-week-view .dwv-d.partial .dwv-num,.habit-year-view .dash-week-view .dwv-d.partial .dwv-wd{color:#6b6477}
@@ -1237,7 +1242,8 @@ h1{margin:2px 0 0;font:700 30px/1.2 "Songti SC",serif;letter-spacing:.02em}
 
 /* ── 书影音统计看板 ── */
 
-.media-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;grid-template-rows:auto 1fr;min-height:500px;align-content:start}
+/* R141-4: 把第3行给词云独占并 stretch 至 grid 底部（=左列记下一部作品底部，因 .module-layout 已 align-items:stretch） */
+.media-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;grid-template-rows:auto auto 1fr;align-content:stretch}
 
 /* ── 阅读热力图（GitHub 贡献图风格）── */
 
@@ -1246,7 +1252,7 @@ h1{margin:2px 0 0;font:700 30px/1.2 "Songti SC",serif;letter-spacing:.02em}
 /* R124-4 / R125-1: 桌面版阅读日历「左日历 + 右时间轴」横向两栏（R125-1 改为两栏等宽，各 flex:1 1 0）；移动端回退纵向堆叠（见媒体查询） */
 .hm-body{display:flex;gap:18px;align-items:flex-start}
 .hm-body .cal-wrap{flex:1 1 0;min-width:0;max-width:none;width:auto}
-.hm-body .cal-timeline{margin-top:0;border-top:none;padding-top:0;max-height:none;flex:1 1 0;min-width:0;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.hm-body .cal-timeline{margin-top:0;border-top:none;padding-top:0;max-height:600px;flex:1 1 0;min-width:0;min-height:0;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
 .hm-body .cal-timeline .cal-tl-row:first-child{border-top:none;padding-top:0}
 
 .hm-scroll{overflow-x:auto;padding-bottom:6px}
@@ -1393,11 +1399,13 @@ h1{margin:2px 0 0;font:700 30px/1.2 "Songti SC",serif;letter-spacing:.02em}
 
 .hm-legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
 
-.stat-big-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;text-align:center;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.stat-big-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow)}
 
-.stat-big-card .stat-number{font-size:36px;font-weight:800;color:var(--plum);line-height:1}
+/* R141-3: 数字"5"居于卡片正中间，与 .reread-big 同字体（serif plum-deep 28/1.1） */
+.stat-big-card .stat-number{font:800 28px/1.1 var(--font-serif);color:var(--plum-deep);margin-top:4px;text-align:center;line-height:1.1}
 
-.stat-big-card .stat-label{font-size:13px;color:var(--muted);margin-top:4px}
+/* R142-4: 记录总数卡片完全参考重刷意愿卡片（h3 + 数字，无 .stat-label） */
+.stat-big-card h3{font-size:13px;font-weight:700;margin:0 0 10px;color:var(--ink)}
 
 .stat-chart-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow)}
 
@@ -5506,7 +5514,7 @@ body.sb-locked > *:not(#sbSyncModal){pointer-events:none}
         var title=' title="'+(st==='done'?'达标':st==='partial'?'未达标':st==='skip'?'跳过':'')+'"';
         if(sn) cls+=' has-note';
         var data=sn?' data-yd-note="'+encodeURIComponent(JSON.stringify(sn))+'"':'';
-        cells+='<div class="'+cls+'"'+data+title+'><span class="dmv-num">'+d+'</span></div>';
+        cells+='<div class="'+cls+'" data-yd-date="'+ds+'"'+data+title+'><span class="dmv-num">'+d+'</span></div>';
       }
       html='<div class="dash-month-view"><div class="dmv-week">'+weekHtml+'</div><div class="dmv-grid">'+cells+'</div></div>';
       if(tt) tt.textContent=my+' 年 '+(mm+1)+' 月';
@@ -6140,7 +6148,7 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
     }
 
-        box.innerHTML=tags.slice(0,14).map(function(t){
+        box.innerHTML=tags.slice().map(function(t){
 
       return '<button type="button" class="tag-chip" data-action="tag-preset" data-id="'+esc(t)+'">'+esc(t)+'<button type="button" class="chip-x" data-action="tag-x" data-id="'+esc(t)+'" aria-label="删除该标签" title="删除该标签">&times;</button></button>';
 
@@ -6158,7 +6166,7 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
     state.mediaItems.forEach(function(i){ (i.theme||[]).forEach(function(t){ if(t&&themes.indexOf(t)<0) themes.push(t); }); });
 
-    box.innerHTML=themes.slice(0,14).map(function(t){
+    box.innerHTML=themes.slice().map(function(t){
 
       return '<button type="button" class="theme-chip" data-action="theme-preset" data-id="'+esc(t)+'">'+esc(t)+'<button type="button" class="chip-x" data-action="theme-x" data-id="'+esc(t)+'" aria-label="删除该题材" title="删除该题材">&times;</button></button>';
 
@@ -6382,7 +6390,7 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
     if(view==='stats'){
 
-      renderMediaStats(items,year,finished,rated,avg,_q,_matchesSearch);
+      renderMediaStats(items,year,finished,rated,avg,_q,_matchesSearch,filtered);
 
     }
 
@@ -6392,7 +6400,7 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
   /* ── 书影音统计看板渲染 ── */
 
-  function renderMediaStats(items,year,finished,rated,avg,q,matchesFn){
+  function renderMediaStats(items,year,finished,rated,avg,q,matchesFn,filteredList){
 
     var sv=document.getElementById('mediaStatsView');
 
@@ -6400,49 +6408,9 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
     var totalThisYear=items.filter(function(i){return (!i.date||i.date.indexOf(year)===0);}).length;
 
-    /* xp 分布：仅统计「平台为 Po」作品记录的情节(tag) 频率 */
-
-    var poItems=items.filter(function(i){ return i.platform==='Po'; });
-
-    var tagCounts={}; poItems.forEach(function(i){ (i.tags||[]).forEach(function(t){ tagCounts[t]=(tagCounts[t]||0)+1; }); });
-
-    var typeNames=Object.keys(tagCounts), typeTotal=sum(typeNames,function(t){return tagCounts[t];});
-
-    var tColors=['#cf8aa0','#86b3a1','#9a7cc0','#cbab7e','#8aa0cf','#b98aa8'];
-
-    var typePieSvg='';
-
-    if(typeNames.length){
-
-      var tcum=0, tR=70, tx=100, ty=100;
-
-      typePieSvg+='<svg viewBox="0 0 200 200" style="width:100%;height:auto;max-width:240px;display:block;margin:0 auto">';
-
-      typeNames.forEach(function(t,i){
-
-        var a0=tcum/typeTotal*2*Math.PI-Math.PI/2, a1=(tcum+tagCounts[t])/typeTotal*2*Math.PI-Math.PI/2;
-
-        tcum+=tagCounts[t];
-
-        var x0=tR*Math.cos(a0)+tx, y0=tR*Math.sin(a0)+ty, x1=tR*Math.cos(a1)+tx, y1=tR*Math.sin(a1)+ty;
-
-        var large=(a1-a0)>Math.PI?1:0;
-
-        typePieSvg+='<path d="M'+tx+' '+ty+' L'+x0.toFixed(1)+' '+y0.toFixed(1)+' A'+tR+' '+tR+' 0 '+large+' 1 '+x1.toFixed(1)+' '+y1.toFixed(1)+' Z" fill="'+(tColors[i%tColors.length])+'"/>';
-
-        var mx=tx+(tR+18)*Math.cos((a0+a1)/2), my=ty+(tR+18)*Math.sin((a0+a1)/2);
-
-        typePieSvg+='<text x="'+mx.toFixed(1)+'" y="'+my.toFixed(1)+'" text-anchor="middle" font-size="9" fill="#666">'+esc(t)+', '+tagCounts[t]+'</text>';
-
-      });
-
-      typePieSvg+='</svg>';
-
-    } else { typePieSvg='<p class="mini-note">平台「Po」暂无情节记录</p>'; }
-
     /* 情节词云 */
 
-    var tagBag={}; items.forEach(function(i){ (i.tags||[]).forEach(function(t){ tagBag[t]=(tagBag[t]||0)+1; }); });
+    var tagBag={}; (filteredList||items).forEach(function(i){ (i.tags||[]).forEach(function(t){ tagBag[t]=(tagBag[t]||0)+1; }); });
 
     var tagNames=Object.keys(tagBag).sort(function(a,b){return tagBag[b]-tagBag[a];});
 
@@ -6462,7 +6430,8 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
       }).join('');
 
-    } else { wordCloudHtml='<p class="mini-note" style="width:100%;text-align:center">添加标签后这里会显示词云</p>'; }
+    } else if(items.length && !(filteredList||[]).length){ wordCloudHtml='<p class="mini-note" style="width:100%;text-align:center">当前筛选条件下无词云数据</p>'; }
+    else { wordCloudHtml='<p class="mini-note" style="width:100%;text-align:center">添加标签后这里会显示词云</p>'; }
 
     /* 重刷意愿 */
 
@@ -6476,13 +6445,20 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
       +renderMediaHeatmap(items,q,matchesFn)
 
-      +'<div class="stat-big-card"><div class="stat-number">'+totalThisYear+'</div><div class="stat-label">记录总数</div></div>'
+      +'<div class="stat-big-card"><h3>记录总数</h3><div class="stat-number">'+totalThisYear+'</div></div>'
 
       +'<div class="stat-chart-card"><h3>重刷意愿</h3>'+rereadHtml+'</div>'
 
-      +'<div class="stat-chart-card"><h3>xp 分布</h3>'+typePieSvg+'</div>'
+      +'<div class="stat-chart-card" style="grid-column:span 2;grid-row-start:3"><h3>情节词云</h3><div class="word-cloud-wrap">'+wordCloudHtml+'</div></div>';
 
-      +'<div class="stat-chart-card"><h3>情节词云</h3><div class="word-cloud-wrap">'+wordCloudHtml+'</div></div>';
+    /* R142-5: PC 端用 height 而非 minHeight 精确锁定 stats 容器高度 = 左侧 form-panel 高度，row3(1fr) 自然贴底；移动端清零 */
+    if(sv){
+      if(window.matchMedia && window.matchMedia('(min-width:1181px)').matches){
+        var _lp142=document.querySelector('#view-media .form-panel');
+        if(_lp142 && _lp142.offsetHeight){ sv.style.height=_lp142.offsetHeight+'px'; sv.style.minHeight=''; }
+        else { sv.style.height=''; sv.style.minHeight=''; }
+      } else { sv.style.height=''; sv.style.minHeight=''; }
+    }
 
     /* R124-2: 时间轴记录点击修改——事件委托（DOM 每次重建，旧监听器随 innerHTML 销毁，无泄漏） */
     var tl=sv.querySelector('.cal-timeline');
@@ -7012,7 +6988,11 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
     }
     var rels = getMediaTypePlatforms();
     _momSelectedTypes.forEach(function(t){
-      rels[t] = (_momSelectedPlatforms.slice());
+      /* R141-2: 改为追加合并，允许一个平台被多个类型同时关联（不覆盖既有类型↔平台映射） */
+      rels[t] = rels[t] || [];
+      _momSelectedPlatforms.forEach(function(_p){
+        if(rels[t].indexOf(_p)<0) rels[t].push(_p);
+      });
     });
     saveState();
     renderMediaOptionsManage();
@@ -7063,7 +7043,23 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
     else if(action==='del'){
       /* R130-4: 选项删除加二次确认（保序引用会影响新默认） */
-      showConfirm({title:'删除选项',body:'确定要删除选项 <b>'+esc(arr[idx]||'')+'</b> 吗？',detail:'该操作不可恢复。已有作品仍保留，但后续录入将无法再选该选项。',danger:true,confirmText:'删除',onConfirm:function(){ arr.splice(idx,1); saveMediaOptionsArr(arr); saveState(); }});
+      showConfirm({title:'删除选项',body:'确定要删除选项 <b>'+esc(arr[idx]||'')+'</b> 吗？',detail:'该操作不可恢复。已有作品仍保留，但后续录入将无法再选该选项。',danger:true,confirmText:'删除',onConfirm:function(){
+        var _delV7=arr[idx];
+        arr.splice(idx,1);
+        saveMediaOptionsArr(arr);
+        /* R141-1: 级联清除所有类型关联中的该平台（让 chip 同步刷新） */
+        var _rels7=state.settings.mediaTypePlatforms;
+        if(_rels7 && typeof _rels7==='object'){
+          Object.keys(_rels7).forEach(function(_tk7){
+            if(Array.isArray(_rels7[_tk7])){
+              _rels7[_tk7]=_rels7[_tk7].filter(function(_p7){return _p7!==_delV7;});
+            }
+          });
+        }
+        saveState();
+        renderMedia();
+        applyMediaTypeToPlatforms(_currentMediaTypeValue());
+      }});
     }
 
     else if(action==='add'){
@@ -7397,6 +7393,7 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
     window.scrollTo({top:0,behavior:'smooth'});
 
     if(name==='cloud'){ try{ renderCloud(); }catch(e){} }
+    if(name==='salary'){ try{ fillSalaryDefaults(); renderSalary(); }catch(e){} }
 
   }
 
@@ -7571,7 +7568,8 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
     document.getElementById('salaryForm').addEventListener('input',renderSalary);
 
-    document.getElementById('salaryForm').addEventListener('submit',function(e){ e.preventDefault(); renderSalary(); toast('已计算真实时薪'); });
+    function fillSalaryDefaults(){ if(!state.settings.salaryDefaults) return; var sf=document.getElementById('salaryForm'); if(!sf) return; Object.keys(state.settings.salaryDefaults).forEach(function(n){ if(sf.elements[n] && state.settings.salaryDefaults[n]!=null){ sf.elements[n].value=state.settings.salaryDefaults[n]; } }); }
+    document.getElementById('salaryForm').addEventListener('submit',function(e){ e.preventDefault(); var sf=e.currentTarget; if(!state.settings.salaryDefaults) state.settings.salaryDefaults={}; ['takeHome','payMonths','workDays','onsite','commute','overtime','cost'].forEach(function(n){ if(sf.elements[n]) state.settings.salaryDefaults[n]=sf.elements[n].value; }); saveState(); renderSalary(); toast('已计算真实时薪并自动保存'); });
 
     document.getElementById('budgetInput').addEventListener('change',function(e){ state.settings.budget=Math.max(0,Number(e.target.value||0)); saveState(); renderMoney(); toast('月度预算已更新'); });
 
@@ -7804,9 +7802,11 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
       var hay=((m.name||'')+' '+(m.type||'')+' '+(m.author||'')+' '+((m.tags||[]).join(' '))).toLowerCase();
       if(hay.indexOf(q)>=0) results.push({type:'书影音', id:m.id, title:(m.name||'无标题')+(m.rating?' ★'+m.rating:''), sub:(m.type||'')+(m.author?(' · '+m.author):''), view:'media'});
     });
-    // habits
+    // habits + 打卡备注
     (state.habits||[]).forEach(function(h){
       if((h.name||'').toLowerCase().indexOf(q)>=0) results.push({type:'习惯', id:h.id, title:h.name, sub:'', view:'habit'});
+      var hn=h.notes||{};
+      Object.keys(hn).forEach(function(d){ if((hn[d]||'').toLowerCase().indexOf(q)>=0) results.push({type:'打卡备注', id:h.id, title:h.name, sub:(hn[d]||''), view:'habit', date:d}); });
     });
     return results.slice(0,30);
   }
@@ -7818,21 +7818,51 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
     if(!q.trim()){ box.innerHTML='<div class="search-empty">输入关键词搜索全部记录</div>'; return; }
     if(!list.length){ box.innerHTML='<div class="search-empty">没有匹配：'+esc(q)+'</div>'; return; }
     box.innerHTML=list.map(function(r,i){
-      return '<div class="search-result" data-id="'+esc(r.id)+'" data-view="'+esc(r.view)+'" data-idx="'+i+'"><span class="search-result-type">'+esc(r.type)+'</span><div class="search-result-main"><strong>'+esc(r.title)+'</strong>'+(r.sub?('<small>'+esc(r.sub)+'</small>'):'')+'</div></div>';
+      return '<div class="search-result" data-id="'+esc(r.id)+'" data-view="'+esc(r.view)+'" data-idx="'+i+'"'+(r.date?' data-date="'+esc(r.date)+'"':'')+'><span class="search-result-type">'+esc(r.type)+'</span><div class="search-result-main"><strong>'+esc(r.title)+'</strong>'+(r.sub?('<small>'+esc(r.sub)+'</small>'):'')+'</div></div>';
     }).join('');
     Array.from(box.querySelectorAll('.search-result')).forEach(function(el){
       el.addEventListener('click',function(){
-        jumpToRecord(el.dataset.view, el.dataset.id);
+        var date=el.dataset.date||'';
+        jumpToRecord(el.dataset.view, el.dataset.id, date);
         closeGlobalSearch();
       });
     });
   }
 
-  function jumpToRecord(view, id){
+  function jumpToRecord(view, id, date){
     // 切换到对应 view
     if(typeof switchView==='function'){ switchView(view==='habit'?'habits':view); }
     // 等待 render 后滚动 + 高亮
     setTimeout(function(){
+      if(view==='habit'){
+        var has=state.habits.some(function(h){return h.id===id;});
+        state.settings.habitYearView=has?id:'all';
+        if(date && /^\d{4}-\d{2}-\d{2}$/.test(date)){
+          state.settings.habitYearMode='month';
+          state.settings.habitYearMonth=date.substring(0,7);
+          state.settings.habitYearYr=+date.substring(0,4);
+          renderHabitYear();
+          var cell=document.querySelector('.dmv-d[data-yd-date="'+date+'"]');
+          if(cell){
+            cell.scrollIntoView({behavior:'smooth',block:'center'});
+            cell.classList.add('r121-flash');
+            setTimeout(function(){cell.classList.remove('r121-flash');},3500);
+            var selId2=document.getElementById('habitYearSelect')?document.getElementById('habitYearSelect').value:'all';
+            var habits2=selId2==='all'?state.habits:state.habits.filter(function(h){return h.id===selId2;});
+            var notes=habitYearNote(habits2, date);
+            if(notes) showYearNoteTip(cell, notes);
+            var tip=document.getElementById('ydNoteTip');
+            if(tip){ tip.classList.add('r121-flash'); setTimeout(function(){tip.classList.remove('r121-flash');},3500); }
+          }
+          saveState();
+        } else {
+          renderHabitYear();
+          var cal=document.getElementById('habitYearCalendar');
+          if(cal){ cal.scrollIntoView({behavior:'smooth',block:'start'}); cal.classList.add('r121-flash'); setTimeout(function(){cal.classList.remove('r121-flash');},3500); }
+          saveState();
+        }
+        return;
+      }
       var el=null;
       // 尝试按 data-id 找
       el=document.querySelector('[data-record-id="'+id+'"]')
