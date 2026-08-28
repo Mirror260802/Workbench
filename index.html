@@ -8375,8 +8375,8 @@ function renderStandard(j, box){
      关键修复：按「日期」而非「ts」归组——补录过去日期的记录会落入正确的日期分组，时间轴顺序不再错乱。 */
   var groups={}; recs.forEach(function(r){ (groups[r.date]=groups[r.date]||[]).push(r); });
   var dates=Object.keys(groups).sort(function(a,b){ return a<b?1:(a>b?-1:0); });
-  /* 组内按创建时间升序 → #楼层号（先写的为 #1），与 nian 风格一致 */
-  dates.forEach(function(d){ groups[d].sort(function(x,y){ return (x.ts||0)-(y.ts||0); }); });
+  /* R187-1: 标准记本按楼层号降序排列——组内按创建时间倒序，#N（最新楼层号）排在日期组顶部，符合用户要求"数字越大越在最顶上" */
+  dates.forEach(function(d){ groups[d].sort(function(x,y){ return (y.ts||0)-(x.ts||0); }); });
   var html='';
   var defDate=_jSelDate||isoDate();
   var _isEdit=!!_jEditingRec; var _editRec=_isEdit?(j.records||[]).find(function(x){return x.id===_jEditingRec;}):null;
@@ -12308,11 +12308,11 @@ function submitCycleForm(formEl){ if(!formEl) return; var d=Object.fromEntries(n
     }
     try{
       var r1=await head(url+'/');
-      lines.push('① GET '+url+'/'+': ' + (r1.err?('❌ '+r1.err):('✓ '+r1.status+' '+(r1.ct||''))));
+      lines.push('① 请求 '+url+'/'+'：' + (r1.err?('❌ '+(/Failed to fetch/i.test(r1.err)?'浏览器无法连接 Supabase（请检查网络 / 关掉代理 / 确认 Supabase 项目未被暂停）':(/NetworkError|fetch failed/i.test(r1.err)?'网络连接异常（请检查 WiFi / 移动数据 / 代理）':r1.err))):('✓ '+r1.status+' '+(r1.ct||''))));
       var r2=await head(url+'/rest/v1/');
-      lines.push('② GET '+url+'/rest/v1/'+': ' + (r2.err?('❌ '+r2.err):('✓ '+r2.status+' '+(r2.ct||''))));
+      lines.push('② 请求 '+url+'/rest/v1/'+'：' + (r2.err?('❌ '+(/Failed to fetch/i.test(r2.err)?'浏览器无法连接 Supabase（请检查网络 / 关掉代理 / 确认 Supabase 项目未被暂停）':(/NetworkError|fetch failed/i.test(r2.err)?'网络连接异常（请检查 WiFi / 移动数据 / 代理）':r2.err))):('✓ '+r2.status+' '+(r2.ct||''))));
       var pr=await sbProbe();
-      lines.push('③ sbProbe (走 supabase-js 查一次表): ' + (pr.ok?('✓ 成功（云端'+(pr.empty?'空槽位':'有数据')+'）'):('❌ '+pr.err)));
+      lines.push('③ 探测（用 supabase-js SDK 查一次表）：' + (pr.ok?('✓ 成功（云端'+(pr.empty?'空槽位':'有数据')+'）'):('❌ '+pr.err)));
       lines.push('---');
       lines.push('结论：');
       if(pr.ok) lines.push('→ 网络与配置都 OK，可以直接使用。');
@@ -12320,7 +12320,7 @@ function submitCycleForm(formEl){ if(!formEl) return; var d=Object.fromEntries(n
       else lines.push('→ 网络可达 Supabase，但 supabase-js 调用失败（多半是 Anon Public Key 错、表不存在或 RLS 拒）。');
       var text=lines.join('\n');
       console.log('[sb-diag]\n'+text);
-      try{toast(text.length>200?(text.slice(0,180)+'…(完整见 console / F12)'):text, 6000);}catch(e){}
+      try{toast(text.length>200?(text.slice(0,180)+'…（完整见控制台 / F12 开发者工具）'):text, 6000);}catch(e){}
       try{
         var w=document.getElementById('sbDiagResult');
         if(w) w.textContent=text;
