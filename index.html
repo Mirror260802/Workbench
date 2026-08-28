@@ -2517,6 +2517,12 @@ body.sb-locked > *:not(#sbSyncModal){pointer-events:none}
 /* R184-1: 对话记本删除按钮改为气泡右上角 ×，复用既有 journal-del-record 二次确认；零颜色，仅用 var(--muted)/var(--plum-deep) token，border:0/outline:0 干掉 UA 默认按钮边框 */
 .chat-del{position:absolute;top:2px;right:6px;background:transparent;border:0;outline:0;color:var(--muted);font-size:14px;line-height:1;cursor:pointer;padding:2px 4px;border-radius:6px}
 .chat-del:hover{color:var(--plum-deep)}
+/* R189-1: 对话记本「双击气泡编辑」弹窗——零颜色，仅用 var(--card/--ink/--line/--muted/--plum-deep) token，outline:0 干掉 UA 聚焦环 */
+#chatEditOverlay .chat-edit-title{margin:0 0 4px;font-size:16px;font-weight:700;color:var(--ink)}
+#chatEditOverlay .chat-edit-tip{margin:0 0 12px;font-size:12px;font-weight:500;color:var(--muted)}
+#chatEditOverlay .chat-edit-area{width:100%;min-height:140px;box-sizing:border-box;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;font-size:14px;line-height:1.6;resize:vertical}
+#chatEditOverlay .chat-edit-area:focus{outline:0;border-color:var(--plum-deep)}
+#chatEditOverlay .chat-edit-ops{display:flex;justify-content:flex-end;gap:10px;margin-top:14px}
 .dym-d.j-has{background:#A8A0E0}
 .j-empty{color:var(--muted);font-size:14px;padding:20px 0;text-align:center}
 .j-modal-card{background:var(--card);border-radius:18px;max-width:480px;width:100%;padding:22px;box-shadow:0 10px 40px var(--plum-soft)}
@@ -4206,6 +4212,22 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
   </div>
 
 
+  <div class="overlay" hidden id="chatEditOverlay" style="display:none; z-index:260">
+
+    <div class="overlay-card" style="max-width:520px">
+
+      <h3 class="chat-edit-title">编辑对话内容</h3>
+
+      <p class="chat-edit-tip">修改只改文字，不动楼层号与时间。</p>
+
+      <textarea class="chat-edit-area" id="chatEditArea" placeholder="输入对话内容…"></textarea>
+
+      <div class="chat-edit-ops"><button type="button" class="btn ghost compact" data-action="journal-chat-edit-cancel">取消</button><button type="button" class="btn primary compact" data-action="journal-chat-edit-save">保存</button></div>
+
+    </div>
+
+  </div>
+
   <div data-page-node-id="habitPickerOverlay" class="overlay" hidden id="habitPickerOverlay" style="display:none; z-index:210">
 
     <div class="overlay-card" style="max-width:440px">
@@ -5454,7 +5476,7 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
       return parts.length?parts.join('·'):'—';
     }
 
-    var mode=state.dashCalMode||'year';
+    var mode=state.dashCalMode||'month';
 
     /* 分段控件高亮当前视图 */
     var segBtns=document.querySelectorAll('#dashCalCard .seg-btn');
@@ -8463,6 +8485,45 @@ function renderChat(j, box){
     });
   });
   attachChatCopy(box);
+  attachChatDblEdit(box);
+}
+
+/* R189-1: 对话记本「双击气泡 → 编辑内容」：只改文字，不动楼层号 / 时间 / 角色 */
+var _jChatEditRid=null;
+function attachChatDblEdit(box){
+  box.querySelectorAll('.chat-bubble').forEach(function(el){
+    el.addEventListener('dblclick', function(e){
+      if(e.target && e.target.closest && e.target.closest('.chat-del')) return;
+      var rid=el.getAttribute('data-jrec'); if(!rid) return;
+      openChatEdit(rid);
+    });
+  });
+}
+function openChatEdit(rid){
+  var j=getJournal(_jJournalId); if(!j) return;
+  var rec=(j.records||[]).find(function(x){return x.id===rid;}); if(!rec) return;
+  var ov=document.getElementById('chatEditOverlay'); if(!ov) return;
+  _jChatEditRid=rid;
+  var ta=document.getElementById('chatEditArea'); if(ta) ta.value=rec.content||'';
+  if(!ov.dataset.bound){ ov.dataset.bound='1';
+    ov.addEventListener('click', function(ev){ if(ev.target===ov) closeChatEdit(); });
+    document.addEventListener('keydown', function(ev){ if(ev.key==='Escape' && !ov.hidden) closeChatEdit(); });
+  }
+  ov.hidden=false; ov.style.display='flex';
+  setTimeout(function(){ if(ta){ ta.focus(); try{ ta.setSelectionRange(ta.value.length,ta.value.length); }catch(err){} } }, 50);
+}
+function closeChatEdit(){
+  _jChatEditRid=null;
+  var ov=document.getElementById('chatEditOverlay'); if(ov){ ov.hidden=true; ov.style.display='none'; }
+}
+function saveChatEdit(){
+  var rid=_jChatEditRid; if(!rid) return;
+  var j=getJournal(_jJournalId); if(!j) return;
+  var rec=(j.records||[]).find(function(x){return x.id===rid;}); if(!rec) return;
+  var ta=document.getElementById('chatEditArea'); var t=ta?ta.value.trim():'';
+  if(!t){ toast('内容不能为空'); return; }
+  rec.content=t;
+  saveState(); closeChatEdit(); renderJournalDetail(); renderJournals(); toast('已更新');
 }
 
 function copyText(s){
@@ -8716,6 +8777,9 @@ function handleJournalAction(a, type, id, e){
   if(type==='journal-switch-menu'){ var _jm2=document.getElementById('jdiMenu'); if(_jm2) _jm2.hidden=true; var _sw=document.getElementById('jdiSwitch'); if(_sw){ _sw.classList.toggle('j-switch-open'); if(_sw.classList.contains('j-switch-open')) _sw.focus(); } return; }
   if(type==='journal-del-record'){ deleteJournalRecord(_jJournalId, a.dataset.rid); return; }
   if(type==='journal-del-response'){ deleteJournalResponse(_jJournalId, a.dataset.rid, +a.dataset.ts); return; }
+  /* R189-1: 对话记本「双击气泡编辑」弹窗的取消 / 保存（必须用 journal- 前缀，否则进不了本委托白名单） */
+  if(type==='journal-chat-edit-cancel'){ closeChatEdit(); return; }
+  if(type==='journal-chat-edit-save'){ saveChatEdit(); return; }
   /* R148-5: 进度记本 → 进度集 / 步进（替代 R147-5 扁平 records） */
   if(type==='journal-add-subset'){ addSubset(_jJournalId); return; }
   if(type==='journal-edit-subset'){ openSubsetEdit(_jJournalId, a.dataset.sid); return; }
@@ -9371,6 +9435,8 @@ function renderAll(){ renderDashboard(); renderMoney(); renderHabits(); renderHa
     window.scrollTo({top:0,behavior:'smooth'});
 
     if(name==='cloud'){ try{ renderCloud(); }catch(e){} }
+    /* R190-1: 切到「记录」视图时若在记本详情内，先关闭详情、返回记本主列表（左侧导航 + 底部导航均走本路径） */
+    if(name==='journals'){ try{ closeJournalDetail(); }catch(e){} }
     if(name==='salary'){ try{ fillSalaryDefaults(); renderSalary(); }catch(e){} }
 
   }
@@ -10531,7 +10597,7 @@ function jumpToRecord(view, id, date){
       }
       if(type==='dash-prev'||type==='dash-next'){
         var dir=(type==='dash-prev')?-1:1;
-        var m2=state.dashCalMode||'year';
+        var m2=state.dashCalMode||'month';
         if(m2==='month'){
           var mm0=state.dashCalMonth||{yr:+isoDate().slice(0,4),mo:+isoDate().slice(5,7)-1};
           var nd=new Date(mm0.yr, mm0.mo+dir, 1);
@@ -10923,7 +10989,7 @@ function renderDashboard(){
       return parts.length?parts.join('·'):'—';
     }
 
-    var mode=state.dashCalMode||'year';
+    var mode=state.dashCalMode||'month';
 
     /* 分段控件高亮当前视图 */
     var segBtns=document.querySelectorAll('#dashCalCard .seg-btn');
@@ -12171,12 +12237,17 @@ function submitCycleForm(formEl){ if(!formEl) return; var d=Object.fromEntries(n
   function sbRenderActions(){
     var box=document.getElementById('sbActions'); if(!box) return;
     if(!_sbConnected){
+      // R191: 即使未连接云端，也暴露本地备份导入/导出，支持完全离线使用（逻辑纯本地、不依赖网络）。
       var cfg=sbGetConfig();
+      var localBtns='<button class="btn ghost" type="button" data-sb-action="export-local"><svg viewBox="0 0 24 24"><use href="#i-export"/></svg>导出当前数据为 JSON</button>'
+        +'<button class="btn ghost" type="button" data-sb-action="import-local"><svg viewBox="0 0 24 24"><use href="#i-import"/></svg>从本地备份恢复</button>'
+        +'<input id="sbLocalFile" type="file" accept="application/json,.json" hidden>';
       if(cfg&&cfg.url){
         box.innerHTML='<button class="btn ghost" type="button" data-sb-action="reconnect"><svg viewBox="0 0 24 24"><use href="#i-refresh"/></svg>重新测试连接</button>'
-          +'<button class="btn ghost" type="button" data-sb-action="diag"><svg viewBox="0 0 24 24"><use href="#i-cloud"/></svg>网络诊断</button>';
+          +'<button class="btn ghost" type="button" data-sb-action="diag"><svg viewBox="0 0 24 24"><use href="#i-cloud"/></svg>网络诊断</button>'
+          + localBtns;
       } else {
-        box.innerHTML='';
+        box.innerHTML=localBtns;
       }
       return;
     }
