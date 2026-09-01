@@ -2850,9 +2850,9 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
 
 /* ─── R164-4：桌面端「流水」卡片 h2 独占一行（用户需求"最近项目另起一行左对齐流水"） ─── */
 /* 桌面端 + 移动端共用：流水卡片内的 eyebrow+h2 块强制块级两行 */
-.panel.money-panel .panel-head > div{display:block !important}
-.panel.money-panel .panel-head > div > .eyebrow{display:block}
-.panel.money-panel .panel-head > div > h2{display:block;margin:2px 0 0}
+.panel.money-panel .panel-head > div:first-child{display:block !important}
+.panel.money-panel .panel-head > div:first-child > .eyebrow{display:block}
+.panel.money-panel .panel-head > div:first-child > h2{display:block;margin:2px 0 0}
 
 /* ─── R164-5：移动端「年度坚持日历」工具行紧凑横排（年月周+今天+全部习惯同一行可换） ─── */
 @media(max-width:560px){
@@ -2878,7 +2878,17 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
 /* ─── R164-7：桌面端覆盖：保留 R164-4 的内容样式生效，确保「最近账目」是 h2 独占一行 ─── */
 @media(min-width:861px){
   /* 桌面端流水卡片：让 eyebrow+h2 默认块级（去掉 inline display:flex baseline 的限制） */
-  .panel.money-panel .panel-head > div{align-items:flex-start}
+  .panel.money-panel .panel-head > div:first-child{align-items:flex-start}
+}
+
+/* ─── R196-6b：PC 端流水卡片顶行三栏——标题左 / 月份切换居中 / 筛选器右；移动端保持标题+筛选上行、月份切换下行居中 ─── */
+.panel.money-panel .panel-head{flex-wrap:wrap}
+.panel.money-panel .money-monthnav-row{order:3;width:100%;justify-content:center;margin:6px 0 0}
+@media(min-width:768px){
+  .panel.money-panel .panel-head{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;flex-wrap:nowrap}
+  .panel.money-panel .panel-head > div:first-child{justify-self:start}
+  .panel.money-panel .money-monthnav-row{order:0;width:auto;margin:0}
+  .panel.money-panel .money-filters{justify-self:end}
 }
 </style>
 
@@ -3261,7 +3271,7 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
 
           <!--pnid:ZWhngaxSoTD4JR5HHEbfZE--><!-- 流水（记一笔账正下方，填满左列空白） -->
 
-          <article data-page-node-id="ZBucWcXWyV4QPOSQnfzsaO" class="panel money-panel" style="margin:0; width:100%; box-sizing:border-box"><div class="panel-head" style="justify-content:space-between; gap:8px"><div data-page-node-id="v50HRF29Eobi4q3a8OeGK2" style=""><p data-page-node-id="zXEORactZbmEeAHGn8XUk5" class="eyebrow" style="margin:0"><!--pnid:6EFSgir4wQjhLDtOa5k2pa-->流水</p><h2 data-page-node-id="gM43kUyQ3PsOLRU95YEWfx" style="margin:2px 0 0"><!--pnid:Fu5RzAbLGr4mrNeE5xFSf1-->最近账目</h2></div><select data-page-node-id="PEiJz7tyoTD1CGLmKYa7LS" class="compact-select" id="moneyFilter" onchange="if(typeof moneyFilterChange==='function'){moneyFilterChange(this.value);return false;}" style="flex-shrink:0"><option data-page-node-id="XPvmwJlydgNTPoOAEh3KFj" value="all"><!--pnid:VElmF9GXCw5wuLmiF9WyLG-->全部分类</option></select></div><div data-page-node-id="WZ4RFqka7gESmB8A6WVf9Q" class="money-filters" style="align-items:center; display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:10px 0 12px"><div data-page-node-id="miEQAHJdFDTUEOB9dFepE5" class="month-nav" style="align-items:center; background:var(--plum-soft); border-radius:999px; display:inline-flex; padding:3px"><button data-page-node-id="drVx7CKxu8nFF7QF8kmhJa" class="month-nav-btn" data-action="money-prev-month" onclick="if(typeof moneyNavPrev==='function'){moneyNavPrev();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:3MtXq0TPq30wlqrOpRjxAB-->‹</button><span data-page-node-id="8bQ7u4NimCsC5pLjMg8fit" id="moneyMonthLabel" style="color:var(--plum-deep); font-size:13px; font-weight:600; min-width:80px; padding:0 8px; text-align:center"><!--pnid:dS1pI7tU12JCJIZ32i1Kn6-->本月</span><button data-page-node-id="fIJSTWIyNq1F11HwnJ6EFs" class="month-nav-btn" data-action="money-next-month" onclick="if(typeof moneyNavNext==='function'){moneyNavNext();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:inqeM0x9CxZWmyrMmVOFij-->›</button></div><button data-page-node-id="dRv5V7VWI5hxytErrMw3fM" class="text-btn" data-action="money-reset-month" id="moneyResetBtn" onclick="if(typeof moneyNavReset==='function'){moneyNavReset();return false;}" type="button" style="display:none; font-size:12px"><!--pnid:LQLS0KSHnAaJtMh5E1S6UQ-->回到本月</button></div><div data-page-node-id="hkAL5KYdlOaj8mYGZSJxkz" class="record-list" id="moneyList"></div></article>
+<article data-page-node-id="ZBucWcXWyV4QPOSQnfzsaO" class="panel money-panel" style="margin:0; width:100%; box-sizing:border-box"><div class="panel-head" style="gap:8px"><div data-page-node-id="v50HRF29Eobi4q3a8OeGK2" style=""><p data-page-node-id="zXEORactZbmEeAHGn8XUk5" class="eyebrow" style="margin:0"><!--pnid:6EFSgir4wQjhLDtOa5k2pa-->流水</p><h2 data-page-node-id="gM43kUyQ3PsOLRU95YEWfx" style="margin:2px 0 0"><!--pnid:Fu5RzAbLGr4mrNeE5xFSf1-->最近账目</h2></div><div class="money-monthnav-row" style="display:flex; align-items:center; justify-content:center; gap:8px; "><div data-page-node-id="miEQAHJdFDTUEOB9dFepE5" class="month-nav" style="align-items:center; background:var(--plum-soft); border-radius:999px; display:inline-flex; padding:3px"><button data-page-node-id="drVx7CKxu8nFF7QF8kmhJa" class="month-nav-btn" data-action="money-prev-month" onclick="if(typeof moneyNavPrev==='function'){moneyNavPrev();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:3MtXq0TPq30wlqrOpRjxAB-->‹</button><span data-page-node-id="8bQ7u4NimCsC5pLjMg8fit" id="moneyMonthLabel" style="color:var(--plum-deep); font-size:13px; font-weight:600; min-width:80px; padding:0 8px; text-align:center"><!--pnid:dS1pI7tU12JCJIZ32i1Kn6-->本月</span><button data-page-node-id="fIJSTWIyNq1F11HwnJ6EFs" class="month-nav-btn" data-action="money-next-month" onclick="if(typeof moneyNavNext==='function'){moneyNavNext();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:inqeM0x9CxZWmyrMmVOFij-->›</button></div><button data-page-node-id="dRv5V7VWI5hxytErrMw3fM" class="text-btn" data-action="money-reset-month" id="moneyResetBtn" onclick="if(typeof moneyNavReset==='function'){moneyNavReset();return false;}" type="button" style="display:none; font-size:12px"><!--pnid:LQLS0KSHnAaJtMh5E1S6UQ-->回到本月</button></div><div data-page-node-id="WZ4RFqka7gESmB8A6WVf9Q" class="money-filters" style="align-items:center; display:flex; gap:8px"><select data-page-node-id="PEiJz7tyoTD1CGLmKYa7LS" class="compact-select" id="moneyFilter" onchange="if(typeof moneyFilterChange==='function'){moneyFilterChange(this.value);return false;}" style="flex-shrink:0"><option data-page-node-id="XPvmwJlydgNTPoOAEh3KFj" value="all"><!--pnid:VElmF9GXCw5wuLmiF9WyLG-->全部分类</option></select></div></div><div data-page-node-id="hkAL5KYdlOaj8mYGZSJxkz" class="record-list" id="moneyList"></div><p data-page-node-id="r196countFooter" id="moneyListCount" class="mini-note" style="margin:10px 0 0;text-align:center"></p></article>
 
           <!--pnid:R85-monthSummary--><!-- 月度对比 + 月度预算（挪到左列 row 3，紧贴流水卡片下方） -->
           <!-- R89-1: 双行等宽（默认纵向堆叠，每行占满父容器宽度） -->
@@ -3284,7 +3294,7 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
           </div>
 
           <!-- R122: 消费结构（现位于中列容器内，紧跟月度对比下方） -->
-          <article data-page-node-id="nrAaubvhzzFK9ZnS9vdLtP" class="panel" style="width:100%; box-sizing:border-box; margin:0; display:flex; flex-direction:column"><div data-page-node-id="scj8YQ3c5uNmFSEFfummYv" style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:14px"><h3 data-page-node-id="hIL06LQSiJQARHPZJPwMu9" style="font-size:14px;font-weight:700;margin:0"><!--pnid:vsrRhazEw8iYhgHZgOhLaf-->消费结构</h3><span style="font-size:12px;font-weight:600;color:var(--muted)" id="consumeYearLabel"></span></div><div data-page-node-id="5aU7chtTaW8kb3an9iqVn7" class="pie-wrap pie-wrap--split" style="flex:1;min-height:0"><svg data-page-node-id="sBw0MyAohwmdIzwk9iY2v0" aria-label="消费结构饼图" id="moneyPie" viewBox="0 0 260 260" style="height:auto; max-width:180px; width:100%;flex-shrink:0"></svg><div data-page-node-id="Wf24ML7q6LzG2WWPH9PLCk" class="chart-legend" id="moneyLegend" style="width:100%;margin-top:10px"></div></div></article>
+          <article data-page-node-id="nrAaubvhzzFK9ZnS9vdLtP" class="panel" style="width:100%; box-sizing:border-box; margin:0; display:flex; flex-direction:column"><div data-page-node-id="scj8YQ3c5uNmFSEFfummYv" style="display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-bottom:14px"><h3 data-page-node-id="hIL06LQSiJQARHPZJPwMu9" style="font-size:14px;font-weight:700;margin:0;flex:1;min-width:0"><!--pnid:vsrRhazEw8iYhgHZgOhLaf-->消费结构</h3><!-- R193: 月度切换按钮（其他月份有数据才显示），label 仍写回 consumeYearLabel --><div id="consumeMonthNav" class="month-nav" data-r193="consume-nav" hidden style="align-items:center; background:var(--plum-soft); border-radius:999px; display:none; padding:3px"><button id="consumePrevBtn" data-r193-btn="consume-prev" onclick="if(typeof consumeNavPrev==='function'){consumeNavPrev();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:consume-prev-arrow-->‹</button><span id="consumeYearLabel" style="color:var(--plum-deep); font-size:13px; font-weight:600; min-width:80px; padding:0 8px; text-align:center"><!--pnid:consume-month-label-->本月</span><button id="consumeNextBtn" data-r193-btn="consume-next" onclick="if(typeof consumeNavNext==='function'){consumeNavNext();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:consume-next-arrow-->›</button></div><span id="consumeMonthHint" data-r193="consume-hint" style="font-size:12px; font-weight:600; color:var(--muted)"><!--pnid:consume-month-hint--></span></div><div data-page-node-id="5aU7chtTaW8kb3an9iqVn7" class="pie-wrap pie-wrap--split" style="flex:1;min-height:0"><svg data-page-node-id="sBw0MyAohwmdIzwk9iY2v0" aria-label="消费结构饼图" id="moneyPie" viewBox="0 0 260 260" style="height:auto; max-width:180px; width:100%;flex-shrink:0"></svg><div data-page-node-id="Wf24ML7q6LzG2WWPH9PLCk" class="chart-legend" id="moneyLegend" style="width:100%;margin-top:10px"></div></div></article>
 
           <!-- R124-5: 各账户余额卡片移到中列消费结构卡片下方（原在左列 grid-column:1，现并入中列 flex 容器自定位） -->
           <article data-page-node-id="3EGAdd0Sj9OXITMrn5RhzI" class="panel" style="margin:0; width:100%; box-sizing:border-box"><div data-page-node-id="iceyKru9UbgfJJqE5pArER" class="panel-head"><div data-page-node-id="0GDt8OjAxqoZOkbJscEM87"><p data-page-node-id="pA6lFKC1xH12ylwpLMH56F" class="eyebrow"><!--pnid:RBOYBRroBK52V742O5vOG2-->各账户余额金额</p><h2 data-page-node-id="lvSFmcxKqLnrKd7QUEhCJ3"><!--pnid:KPzqsgc80KOKLuY3OM4knW-->资产分布</h2></div><button data-page-node-id="ijmJHuhkxFF5NndO68Rg6A" class="btn ghost compact" data-action="open-accounts-edit" onclick="openAccountsEdit()"><svg data-page-node-id="wymlFYDo6qFGlkmWPbmR52"><use data-page-node-id="PpeMwCgO6Kt8kx6wf1d9NM" href="#i-plus"/></svg><!--pnid:nXr4BPwTvVmWlxR0f94U8E-->编辑账户</button></div><div data-page-node-id="n6dq6uqHDr8R0D7XlRBYoa" class="acc-table-wrap" id="accountGrid"></div><p data-page-node-id="ETZ8FPVzjOs3pLS6uCQXYm" class="mini-note" style="margin-top:8px"><!--pnid:1GorF6p6iCmPiEj7KWzp1i-->点击「编辑账户」设置账户名称与期初余额</p></article>
@@ -3315,15 +3325,15 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
 
             </div>
 
-              <div data-page-node-id="WgNGbrVvHDIKxfqVaXuDtk" class="top-rank panel" style="margin:0"><h3 data-page-node-id="2QXvQxrDy6hcp6g0Fz0910"><!--pnid:C6rXots3OONYRsOjISby2H-->支出 TOP5</h3><div data-page-node-id="UDEGa2O1yb9Y1nak2Sdh0U" id="expenseTop5"></div></div>
+              <div data-page-node-id="WgNGbrVvHDIKxfqVaXuDtk" class="top-rank panel" style="margin:0"><div data-page-node-id="scj8YQ3c5uNmFSEFfummYv" style="display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-bottom:14px"><h3 data-page-node-id="2QXvQxrDy6hcp6g0Fz0910" style="font-size:14px;font-weight:700;margin:0;flex:1;min-width:0"><!--pnid:C6rXots3OONYRsOjISby2H-->支出 TOP5</h3><!-- R194: 年度切换按钮（其他年份有数据才显示），label 仍写回 expenseTopYearLabel --><div id="expenseTopYearNav" class="month-nav" data-r194="expense-top-nav" hidden style="align-items:center; background:var(--plum-soft); border-radius:999px; display:none; padding:3px"><button id="expenseTopPrevBtn" data-r194-btn="expense-top-prev" onclick="if(typeof expenseTopNavPrev==='function'){expenseTopNavPrev();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:expense-top-prev-arrow-->‹</button><span id="expenseTopYearLabel" style="color:var(--plum-deep); font-size:13px; font-weight:600; min-width:64px; padding:0 8px; text-align:center"><!--pnid:expense-top-year-label-->本年</span><button id="expenseTopNextBtn" data-r194-btn="expense-top-next" onclick="if(typeof expenseTopNavNext==='function'){expenseTopNavNext();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:expense-top-next-arrow-->›</button></div><span id="expenseTopYearHint" data-r194="expense-top-hint" style="font-size:12px; font-weight:600; color:var(--muted)"><!--pnid:expense-top-year-hint--></span></div><div data-page-node-id="UDEGa2O1yb9Y1nak2Sdh0U" id="expenseTop5"></div></div>
 
-              <div data-page-node-id="Es5eKQoNQUbP0w50Kq9Ln6" class="top-rank panel" style="margin:0"><h3 data-page-node-id="SCr7hPwBVk9VvuWhrCJ5Yr"><!--pnid:NzebY1fJxwAYrHGS64v4KM-->收入 TOP3</h3><div data-page-node-id="w2qIVycDweNdTEkKyYBk1s" id="incomeTop3"></div></div>
+              <div data-page-node-id="Es5eKQoNQUbP0w50Kq9Ln6" class="top-rank panel" style="margin:0"><div data-page-node-id="scj8YQ3c5uNmFSEFfummYv" style="display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-bottom:14px"><h3 data-page-node-id="SCr7hPwBVk9VvuWhrCJ5Yr" style="font-size:14px;font-weight:700;margin:0;flex:1;min-width:0"><!--pnid:NzebY1fJxwAYrHGS64v4KM-->收入 TOP3</h3><!-- R194: 年度切换按钮（其他年份有数据才显示），label 仍写回 incomeTopYearLabel --><div id="incomeTopYearNav" class="month-nav" data-r194="income-top-nav" hidden style="align-items:center; background:var(--plum-soft); border-radius:999px; display:none; padding:3px"><button id="incomeTopPrevBtn" data-r194-btn="income-top-prev" onclick="if(typeof incomeTopNavPrev==='function'){incomeTopNavPrev();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:income-top-prev-arrow-->‹</button><span id="incomeTopYearLabel" style="color:var(--plum-deep); font-size:13px; font-weight:600; min-width:64px; padding:0 8px; text-align:center"><!--pnid:income-top-year-label-->本年</span><button id="incomeTopNextBtn" data-r194-btn="income-top-next" onclick="if(typeof incomeTopNavNext==='function'){incomeTopNavNext();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:income-top-next-arrow-->›</button></div><span id="incomeTopYearHint" data-r194="income-top-hint" style="font-size:12px; font-weight:600; color:var(--muted)"><!--pnid:income-top-year-hint--></span></div><div data-page-node-id="w2qIVycDweNdTEkKyYBk1s" id="incomeTop3"></div></div>
 
-              <div data-page-node-id="RqwLy034DWJKwsADjmWPln" class="trend-chart panel" style="position:relative;display:flex;flex-direction:column;height:100%;margin:0"><div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:14px"><h3 data-page-node-id="hIL06LQSiJQARHPZJPwMu9" style="font-size:14px;font-weight:700;margin:0"><!--pnid:g8S5eA9z0IfzgD4UZ5BNHG-->年度收支对比</h3><span id="barYearLabel" style="font-size:12px;font-weight:600;color:var(--muted)"></span></div><div data-page-node-id="zFMoDUm1DUscPevdA0BBfI" class="monthly-bars" id="monthlyBarChart"></div><div data-page-node-id="JZyi16KRZkWVeppPNJLldL" id="barLegendTopRight" style="display:flex;justify-content:center;gap:18px;align-items:center;font-size:12px;color:var(--muted);margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);flex-shrink:0"></div></div>
+              <div data-page-node-id="RqwLy034DWJKwsADjmWPln" class="trend-chart panel" style="position:relative;display:flex;flex-direction:column;height:100%;margin:0"><div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-bottom:14px"><h3 data-page-node-id="hIL06LQSiJQARHPZJPwMu9" style="font-size:14px;font-weight:700;margin:0;flex:1;min-width:0"><!--pnid:g8S5eA9z0IfzgD4UZ5BNHG-->年度收支对比</h3><!-- R194: 年度切换按钮（其他年份有数据才显示），label 仍写回 barYearLabel --><div id="barYearNav" class="month-nav" data-r194="bar-year-nav" hidden style="align-items:center; background:var(--plum-soft); border-radius:999px; display:none; padding:3px"><button id="barYearPrevBtn" data-r194-btn="bar-year-prev" onclick="if(typeof barYearNavPrev==='function'){barYearNavPrev();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:bar-year-prev-arrow-->‹</button><span id="barYearLabel" style="color:var(--plum-deep); font-size:13px; font-weight:600; min-width:64px; padding:0 8px; text-align:center"><!--pnid:bar-year-label-->本年</span><button id="barYearNextBtn" data-r194-btn="bar-year-next" onclick="if(typeof barYearNavNext==='function'){barYearNavNext();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:bar-year-next-arrow-->›</button></div><span id="barYearHint" data-r194="bar-year-hint" style="font-size:12px; font-weight:600; color:var(--muted)"><!--pnid:bar-year-hint--></span></div><div data-page-node-id="zFMoDUm1DUscPevdA0BBfI" class="monthly-bars" id="monthlyBarChart"></div><div data-page-node-id="JZyi16KRZkWVeppPNJLldL" id="barLegendTopRight" style="display:flex;justify-content:center;gap:18px;align-items:center;font-size:12px;color:var(--muted);margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);flex-shrink:0"></div></div>
             <!--pnid:R121-hotfix--><!-- R121 收尾误删恢复: 月结余趋势 -->
             <!--pnid:uyaMT9wRjPS7zK0iTPpNJb--><!-- 月结余金额（全宽，与资产分布同宽） -->
             
-            <article data-page-node-id="jHib3Zw361sBo5BPlSpE6x" class="trend-chart panel" style="position:relative;display:flex;flex-direction:column;height:100%;margin:0"><div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:14px"><h3 style="font-size:14px;font-weight:700;margin:0">月结余趋势</h3><span id="balanceTrendLabel" style="font-size:12px;font-weight:600;color:var(--muted)"></span></div><svg data-page-node-id="ApxlqWPwjaQxXtdGLZidct" id="balanceTrendChart" preserveAspectRatio="none" viewBox="0 0 840 290" style="width:100%;flex:1 1 auto"></svg><div id="balanceTrendLegend" style="display:flex;justify-content:center;gap:18px;align-items:center;font-size:12px;color:var(--muted);margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);flex-shrink:0"></div></article>
+            <article data-page-node-id="jHib3Zw361sBo5BPlSpE6x" class="trend-chart panel" style="position:relative;display:flex;flex-direction:column;height:100%;margin:0"><div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-bottom:14px"><h3 style="font-size:14px;font-weight:700;margin:0;flex:1;min-width:0">月结余趋势</h3><!-- R194: 年度切换按钮（其他年份有数据才显示），label 仍写回 balanceTrendLabel --><div id="balanceTrendYearNav" class="month-nav" data-r194="balance-trend-nav" hidden style="align-items:center; background:var(--plum-soft); border-radius:999px; display:none; padding:3px"><button id="balanceTrendPrevBtn" data-r194-btn="balance-trend-prev" onclick="if(typeof balanceTrendNavPrev==='function'){balanceTrendNavPrev();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:balance-trend-prev-arrow-->‹</button><span id="balanceTrendLabel" style="color:var(--plum-deep); font-size:13px; font-weight:600; min-width:64px; padding:0 8px; text-align:center"><!--pnid:balance-trend-year-label-->本年</span><button id="balanceTrendNextBtn" data-r194-btn="balance-trend-next" onclick="if(typeof balanceTrendNavNext==='function'){balanceTrendNavNext();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:balance-trend-next-arrow-->›</button></div><span id="balanceTrendYearHint" data-r194="balance-trend-hint" style="font-size:12px; font-weight:600; color:var(--muted)"><!--pnid:balance-trend-year-hint--></span></div><svg data-page-node-id="ApxlqWPwjaQxXtdGLZidct" id="balanceTrendChart" preserveAspectRatio="none" viewBox="0 0 840 290" style="width:100%;flex:1 1 auto"></svg><div id="balanceTrendLegend" style="display:flex;justify-content:center;gap:18px;align-items:center;font-size:12px;color:var(--muted);margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);flex-shrink:0"></div></article>
             
 
 
@@ -4587,46 +4597,19 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
      该配色方案由用户明确指定，覆盖原 muted pastel 8 色约束；colorForCategory 对未列明分类按名哈希取模，仍只落在这 16 色内 */
   var CATEGORY_COLORS=['#A8A0E0','#f8bbd0','#e1bee7','#c5cae9','#b3e5fc','#f9dcc4','#bbdefb','#ffb5a7','#fec89a','#e0f2f1','#80cbc4','#b5ead7','#e3f2fd','#f5d7e6','#FFFACD','#FFF5EE'];
 
-  /* 全局分类→色值映射：与 CATEGORY_COLORS 同源于 R147-2 的 16 色板。
-     三处共享（最近账目 / 月支出TOP5 / 消费结构饼图）—— 同一分类各处必须同色；别名复用主分类同色 */
-  var CATEGORY_COLOR_MAP={
-    /* 支出基础 8 类（各占 16 色板一席） */
-    '吃饭':'#A8A0E0',  // 紫 - 食物
-    '交通':'#f8bbd0',  // 粉 - 交通
-    '购物':'#e1bee7',  // 浅紫 - 购物
-    '娱乐':'#c5cae9',  // 蓝紫 - 娱乐
-    '房租':'#b3e5fc',  // 浅蓝 - 居住
-    '看病':'#f9dcc4',  // 杏色 - 医疗
-    '学习':'#bbdefb',  // 天蓝 - 学习
-    '其他':'#ffb5a7',  // 珊瑚 - 其他
-    /* 用户自定义支出分类 - 在剩余色板中分配，别名复用主分类同色 */
-    '眼里':'#fec89a',  // 蜜桃
-    '游戏':'#e0f2f1',  // 薄荷
-    '餐饮':'#80cbc4',  // 青绿
-    '饮料':'#b5ead7',  // 浅绿
-    '零食':'#e3f2fd',  // 雾蓝
-    '水果':'#f5d7e6',  // 粉紫
-    '交通费':'#f8bbd0',// 别名→交通 同色
-    '住房':'#b3e5fc',  // 别名→房租 同色
-    '家居':'#FFFACD',  // 柠檬
-    '礼物':'#FFF5EE',  // 贝壳白
-    '宠物':'#A8A0E0',  // 复用 紫（宠物与吃饭同色板内，稳定映射）
-    '数码':'#c5cae9',  // 复用 蓝紫
-    '通讯':'#b5ead7',  // 别名→饮料 同色
-    '水电':'#80cbc4',  // 复用 青绿
-    /* 收入分类 4 类 */
-    '工资':'#fec89a',  // 蜜桃（与眼里同色板内，稳定）
-    '奖金':'#e0f2f1',  // 薄荷（与游戏同色板内，稳定）
-    '兼职':'#80cbc4',  // 青绿（与餐饮同色板内，稳定）
-    '理财':'#b5ead7'   // 浅绿（与饮料同色板内，稳定）
-  };
-
-  /* 统一颜色查询：先查全局 map；未匹配则按分类名哈希取模 fallback → 同一分类名永远同色 */
-  function colorForCategory(name,idx){
+  /* R192: 记账分类配色改为「按分组序号自动分配」（用户指定简化方案，替代 R147-2 手写映射）。
+     收入/支出各自分组，按分类在 getCategories(group) 中的序号取 16 色板之一（mod 16）；
+     同分组 ≤16 类时保证内部互不重复；>16 仅尾部可能撞色（用户已接受）。
+     不保留原 8 基础色对应，不新增色（仍用原 16 色板）；收入↔支出可同色。
+     三处（最近账目/月支出TOP5/消费结构饼图）共用同一查询 → 同分类同色。 */
+  function colorForCategory(name){
     if(!name) return 'var(--plum)';
-    if(CATEGORY_COLOR_MAP[name]) return CATEGORY_COLOR_MAP[name];
-    var s=String(name); var h=0; for(var k=0;k<s.length;k++){ h=(h*31+s.charCodeAt(k))>>>0; }
-    return CATEGORY_COLORS[h%CATEGORY_COLORS.length]||'var(--plum)';
+    var exp=getCategories('expense'), inc=getCategories('income');
+    var list=(exp.indexOf(name)>=0)?exp:(inc.indexOf(name)>=0?inc:null);
+    if(list){ return CATEGORY_COLORS[list.indexOf(name)%CATEGORY_COLORS.length]; }
+    /* 未知分类（不在任何分组列表）：按名哈希稳定取色，避免全部塌成同色 */
+    var s=String(name), h=0; for(var k=0;k<s.length;k++){ h=(h*31+s.charCodeAt(k))>>>0; }
+    return CATEGORY_COLORS[h%CATEGORY_COLORS.length];
   }
 
   var HABIT_DEFS=[
@@ -4749,7 +4732,7 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
 
       ],
 
-      settings:{budget:5000,moneyFilter:'all',plannerFilter:'all',shoppingFilter:'pending',mediaView:'table',mediaStatusFilter:'all',mediaRatingFilter:0,mediaTypeFilter:'all',mediaPlatformFilter:'all',mediaQuery:'',mediaTablePage:1,mediaTablePageSize:50,mediaWallPage:1,mediaWallPageSize:20,habitYearView:'all',hiddenHabitKeys:[],mediaPlatforms:['Netflix','Bilibili','爱奇艺','腾讯视频','优酷','芒果TV','YouTube','Apple TV+','HBO','影院','纸质书','Kindle','微信读书','其他'],mediaTypes:['电影','电视剧','书籍','动漫','播客','舞台'],mediaTags:[],mediaThemes:[],brand:{name:'日常集',avatar:'日',tagline:'生活有迹可循',theme:'lavender'},cycleDefaults:{cycleLen:28,periodLen:5},accounts:[{name:'支付宝',balance:0},{name:'余额宝',balance:0},{name:'微信',balance:0},{name:'银行卡',balance:0},{name:'现金',balance:0}],customCategories:{expense:['吃饭','交通','购物','娱乐','房租','看病','学习','其他'],income:['工资','奖金','兼职','理财','其他']},customLists:['生活','工作','家庭','个人']},
+      settings:{budget:5000,moneyFilter:'all',plannerFilter:'all',shoppingFilter:'pending',mediaView:'table',mediaStatusFilter:'all',mediaRatingFilter:0,mediaTypeFilter:'all',mediaPlatformFilter:'all',mediaQuery:'',mediaTablePage:1,mediaTablePageSize:50,mediaWallPage:1,mediaWallPageSize:20,habitYearView:'all',hiddenHabitKeys:[],mediaPlatforms:['Netflix','Bilibili','爱奇艺','腾讯视频','优酷','芒果TV','YouTube','Apple TV+','HBO','影院','纸质书','Kindle','微信读书','其他'],mediaTypes:['电影','电视剧','书籍','动漫','播客','舞台'],mediaTags:[],mediaThemes:[],brand:{name:'日常集',avatar:'日',tagline:'生活有迹可循',theme:'lavender'},cycleDefaults:{cycleLen:28,periodLen:5},accounts:[{name:'支付宝',balance:0},{name:'余额宝',balance:0},{name:'微信',balance:0},{name:'银行卡',balance:0},{name:'现金',balance:0}],customCategories:{expense:['吃饭','交通','购物','娱乐','房租','看病','学习','其他'],income:['工资','奖金','兼职','理财','其他']},customLists:['生活','工作','家庭','个人'],expenseTopYearOffset:0,incomeTopYearOffset:0,barYearOffset:0,balanceTrendYearOffset:0},
 
       drafts:{},
 
@@ -4764,6 +4747,18 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
   function normalizeState(raw){
 
     var def=makeInitialState();
+
+    /* R196: 4 个卡片年份偏移由共用 chartYearOffset 拆分为独立偏移；一次性从旧值迁移 */
+    (function migrateYearOffsets(s){
+      if(!s) return;
+      var legacy = s.chartYearOffset;
+      if(typeof legacy === 'number'){
+        if(typeof s.expenseTopYearOffset !== 'number') s.expenseTopYearOffset = legacy;
+        if(typeof s.incomeTopYearOffset !== 'number') s.incomeTopYearOffset = legacy;
+        if(typeof s.barYearOffset !== 'number') s.barYearOffset = legacy;
+        if(typeof s.balanceTrendYearOffset !== 'number') s.balanceTrendYearOffset = legacy;
+      }
+    })(raw.settings||{});
 
     if(!raw||raw.version!==3) return def;
 
@@ -5090,6 +5085,18 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
       state.mediaItems = cands;
     }
     saveState(); renderAll();
+    /* R196-2: 导入视为用户明确意图，强制覆盖云端，避免云端旧/部分数据回滚覆盖本地完整导入 */
+    try{
+      if(_sbTimer){ clearTimeout(_sbTimer); _sbTimer=null; }
+      if(typeof sbPush==='function' && sbClient() && _sbPulled){
+        sbPush({force:true}).then(function(r){
+          if(r.ok){
+            _sbDirty=false;
+            try{ var _m=sbGetMeta(); _m.dirtyPending=false; sbSetMeta(_m); }catch(e){}
+          }
+        });
+      }
+    }catch(e){}
     var kindLabel = kind==='money'?'记账':'收藏';
     toast('已覆盖导入 '+kindLabel+' '+cands.length+' 条'+(removed?('，删除 '+removed+' 条重复'):''));
     input.value='';
@@ -5961,7 +5968,50 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
 
       var consumeYearEl=document.getElementById('consumeYearLabel');
 
-      if(consumeYearEl) consumeYearEl.textContent=curMonth+' 月';
+      if(consumeYearEl){ var consumeYearLabelInit=curMonth+' 月'; consumeYearEl.textContent=consumeYearLabelInit; }
+      /* R193: 消费结构月度切换（独立 consumeMonthOffset，不影响 流水列表/本月指标；
+         offset=0 表示本月、offset=1 表示上个月…offset=N 表示 N 个月前；按钮在目标月无数据时停用）。
+         标签始终写回 #consumeYearLabel；nav 组件仅在"存在除本月外的其他支出月份"时显示。 */
+      (function renderConsumeMonthNav(){
+        var navEl=document.getElementById('consumeMonthNav');
+        var hintEl=document.getElementById('consumeMonthHint');
+        var prevBtn=document.getElementById('consumePrevBtn');
+        var nextBtn=document.getElementById('consumeNextBtn');
+        if(!navEl||!hintEl||!prevBtn||!nextBtn) return;
+        var curKey=isoDate().slice(0,7);
+        function keyHasData(k){
+          for(var i=0;i<(recs||[]).length;i++){ var r=recs[i]; if(r && r.type==='money' && r.data && r.data.flow!=='income' && (r.date||'').slice(0,7)===k) return true; }
+          return false;
+        }
+        function monthKeyByOffset(off){ var d=new Date(); d.setDate(1); d.setMonth(d.getMonth()-off); return isoDate(d).slice(0,7); }
+        var off=state.settings.consumeMonthOffset||0;
+        if(off<0) off=0;
+        if(off>120) off=120;
+        state.settings.consumeMonthOffset=off;
+        var otherMonthHasData=false;
+        for(var probeOff=1;probeOff<=60;probeOff++){ if(keyHasData(monthKeyByOffset(probeOff))){ otherMonthHasData=true; break; } }
+        var navShown=otherMonthHasData;
+        navEl.hidden=!navShown;
+        navEl.style.display=navShown?'inline-flex':'none';
+        var consumeTargetKey=monthKeyByOffset(off);
+        if(consumeYearEl){
+          if(off===0){ consumeYearEl.textContent='本月'; }
+          else{
+            var tp=consumeTargetKey.split('-');
+            var ty=Number(tp[0]), tm=Number(tp[1]);
+            var thisYear=Number(curKey.split('-')[0]);
+            consumeYearEl.textContent=(ty!==thisYear?(ty+'年'):'')+tm+'月';
+          }
+        }
+        prevBtn.disabled=!navShown || off>=60 || !keyHasData(monthKeyByOffset(off+1));
+        nextBtn.disabled=!navShown || off<=0;
+        prevBtn.style.opacity=prevBtn.disabled?'0.35':'1';
+        nextBtn.style.opacity=nextBtn.disabled?'0.35':'1';
+        prevBtn.style.cursor=prevBtn.disabled?'default':'pointer';
+        nextBtn.style.cursor=nextBtn.disabled?'default':'pointer';
+        hintEl.textContent='';
+        try{ window.__r193ConsumeKey=consumeTargetKey; }catch(e){}
+      })();
 
       var legendEl=document.getElementById('barLegendTopRight');
 
@@ -6019,10 +6069,16 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
 
     /* ── 消费结构饼图（加大版）── */
 
-    /* R47: 直接用 catNames 走 colorForCategory，三处（最近账目 / TOP5 / 饼图）共享同一份色值 */
+/* R47: 直接用 catNames 走 colorForCategory，三处（最近账目 / TOP5 / 饼图）共享同一份色值 */
+/* R193: 数据源由本月 (thisMonth) 切换到 consumeMonthOffset 指向的月份（默认本月，可由消费结构 nav 上月切换按钮回退） */
     var cats={}, colors={};
 
-    thisMonth.filter(function(r){return r.data.flow!=='income';}).forEach(function(r){ cats[r.data.category]=(cats[r.data.category]||0)+r.data.amount; });
+    var _cOff=(typeof state.settings.consumeMonthOffset==='number'&&state.settings.consumeMonthOffset>0)?state.settings.consumeMonthOffset:0;
+    var _cDate=new Date(); _cDate.setDate(1); _cDate.setMonth(_cDate.getMonth()-_cOff);
+    var _consumeKey=isoDate(_cDate).slice(0,7);
+
+    state.records.filter(function(r){ return r && r.type==='money' && r.data && r.data.flow!=='income' && (r.date||'').slice(0,7)===_consumeKey; }).forEach(function(r){ cats[r.data.category]=(cats[r.data.category]||0)+r.data.amount; });
+    var _consumeTotal=Object.keys(cats).reduce(function(s,k){return s+cats[k];},0);
 
     var catNames=Object.keys(cats);
 
@@ -6050,7 +6106,7 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
 
     document.getElementById('moneyFilter').value=filter;
 
-    var list=thisMonth.filter(function(r){return filter==='all'||r.data.category===filter;}).slice(0,30);
+    var list=thisMonth.filter(function(r){return filter==='all'||r.data.category===filter;});
 
     document.getElementById('moneyList').innerHTML = list.length? list.map(recordRow).join('') : empty('这个分类还没有流水');
 
@@ -11249,6 +11305,11 @@ function renderDashboard(){
 
     var thisMonth=recs.filter(function(r){return r.date.slice(0,7)===month;});
 
+    /* R196: 4 个卡片（支出 TOP5 / 收入 TOP3 / 年度收支对比 / 月结余趋势）各自独立按"年"切换。
+       *YearOffset=0 表示本年、1 表示上一年…N 表示 N 年前；独立于此前的 consumeMonthOffset（消费结构按月）。 */
+    var _nowY=new Date(); var curYearNow=_nowY.getFullYear(); var curMonthNow=_nowY.getMonth()+1;
+
+
     var expense=sum(thisMonth.filter(function(r){return r.data.flow!=='income';}),function(r){return r.data.amount;});
 
     var income=sum(thisMonth.filter(function(r){return r.data.flow==='income';}),function(r){return r.data.amount;});
@@ -11337,11 +11398,13 @@ function renderDashboard(){
     /* ── 支出 TOP5（R121: 改累计，从 thisMonth 改为 recs 全量）── */
 
     (function renderExpenseTop(){
+      var off=state.settings.expenseTopYearOffset||0; if(off<0) off=0; if(off>50) off=50; state.settings.expenseTopYearOffset=off;
+      var targetYear=curYearNow-off;
 
       var cats={};
 
-      recs.filter(function(r){return r.data.flow!=='income';}).forEach(function(r){ cats[r.data.category]=(cats[r.data.category]||0)+r.data.amount; });
-
+      /* R196: 按选中年（targetYear）聚合支出，取 TOP5；替换原 R121 全量累计语义 */
+      recs.filter(function(r){return r.data.flow!=='income' && (r.date||'').slice(0,4)===String(targetYear);}).forEach(function(r){ cats[r.data.category]=(cats[r.data.category]||0)+r.data.amount; });
       var sorted=Object.keys(cats).sort(function(a,b){return cats[b]-cats[a];}).slice(0,5);
 
       var mx=sorted.length?cats[sorted[0]]:1;
@@ -11361,11 +11424,13 @@ function renderDashboard(){
     /* ── 收入 TOP3（R121: 改累计，从 thisMonth 改为 recs 全量）── */
 
     (function renderIncomeTop(){
+      var off=state.settings.incomeTopYearOffset||0; if(off<0) off=0; if(off>50) off=50; state.settings.incomeTopYearOffset=off;
+      var targetYear=curYearNow-off;
 
       var cats={};
 
-      recs.filter(function(r){return r.data.flow==='income';}).forEach(function(r){ cats[r.data.category]=(cats[r.data.category]||0)+r.data.amount; });
-
+      /* R196: 按选中年（targetYear）聚合收入，取 TOP3；替换原 R121 全量累计语义 */
+      recs.filter(function(r){return r.data.flow==='income' && (r.date||'').slice(0,4)===String(targetYear);}).forEach(function(r){ cats[r.data.category]=(cats[r.data.category]||0)+r.data.amount; });
       var sorted=Object.keys(cats).sort(function(a,b){return cats[b]-cats[a];}).slice(0,3);
 
       var mx=sorted.length?cats[sorted[0]]:1;
@@ -11387,12 +11452,13 @@ function renderDashboard(){
     /* ── 月结余金额折线图（12个月，自然年 1-12 排序）── */
 
     (function renderBalanceTrend(){
-
-      var now=new Date(), year=now.getFullYear(), curMonth=now.getMonth()+1;
+      var off=state.settings.balanceTrendYearOffset||0; if(off<0) off=0; if(off>50) off=50; state.settings.balanceTrendYearOffset=off;
+      var year=curYearNow-off;
 
       /* 按自然年 1-12 排序，当前月及之前有数据，之后为空 */
 
-      var data=[]; for(var m=1;m<=12;m++){ var key=year+'-'+String(m).padStart(2,'0'); var inc=sum(recs.filter(function(r){return r.date.slice(0,7)===key&&r.data.flow==='income';}),function(r){return r.data.amount;}); var exp=sum(recs.filter(function(r){return r.date.slice(0,7)===key&&r.data.flow!=='income';}),function(r){return r.data.amount;}); data.push({m:key,label:String(m),bal:inc-exp,isFuture:m>curMonth}); }
+      /* 仅"本年"才把未来月份标记为空（历史年份全部视为已发生） */
+      var data=[]; for(var m=1;m<=12;m++){ var key=year+'-'+String(m).padStart(2,'0'); var inc=sum(recs.filter(function(r){return r.date.slice(0,7)===key&&r.data.flow==='income';}),function(r){return r.data.amount;}); var exp=sum(recs.filter(function(r){return r.date.slice(0,7)===key&&r.data.flow!=='income';}),function(r){return r.data.amount;}); data.push({m:key,label:String(m),bal:inc-exp,isFuture:(year===curYearNow)&&(m>curMonthNow)}); }
 
       /* 纵向自适应：含 0，留 18% 余量 */
       var allVals=data.map(function(d){return d.bal;});
@@ -11467,8 +11533,8 @@ function renderDashboard(){
     /* ── 月度收支对比柱状图（年度，自然年 1-12 排序）── */
 
     (function renderMonthlyBars(){
-
-      var _now=new Date(), year=_now.getFullYear(), curMonth=_now.getMonth()+1;
+      var off=state.settings.barYearOffset||0; if(off<0) off=0; if(off>50) off=50; state.settings.barYearOffset=off;
+      var year=curYearNow-off, curMonth=(new Date()).getMonth()+1;
 
       /* 按自然年 1-12 月生成数据 */
 
@@ -11494,7 +11560,81 @@ function renderDashboard(){
 
       var consumeYearEl=document.getElementById('consumeYearLabel');
 
-      if(consumeYearEl) consumeYearEl.textContent=curMonth+' 月';
+      if(consumeYearEl){ var consumeYearLabelInit=curMonth+' 月'; consumeYearEl.textContent=consumeYearLabelInit; }
+      /* R193: 消费结构月度切换（独立 consumeMonthOffset，不影响 流水列表/本月指标；
+         offset=0 表示本月、offset=1 表示上个月…offset=N 表示 N 个月前；按钮在目标月无数据时停用）。
+         标签始终写回 #consumeYearLabel；nav 组件仅在"存在除本月外的其他支出月份"时显示。 */
+      (function renderConsumeMonthNav(){
+        var navEl=document.getElementById('consumeMonthNav');
+        var hintEl=document.getElementById('consumeMonthHint');
+        var prevBtn=document.getElementById('consumePrevBtn');
+        var nextBtn=document.getElementById('consumeNextBtn');
+        if(!navEl||!hintEl||!prevBtn||!nextBtn) return;
+        var curKey=isoDate().slice(0,7);
+        function keyHasData(k){
+          for(var i=0;i<(recs||[]).length;i++){ var r=recs[i]; if(r && r.type==='money' && r.data && r.data.flow!=='income' && (r.date||'').slice(0,7)===k) return true; }
+          return false;
+        }
+        function monthKeyByOffset(off){ var d=new Date(); d.setDate(1); d.setMonth(d.getMonth()-off); return isoDate(d).slice(0,7); }
+        var off=state.settings.consumeMonthOffset||0;
+        if(off<0) off=0;
+        if(off>120) off=120;
+        state.settings.consumeMonthOffset=off;
+        var otherMonthHasData=false;
+        for(var probeOff=1;probeOff<=60;probeOff++){ if(keyHasData(monthKeyByOffset(probeOff))){ otherMonthHasData=true; break; } }
+        var navShown=otherMonthHasData;
+        navEl.hidden=!navShown;
+        navEl.style.display=navShown?'inline-flex':'none';
+        var consumeTargetKey=monthKeyByOffset(off);
+        if(consumeYearEl){
+          if(off===0){ consumeYearEl.textContent='本月'; }
+          else{
+            var tp=consumeTargetKey.split('-');
+            var ty=Number(tp[0]), tm=Number(tp[1]);
+            var thisYear=Number(curKey.split('-')[0]);
+            consumeYearEl.textContent=(ty!==thisYear?(ty+'年'):'')+tm+'月';
+          }
+        }
+        prevBtn.disabled=!navShown || off>=60 || !keyHasData(monthKeyByOffset(off+1));
+        nextBtn.disabled=!navShown || off<=0;
+        prevBtn.style.opacity=prevBtn.disabled?'0.35':'1';
+        nextBtn.style.opacity=nextBtn.disabled?'0.35':'1';
+        prevBtn.style.cursor=prevBtn.disabled?'default':'pointer';
+        nextBtn.style.cursor=nextBtn.disabled?'default':'pointer';
+        hintEl.textContent='';
+        try{ window.__r193ConsumeKey=consumeTargetKey; }catch(e){}
+      })();
+
+      /* R196: 4 个卡片独立年度切换导航；仅当存在除本年外的其他年份数据时才显示 nav；单年数据则只显示 label（本年 / 年份）。 */
+      (function renderYearNavs(){
+        var yearMap={
+          expenseTop:{key:'expenseTopYearOffset',nav:'expenseTopYearNav',prev:'expenseTopPrevBtn',next:'expenseTopNextBtn',label:'expenseTopYearLabel',hint:'expenseTopYearHint'},
+          incomeTop:{key:'incomeTopYearOffset',nav:'incomeTopYearNav',prev:'incomeTopPrevBtn',next:'incomeTopNextBtn',label:'incomeTopYearLabel',hint:'incomeTopYearHint'},
+          barYear:{key:'barYearOffset',nav:'barYearNav',prev:'barYearPrevBtn',next:'barYearNextBtn',label:'barYearLabel',hint:'barYearHint'},
+          balance:{key:'balanceTrendYearOffset',nav:'balanceTrendYearNav',prev:'balanceTrendPrevBtn',next:'balanceTrendNextBtn',label:'balanceTrendLabel',hint:'balanceTrendYearHint'}
+        };
+        var years={};
+        (recs||[]).forEach(function(r){ if(r && r.type==='money' && r.date){ var y=(r.date||'').slice(0,4); if(y) years[y]=1; } });
+        var ykeys=Object.keys(years).sort();
+        var hasOtherYear = ykeys.length>=2;
+        Object.keys(yearMap).forEach(function(k){
+          var m=yearMap[k];
+          var navEl=document.getElementById(m.nav), lblEl=document.getElementById(m.label), prevBtn=document.getElementById(m.prev), nextBtn=document.getElementById(m.next), hintEl=document.getElementById(m.hint);
+          if(!navEl||!lblEl||!prevBtn||!nextBtn) return;
+          var off=state.settings[m.key]||0; if(off<0) off=0; if(off>ykeys.length-1) off=Math.max(0,ykeys.length-1); state.settings[m.key]=off;
+          var targetYearVal=curYearNow-off;
+          var labelText = (off===0)?'本年':(String(targetYearVal)+' 年');
+          navEl.hidden=!hasOtherYear; navEl.style.display=hasOtherYear?'inline-flex':'none';
+          lblEl.textContent=labelText;
+          prevBtn.disabled=!hasOtherYear || off>=ykeys.length-1;
+          nextBtn.disabled=!hasOtherYear || off<=0;
+          prevBtn.style.opacity=prevBtn.disabled?'0.35':'1'; nextBtn.style.opacity=nextBtn.disabled?'0.35':'1';
+          prevBtn.style.cursor=prevBtn.disabled?'default':'pointer'; nextBtn.style.cursor=nextBtn.disabled?'default':'pointer';
+          if(hintEl) hintEl.textContent='';
+        });
+        try{ window.__r196Year=curYearNow; }catch(e){}
+      })();
+
 
       var legendEl=document.getElementById('barLegendTopRight');
 
@@ -11558,10 +11698,16 @@ function renderDashboard(){
 
     /* ── 消费结构饼图（加大版）── */
 
-    /* R47: 直接用 catNames 走 colorForCategory，三处（最近账目 / TOP5 / 饼图）共享同一份色值 */
+/* R47: 直接用 catNames 走 colorForCategory，三处（最近账目 / TOP5 / 饼图）共享同一份色值 */
+/* R193: 数据源由本月 (thisMonth) 切换到 consumeMonthOffset 指向的月份（默认本月，可由消费结构 nav 上月切换按钮回退） */
     var cats={}, colors={};
 
-    thisMonth.filter(function(r){return r.data.flow!=='income';}).forEach(function(r){ cats[r.data.category]=(cats[r.data.category]||0)+r.data.amount; });
+    var _cOff=(typeof state.settings.consumeMonthOffset==='number'&&state.settings.consumeMonthOffset>0)?state.settings.consumeMonthOffset:0;
+    var _cDate=new Date(); _cDate.setDate(1); _cDate.setMonth(_cDate.getMonth()-_cOff);
+    var _consumeKey=isoDate(_cDate).slice(0,7);
+
+    state.records.filter(function(r){ return r && r.type==='money' && r.data && r.data.flow!=='income' && (r.date||'').slice(0,7)===_consumeKey; }).forEach(function(r){ cats[r.data.category]=(cats[r.data.category]||0)+r.data.amount; });
+    var _consumeTotal=Object.keys(cats).reduce(function(s,k){return s+cats[k];},0);
 
     var catNames=Object.keys(cats);
 
@@ -11575,7 +11721,7 @@ function renderDashboard(){
 
       var segs=catNames.map(function(c){ var frac=cats[c]/total, a0=cum/total*2*Math.PI-Math.PI/2, a1=(cum+cats[c])/total*2*Math.PI-Math.PI/2; cum+=cats[c]; var x0=cx+R*Math.cos(a0),y0=cy+R*Math.sin(a0),x1=cx+R*Math.cos(a1),y1=cy+R*Math.sin(a1); var large=(a1-a0)>Math.PI?1:0; return '<path d="M'+cx+' '+cy+' L'+x0.toFixed(1)+' '+y0.toFixed(1)+' A'+R+' '+R+' 0 '+large+' 1 '+x1.toFixed(1)+' '+y1.toFixed(1)+' Z" fill="'+colors[c]+'" stroke="#e6e3ee" stroke-width="2"/>'; }).join('');
 
-      pie.innerHTML=segs+'<circle cx="130" cy="130" r="66" fill="#fff" stroke="#e6e3ee" stroke-width="2"/><text x="130" y="142" text-anchor="middle" font-size="22" font-weight="800" stroke="none" paint-order="stroke fill" style="fill:var(--plum-deep)">'+money(expense)+'</text>';
+      pie.innerHTML=segs+'<circle cx="130" cy="130" r="66" fill="#fff" stroke="#e6e3ee" stroke-width="2"/><text x="130" y="142" text-anchor="middle" font-size="22" font-weight="800" stroke="none" paint-order="stroke fill" style="fill:var(--plum-deep)">'+money(_consumeTotal)+'</text>';
 
       legend.innerHTML=catNames.map(function(c){ return '<span><i class="dot" style="background:'+colors[c]+'"></i><span class="lbl">'+esc(c)+'</span><em>'+money(cats[c])+'</em></span>'; }).join('');
 
@@ -11595,9 +11741,10 @@ function renderDashboard(){
       if(a.date!==b.date) return a.date<b.date?1:-1;
       return (b.id||'').localeCompare(a.id||'');
     });
-    list=list.slice(0,30);
-
     document.getElementById('moneyList').innerHTML = list.length? list.map(recordRow).join('') : empty(moneyOffset===0?'这个分类还没有流水':'该月份还没有流水');
+
+    /* R196-5: 「该月 N 条 · 全部 M 条」移到流水卡片底部最下方呈现；month-nav 月份切换按钮保持原状 */
+    var _mcEl=document.getElementById('moneyListCount'); if(_mcEl) _mcEl.textContent='该月 '+list.length+' 条 · 全部 '+recs.length+' 条';
 
   }
 
@@ -11734,7 +11881,50 @@ function renderMonthlyBars(){
 
       var consumeYearEl=document.getElementById('consumeYearLabel');
 
-      if(consumeYearEl) consumeYearEl.textContent=curMonth+' 月';
+      if(consumeYearEl){ var consumeYearLabelInit=curMonth+' 月'; consumeYearEl.textContent=consumeYearLabelInit; }
+      /* R193: 消费结构月度切换（独立 consumeMonthOffset，不影响 流水列表/本月指标；
+         offset=0 表示本月、offset=1 表示上个月…offset=N 表示 N 个月前；按钮在目标月无数据时停用）。
+         标签始终写回 #consumeYearLabel；nav 组件仅在"存在除本月外的其他支出月份"时显示。 */
+      (function renderConsumeMonthNav(){
+        var navEl=document.getElementById('consumeMonthNav');
+        var hintEl=document.getElementById('consumeMonthHint');
+        var prevBtn=document.getElementById('consumePrevBtn');
+        var nextBtn=document.getElementById('consumeNextBtn');
+        if(!navEl||!hintEl||!prevBtn||!nextBtn) return;
+        var curKey=isoDate().slice(0,7);
+        function keyHasData(k){
+          for(var i=0;i<(recs||[]).length;i++){ var r=recs[i]; if(r && r.type==='money' && r.data && r.data.flow!=='income' && (r.date||'').slice(0,7)===k) return true; }
+          return false;
+        }
+        function monthKeyByOffset(off){ var d=new Date(); d.setDate(1); d.setMonth(d.getMonth()-off); return isoDate(d).slice(0,7); }
+        var off=state.settings.consumeMonthOffset||0;
+        if(off<0) off=0;
+        if(off>120) off=120;
+        state.settings.consumeMonthOffset=off;
+        var otherMonthHasData=false;
+        for(var probeOff=1;probeOff<=60;probeOff++){ if(keyHasData(monthKeyByOffset(probeOff))){ otherMonthHasData=true; break; } }
+        var navShown=otherMonthHasData;
+        navEl.hidden=!navShown;
+        navEl.style.display=navShown?'inline-flex':'none';
+        var consumeTargetKey=monthKeyByOffset(off);
+        if(consumeYearEl){
+          if(off===0){ consumeYearEl.textContent='本月'; }
+          else{
+            var tp=consumeTargetKey.split('-');
+            var ty=Number(tp[0]), tm=Number(tp[1]);
+            var thisYear=Number(curKey.split('-')[0]);
+            consumeYearEl.textContent=(ty!==thisYear?(ty+'年'):'')+tm+'月';
+          }
+        }
+        prevBtn.disabled=!navShown || off>=60 || !keyHasData(monthKeyByOffset(off+1));
+        nextBtn.disabled=!navShown || off<=0;
+        prevBtn.style.opacity=prevBtn.disabled?'0.35':'1';
+        nextBtn.style.opacity=nextBtn.disabled?'0.35':'1';
+        prevBtn.style.cursor=prevBtn.disabled?'default':'pointer';
+        nextBtn.style.cursor=nextBtn.disabled?'default':'pointer';
+        hintEl.textContent='';
+        try{ window.__r193ConsumeKey=consumeTargetKey; }catch(e){}
+      })();
 
       var legendEl=document.getElementById('barLegendTopRight');
 
@@ -11771,6 +11961,11 @@ function moneyNavPrev(){ state.settings.moneyMonthOffset=(state.settings.moneyMo
 function moneyNavNext(){ state.settings.moneyMonthOffset=(state.settings.moneyMonthOffset||0)-1; saveState(); renderMoney(); }
 
 function moneyNavReset(){ state.settings.moneyMonthOffset=0; saveState(); renderMoney(); }
+
+/* R193: 消费结构卡片独立月份切换（不影响 流水列表 / 本月指标 等其他视图） */
+function consumeNavPrev(){ var cur=(typeof state.settings.consumeMonthOffset==='number'&&state.settings.consumeMonthOffset>0)?state.settings.consumeMonthOffset:0; state.settings.consumeMonthOffset=cur+1; saveState(); renderMoney(); }
+
+function consumeNavNext(){ var cur=(typeof state.settings.consumeMonthOffset==='number'&&state.settings.consumeMonthOffset>0)?state.settings.consumeMonthOffset:0; if(cur<=0) return; state.settings.consumeMonthOffset=cur-1; saveState(); renderMoney(); }
 
 function moneyFilterChange(v){ state.settings.moneyFilter=v; saveState(); renderMoney(); }
 
@@ -12051,7 +12246,8 @@ function submitCycleForm(formEl){ if(!formEl) return; var d=Object.fromEntries(n
     }
   }
 
-  async function sbPush(){
+  async function sbPush(opts){
+    var force=(opts&&opts.force);
     var c=sbClient(); if(!c) return {ok:false,err:'未配置'};
     var payload; try{ payload=JSON.parse(JSON.stringify(state)); }catch(e){ return {ok:false,err:'本地数据异常'}; }
     var now=new Date().toISOString();
@@ -12059,13 +12255,16 @@ function submitCycleForm(formEl){ if(!formEl) return; var d=Object.fromEntries(n
     var m=sbGetMeta();
     // R100: 轻量乐观锁——推送前比对云端 updated_at 与本端上次见到的版本；
     // 若云端更新（说明另一台设备已改写），判定冲突，先 pull 合并再重试，杜绝旧覆盖新。
-    try{
-      var _chk=await c.from(SB_TABLE).select('updated_at').eq('slot_key', slot).maybeSingle();
-      if(_chk.error){ var _cm=_chk.error.message||''; if(/does not exist/i.test(_cm)) return {ok:false,err:'云端表不存在（请执行建表脚本）'}; if(/permission|policy/i.test(_cm)) return {ok:false,err:'权限被拒（RLS 策略）'}; /* 其它查询错误降级为直接 upsert（与旧行为一致） */ }
-      else if(_chk.data && _chk.data.updated_at && m.remoteUpdatedAt && new Date(_chk.data.updated_at).getTime() > new Date(m.remoteUpdatedAt).getTime()){
-        return {ok:false, conflict:true, remoteUpdatedAt:_chk.data.updated_at};
-      }
-    }catch(_e){ /* 忽略查询异常，降级为直接 upsert */ }
+    // R196-2: force 模式用于导入等用户明确意图场景，跳过冲突检查直接覆盖云端。
+    if(!force){
+      try{
+        var _chk=await c.from(SB_TABLE).select('updated_at').eq('slot_key', slot).maybeSingle();
+        if(_chk.error){ var _cm=_chk.error.message||''; if(/does not exist/i.test(_cm)) return {ok:false,err:'云端表不存在（请执行建表脚本）'}; if(/permission|policy/i.test(_cm)) return {ok:false,err:'权限被拒（RLS 策略）'}; /* 其它查询错误降级为直接 upsert（与旧行为一致） */ }
+        else if(_chk.data && _chk.data.updated_at && m.remoteUpdatedAt && new Date(_chk.data.updated_at).getTime() > new Date(m.remoteUpdatedAt).getTime()){
+          return {ok:false, conflict:true, remoteUpdatedAt:_chk.data.updated_at};
+        }
+      }catch(_e){ /* 忽略查询异常，降级为直接 upsert */ }
+    }
     try{
       var r=await c.from(SB_TABLE).upsert({slot_key:slot, payload:payload, updated_at:now}, {onConflict:'slot_key'});
       if(r.error){
@@ -12698,6 +12897,31 @@ function submitCycleForm(formEl){ if(!formEl) return; var d=Object.fromEntries(n
   window.moneyNavReset=moneyNavReset;
 
   window.moneyFilterChange=moneyFilterChange;
+
+  window.consumeNavPrev=consumeNavPrev;
+
+  window.consumeNavNext=consumeNavNext;
+
+  /* R196: 4 个卡片独立年度切换（各自 *YearOffset；prev=更早年份 off+1，next=更晚年份 off-1） */
+  function __r196YearStep(key,dir){ var o=state.settings[key]||0; o=o+dir; if(o<0)o=0; if(o>50)o=50; state.settings[key]=o; saveState(); renderMoney(); }
+  function expenseTopNavPrev(){ __r196YearStep('expenseTopYearOffset',1); }
+  function expenseTopNavNext(){ __r196YearStep('expenseTopYearOffset',-1); }
+  function incomeTopNavPrev(){ __r196YearStep('incomeTopYearOffset',1); }
+  function incomeTopNavNext(){ __r196YearStep('incomeTopYearOffset',-1); }
+  function barYearNavPrev(){ __r196YearStep('barYearOffset',1); }
+  function barYearNavNext(){ __r196YearStep('barYearOffset',-1); }
+  function balanceTrendNavPrev(){ __r196YearStep('balanceTrendYearOffset',1); }
+  function balanceTrendNavNext(){ __r196YearStep('balanceTrendYearOffset',-1); }
+
+  window.expenseTopNavPrev=expenseTopNavPrev;
+  window.expenseTopNavNext=expenseTopNavNext;
+  window.incomeTopNavPrev=incomeTopNavPrev;
+  window.incomeTopNavNext=incomeTopNavNext;
+  window.barYearNavPrev=barYearNavPrev;
+  window.barYearNavNext=barYearNavNext;
+  window.balanceTrendNavPrev=balanceTrendNavPrev;
+  window.balanceTrendNavNext=balanceTrendNavNext;
+  window.__r196YearStep=__r196YearStep;
 
   window.submitCycleForm=submitCycleForm;
 
