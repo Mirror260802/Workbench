@@ -2500,7 +2500,7 @@ body.sb-locked > *:not(#sbSyncModal){pointer-events:none}
 .j-record .j-rec-content{margin-top:6px;color:var(--ink);white-space:pre-wrap;line-height:1.5}
 .j-record img.j-rec-img{max-width:100%;border-radius:10px;margin-top:8px;display:block}
 .j-responses{margin-top:8px;padding-left:12px;border-left:2px solid var(--line)}
-.j-resp{font-size:13px;color:var(--ink);margin:5px 0}
+.j-resp{font-size:13px;color:var(--ink);margin:5px 0;white-space:pre-wrap;line-height:1.5;word-break:break-word}
 .j-resp .j-resp-time{font-size:11px;color:var(--muted);margin-left:6px}
 /* R186-3: 标准记本回应删除按钮：取消 <a> 默认下划线、字体色改为用户授权色 #8E82C8，hover 沿用 var(--plum-deep) */
 .j-resp a, .j-resp [data-action="journal-del-response"]{color:#8E82C8;text-decoration:none}
@@ -4603,7 +4603,7 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
      不保留原 8 基础色对应，不新增色（仍用原 16 色板）；收入↔支出可同色。
      三处（最近账目/月支出TOP5/消费结构饼图）共用同一查询 → 同分类同色。 */
   function colorForCategory(name){
-    if(!name) return 'var(--plum)';
+    if(!name) return '#a8a0e0';
     var exp=getCategories('expense'), inc=getCategories('income');
     var list=(exp.indexOf(name)>=0)?exp:(inc.indexOf(name)>=0?inc:null);
     if(list){ return CATEGORY_COLORS[list.indexOf(name)%CATEGORY_COLORS.length]; }
@@ -8476,7 +8476,7 @@ function renderStandard(j, box){
         +'<div class="j-rec-head"><span class="j-rec-floor">#'+(floorMap[r.id]||(idx+1))+'</span><span class="j-rec-time">'+r.date+' '+tsToTime(r.ts)+'</span><button class="j-rec-edit" data-action="journal-edit-record" data-rid="'+r.id+'" aria-label="编辑">✎</button><button class="j-rec-del" data-action="journal-del-record" data-rid="'+r.id+'" aria-label="删除">×</button></div>'
         +'<div class="j-rec-content">'+esc(r.content||'')+'</div>'+img
         +((r.tags&&r.tags.length)?'<div class="j-rec-tags">'+r.tags.map(function(t){return '<span class="j-rec-tag">'+esc(t)+'</span>';}).join('')+'</div>':'')
-        +'<div class="j-responses">'+resp+'<div class="j-add-row"><input class="j-input" id="jResp_'+r.id+'" placeholder="加一条回应…" style="flex:1;min-width:160px"><button class="btn ghost compact" data-action="journal-add-response" data-rid="'+r.id+'" type="button">回应</button></div></div>'
+        +'<div class="j-responses">'+resp+'<div class="j-add-row"><textarea class="j-textarea" id="jResp_'+r.id+'" rows="2" placeholder="加一条回应…（Enter 换行，Ctrl+Enter 提交）" style="flex:1;min-width:160px;min-height:38px"></textarea><button class="btn ghost compact" data-action="journal-add-response" data-rid="'+r.id+'" type="button">回应</button></div></div>'
         +'</div>';
     });
   });
@@ -8516,6 +8516,9 @@ function attachStandard(box){
       if(!t) return; rec.responses=rec.responses||[]; rec.responses.push({ts:Date.now(),text:t});
       saveState(); renderJournalDetail(); renderJournals();
     });
+    /* R196-9: 回应框支持换行——Enter 换行，Ctrl/Cmd+Enter 提交 */
+    var _ri=box.querySelector('#jResp_'+b.dataset.rid);
+    if(_ri) _ri.addEventListener('keydown', function(e){ if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){ e.preventDefault(); b.click(); } });
   });
 }
 
@@ -11719,11 +11722,11 @@ function renderDashboard(){
 
       var total=sum(catNames,function(c){return cats[c];}), cum=0, R=100, cx=130, cy=130;
 
-      var segs=catNames.map(function(c){ var frac=cats[c]/total, a0=cum/total*2*Math.PI-Math.PI/2, a1=(cum+cats[c])/total*2*Math.PI-Math.PI/2; cum+=cats[c]; var x0=cx+R*Math.cos(a0),y0=cy+R*Math.sin(a0),x1=cx+R*Math.cos(a1),y1=cy+R*Math.sin(a1); var large=(a1-a0)>Math.PI?1:0; return '<path d="M'+cx+' '+cy+' L'+x0.toFixed(1)+' '+y0.toFixed(1)+' A'+R+' '+R+' 0 '+large+' 1 '+x1.toFixed(1)+' '+y1.toFixed(1)+' Z" fill="'+colors[c]+'" stroke="#e6e3ee" stroke-width="2"/>'; }).join('');
+      var segs=catNames.length===1?'<circle cx="'+cx+'" cy="'+cy+'" r="'+R+'" style="fill:'+colors[catNames[0]]+'" stroke="#e6e3ee" stroke-width="2"/>':catNames.map(function(c){ var frac=cats[c]/total, a0=cum/total*2*Math.PI-Math.PI/2, a1=(cum+cats[c])/total*2*Math.PI-Math.PI/2; cum+=cats[c]; var x0=cx+R*Math.cos(a0),y0=cy+R*Math.sin(a0),x1=cx+R*Math.cos(a1),y1=cy+R*Math.sin(a1); var large=(a1-a0)>Math.PI?1:0; return '<path d="M'+cx+' '+cy+' L'+x0.toFixed(1)+' '+y0.toFixed(1)+' A'+R+' '+R+' 0 '+large+' 1 '+x1.toFixed(1)+' '+y1.toFixed(1)+' Z" style="fill:'+colors[c]+'" stroke="#e6e3ee" stroke-width="2"/>'; }).join('');
 
       pie.innerHTML=segs+'<circle cx="130" cy="130" r="66" fill="#fff" stroke="#e6e3ee" stroke-width="2"/><text x="130" y="142" text-anchor="middle" font-size="22" font-weight="800" stroke="none" paint-order="stroke fill" style="fill:var(--plum-deep)">'+money(_consumeTotal)+'</text>';
 
-      legend.innerHTML=catNames.map(function(c){ return '<span><i class="dot" style="background:'+colors[c]+'"></i><span class="lbl">'+esc(c)+'</span><em>'+money(cats[c])+'</em></span>'; }).join('');
+      legend.innerHTML=catNames.map(function(c){ return '<span><i class="dot" style="background:'+colors[c]+'"></i><span class="lbl">'+esc(c||'未分类')+'</span><em>'+money(cats[c])+'</em></span>'; }).join('');
 
     } else { pie.innerHTML=''; legend.innerHTML='<p class="mini-note">这个月还没有支出</p>'; }
 
