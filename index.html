@@ -1542,11 +1542,29 @@ h1{margin:2px 0 0;font:700 30px/1.2 "Songti SC",serif;letter-spacing:.02em}
 #recordEditOverlay .re-save-btn:active{transform:translateY(0);box-shadow:0 4px 14px rgba(168,160,224,.40)}
 @media (max-width:520px){#recordEditOverlay .re-meta{grid-template-columns:1fr;gap:14px}#recordEditOverlay .re-amount-wrap input{font-size:26px}}
 
-.acc-edit-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.acc-edit-row{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end;margin-bottom:10px}
 
-.acc-edit-row input{flex:1}
+.acc-edit-head{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:center;font-size:11px;font-weight:600;opacity:.65;margin-bottom:2px;padding:0 2px}
 
-.acc-edit-row .btn.compact{flex-shrink:0;padding:6px 10px;font-size:12px}
+.acc-edit-head span:nth-child(2){padding-left:2px}
+
+.acc-edit-row .btn{flex-shrink:0;padding:4px 9px;font-size:14px;line-height:1;margin-bottom:1px}
+
+.acc-flow{display:flex;flex-direction:column;gap:4px}
+
+.acc-flow input{width:100%;min-width:0;font-size:13px;border:1px solid var(--line);border-radius:8px;padding:7px 9px;box-sizing:border-box}
+
+.acc-transfer{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+.acc-transfer-head{font-size:13px;font-weight:600;opacity:.8;margin-bottom:8px}
+.acc-transfer-form{display:flex;flex-direction:column;gap:8px}
+.acc-tr-line{display:flex;gap:8px;align-items:center}
+.acc-tr-line input,.acc-tr-line select{flex:1;min-width:0;font-size:13px;border:1px solid var(--line);border-radius:8px;padding:7px 9px;box-sizing:border-box}
+.acc-tr-line .btn{flex-shrink:0}
+.acc-transfer-arrow{opacity:.6;font-weight:700}
+.acc-transfer-list{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+.acc-tr-row{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px;padding:6px 10px;border:1px solid var(--line);border-radius:8px}
+.acc-tr-text{opacity:.85}
+.acc-tr-row .btn{flex-shrink:0;padding:3px 9px;font-size:12px}
 
   .acc-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:14px}
 
@@ -3297,7 +3315,7 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
           <article data-page-node-id="nrAaubvhzzFK9ZnS9vdLtP" class="panel" style="width:100%; box-sizing:border-box; margin:0; display:flex; flex-direction:column"><div data-page-node-id="scj8YQ3c5uNmFSEFfummYv" style="display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-bottom:14px"><h3 data-page-node-id="hIL06LQSiJQARHPZJPwMu9" style="font-size:14px;font-weight:700;margin:0;flex:1;min-width:0"><!--pnid:vsrRhazEw8iYhgHZgOhLaf-->消费结构</h3><!-- R193: 月度切换按钮（其他月份有数据才显示），label 仍写回 consumeYearLabel --><div id="consumeMonthNav" class="month-nav" data-r193="consume-nav" hidden style="align-items:center; background:var(--plum-soft); border-radius:999px; display:none; padding:3px"><button id="consumePrevBtn" data-r193-btn="consume-prev" onclick="if(typeof consumeNavPrev==='function'){consumeNavPrev();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:consume-prev-arrow-->‹</button><span id="consumeYearLabel" style="color:var(--plum-deep); font-size:13px; font-weight:600; min-width:80px; padding:0 8px; text-align:center"><!--pnid:consume-month-label-->本月</span><button id="consumeNextBtn" data-r193-btn="consume-next" onclick="if(typeof consumeNavNext==='function'){consumeNavNext();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:consume-next-arrow-->›</button></div><span id="consumeMonthHint" data-r193="consume-hint" style="font-size:12px; font-weight:600; color:var(--muted)"><!--pnid:consume-month-hint--></span></div><div data-page-node-id="5aU7chtTaW8kb3an9iqVn7" class="pie-wrap pie-wrap--split" style="flex:1;min-height:0"><svg data-page-node-id="sBw0MyAohwmdIzwk9iY2v0" aria-label="消费结构饼图" id="moneyPie" viewBox="0 0 260 260" style="height:auto; max-width:180px; width:100%;flex-shrink:0"></svg><div data-page-node-id="Wf24ML7q6LzG2WWPH9PLCk" class="chart-legend" id="moneyLegend" style="width:100%;margin-top:10px"></div></div></article>
 
           <!-- R124-5: 各账户余额卡片移到中列消费结构卡片下方（原在左列 grid-column:1，现并入中列 flex 容器自定位） -->
-          <article data-page-node-id="3EGAdd0Sj9OXITMrn5RhzI" class="panel" style="margin:0; width:100%; box-sizing:border-box"><div data-page-node-id="iceyKru9UbgfJJqE5pArER" class="panel-head"><div data-page-node-id="0GDt8OjAxqoZOkbJscEM87"><p data-page-node-id="pA6lFKC1xH12ylwpLMH56F" class="eyebrow"><!--pnid:RBOYBRroBK52V742O5vOG2-->各账户余额金额</p><h2 data-page-node-id="lvSFmcxKqLnrKd7QUEhCJ3"><!--pnid:KPzqsgc80KOKLuY3OM4knW-->资产分布</h2></div><button data-page-node-id="ijmJHuhkxFF5NndO68Rg6A" class="btn ghost compact" data-action="open-accounts-edit" onclick="openAccountsEdit()"><svg data-page-node-id="wymlFYDo6qFGlkmWPbmR52"><use data-page-node-id="PpeMwCgO6Kt8kx6wf1d9NM" href="#i-plus"/></svg><!--pnid:nXr4BPwTvVmWlxR0f94U8E-->编辑账户</button></div><div data-page-node-id="n6dq6uqHDr8R0D7XlRBYoa" class="acc-table-wrap" id="accountGrid"></div><p data-page-node-id="ETZ8FPVzjOs3pLS6uCQXYm" class="mini-note" style="margin-top:8px"><!--pnid:1GorF6p6iCmPiEj7KWzp1i-->点击「编辑账户」设置账户名称与期初余额</p></article>
+          <article data-page-node-id="3EGAdd0Sj9OXITMrn5RhzI" class="panel" style="margin:0; width:100%; box-sizing:border-box"><div data-page-node-id="iceyKru9UbgfJJqE5pArER" class="panel-head"><div data-page-node-id="0GDt8OjAxqoZOkbJscEM87"><p data-page-node-id="pA6lFKC1xH12ylwpLMH56F" class="eyebrow"><!--pnid:RBOYBRroBK52V742O5vOG2-->各账户余额金额</p><h2 data-page-node-id="lvSFmcxKqLnrKd7QUEhCJ3"><!--pnid:KPzqsgc80KOKLuY3OM4knW-->资产分布</h2></div><div style="display:flex;gap:8px"><button class="btn ghost compact" data-action="open-transfer" data-r201="transfer-btn">⇋ 转账</button><button data-page-node-id="ijmJHuhkxFF5NndO68Rg6A" class="btn ghost compact" data-action="open-accounts-edit" onclick="openAccountsEdit()"><svg data-page-node-id="wymlFYDo6qFGlkmWPbmR52"><use data-page-node-id="PpeMwCgO6Kt8kx6wf1d9NM" href="#i-plus"/></svg><!--pnid:nXr4BPwTvVmWlxR0f94U8E-->编辑账户</button></div></div><div data-page-node-id="n6dq6uqHDr8R0D7XlRBYoa" class="acc-table-wrap" id="accountGrid"></div><p data-page-node-id="ETZ8FPVzjOs3pLS6uCQXYm" class="mini-note" style="margin-top:8px"><!--pnid:1GorF6p6iCmPiEj7KWzp1i-->点击「编辑账户」设置账户名称与期初余额；点击「转账」记录账户间调拨</p></article>
 
           </div><!-- /money-col-2 -->
 
@@ -3348,6 +3366,12 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
 
 
 
+            <div class="overlay" hidden id="transferOverlay" style="display:none">
+        <div class="overlay-card">
+          <div class="panel-head"><div><p class="eyebrow">资产管理</p><h2>账户间转账</h2></div><button class="text-btn" data-action="close-transfer" type="button">完成</button></div>
+          <div id="transferEditor"></div>
+        </div>
+      </div>
       <!--pnid:r121-search--><!-- R121-4: 全局搜索浮层 -->
       <div data-page-node-id="globalSearchOverlay" class="search-overlay" hidden id="globalSearchOverlay" style="display:none">
         <button class="search-close" data-action="close-search" aria-label="关闭">×</button>
@@ -3361,7 +3385,7 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
 
         <div data-page-node-id="6WEyTot7sICxzizoZAzUTY" class="overlay-card">
 
-          <div data-page-node-id="ghFGHI6NhV2LZZhoENylmq" class="panel-head"><div data-page-node-id="SczWvgUzfuWJeZNx586Zww"><p data-page-node-id="qMrFjUdE3GXl9B7PxnkMUE" class="eyebrow"><!--pnid:5fdLncykDyfbdPntbPcsHE-->资产管理</p><h2 data-page-node-id="eUD0iUCZMkmlLGUpd1bAAT"><!--pnid:330CWKWstoOPOBrL7QkU6H-->编辑账户与余额</h2></div><button data-page-node-id="mhutQh37Foq3wpPDv8sikO" class="text-btn" id="accDoneBtn" onclick="if(typeof closeAccountsEdit==='function')closeAccountsEdit()" type="button"><!--pnid:eItOj7A82bTOIUUBmrxuoe-->完成</button></div>
+          <div data-page-node-id="ghFGHI6NhV2LZZhoENylmq" class="panel-head"><div data-page-node-id="SczWvgUzfuWJeZNx586Zww"><p data-page-node-id="qMrFjUdE3GXl9B7PxnkMUE" class="eyebrow"><!--pnid:5fdLncykDyfbdPntbPcsHE-->资产管理</p><h2 data-page-node-id="eUD0iUCZMkmlLGUpd1bAAT"><!--pnid:330CWKWstoOPOBrL7QkU6H-->编辑账户</h2></div><button data-page-node-id="mhutQh37Foq3wpPDv8sikO" class="text-btn" id="accDoneBtn" type="button"><!--pnid:eItOj7A82bTOIUUBmrxuoe-->完成</button></div>
 
           <div data-page-node-id="TayMcxjGQbKmUnNxIdTv05" id="accountsEditor"></div>
 
@@ -5803,6 +5827,7 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
           var opening=(a.opening!=null)?Number(a.opening):(Number(a.balance)||0);
           var inc=0,exp=0;
           (state.records||[]).forEach(function(r){ if(r.type==='money'&&r.data&&r.data.account===a.name){ if(r.data.flow==='income') inc+=Number(r.data.amount)||0; else exp+=Number(r.data.amount)||0; } });
+          (state.settings.transfers||[]).forEach(function(t){ if(t.from===a.name) exp+=Number(t.amount)||0; if(t.to===a.name) inc+=Number(t.amount)||0; });
           var bal=opening+inc-exp; totOpen+=opening; totInc+=inc; totExp+=exp;
           return '<tr><td>'+esc(a.name)+'</td><td>'+money(opening)+'</td><td class="acc-inc">'+money(inc)+'</td><td class="acc-exp">'+money(exp)+'</td><td>'+money(bal)+'</td></tr>';
         });
@@ -10059,19 +10084,25 @@ function jumpToRecord(view, id, date){
 
   function closeAccountsEdit(){
 
-    var ov=document.getElementById('accountsOverlay');
+    showConfirm({title:'保存编辑',body:'是否保存此次编辑？',detail:'未保存的修改将丢失。',danger:false,confirmText:'保存',onConfirm:function(){
 
-    if(ov){ ov.hidden=true; ov.style.display='none'; }
+      var ov=document.getElementById('accountsOverlay');
 
-    try{ saveAccountsFromEditor(); }catch(e){ console.warn('saveAcc:',e); }
+      if(ov){ ov.hidden=true; ov.style.display='none'; }
 
-    try{ saveState(); renderMoney(); renderAccounts(); updateMoneyAccountOptions(); }catch(e2){ console.warn('render:',e2); }
+      try{ saveAccountsFromEditor(); }catch(e){ console.warn('saveAcc:',e); }
+
+      try{ saveState(); renderMoney(); renderAccounts(); updateMoneyAccountOptions(); }catch(e2){ console.warn('render:',e2); }
+
+    }});
 
   }
 
-  function renderAccountsEditor(){ var accs=state.settings.accounts||[], ed=document.getElementById('accountsEditor'); ed.innerHTML=accs.length?accs.map(function(a,i){ var open=(a.opening!=null)?a.opening:(a.balance||0); return '<div class="acc-edit-row"><input type="text" value="'+esc(a.name)+'" data-acc-name="'+i+'" placeholder="账户名称"><input type="number" value="'+open+'" data-acc-open="'+i+'" step="0.01" placeholder="期初余额"><button class="btn ghost compact" data-action="remove-account" data-id="'+i+'">×<\/button><\/div>'; }).join(''):'<p class="mini-note">还没有账户，点击下方添加</p>'; }
-
-  function saveAccountsFromEditor(){ var rows=document.querySelectorAll('#accountsEditor .acc-edit-row'); var accs=[]; rows.forEach(function(row){ var name=row.querySelector('[data-acc-name]').value.trim(); if(!name) return; var openEl=row.querySelector('[data-acc-open]'); var open=openEl?Number(openEl.value)||0:0; accs.push({name:name,opening:open}); }); state.settings.accounts=accs; }
+    function renderAccountsEditor(){ var accs=state.settings.accounts||[], ed=document.getElementById('accountsEditor'); var headHtml=accs.length?'<div class="acc-edit-head" data-r203="acc-edit-head"><span>账户名称<\/span><span>期初<\/span><span><\/span><\/div>':''; var rowsHtml=accs.length?accs.map(function(a,i){ var open=(a.opening!=null)?a.opening:(a.balance||0); return '<div class="acc-edit-row" data-r202="acc-edit-row"><label class="acc-flow"><input type="text" value="'+esc(a.name)+'" data-acc-name="'+i+'" placeholder="账户名称"><\/label><label class="acc-flow"><input type="number" value="'+open+'" data-acc-open="'+i+'" step="0.01"><\/label><button class="btn ghost compact" data-action="remove-account" data-id="'+i+'">×<\/button><\/div>'; }).join(''):''; ed.innerHTML=accs.length?(headHtml+rowsHtml):'<p class="mini-note">还没有账户，点击下方添加</p>'; }
+function saveAccountsFromEditor(){ var rows=document.querySelectorAll('#accountsEditor .acc-edit-row'); var accs=[]; rows.forEach(function(row){ var name=row.querySelector('[data-acc-name]').value.trim(); if(!name) return; var openEl=row.querySelector('[data-acc-open]'); var open=openEl?Number(openEl.value)||0:0; accs.push({name:name,opening:open}); }); state.settings.accounts=accs; }
+  function renderTransferEditor(){ var accs=state.settings.accounts||[], ed=document.getElementById('transferEditor'); if(!ed) return; var accOpts=accs.map(function(a){return '<option>'+esc(a.name)+'<\/option>';}).join(''); var trs=(state.settings.transfers||[]).map(function(t){ var note=t.note?(' · '+esc(t.note)):''; return '<div class="acc-tr-row"><span class="acc-tr-text">'+esc(t.from)+' → '+esc(t.to)+'：¥'+(Number(t.amount)||0)+note+'<\/span><button class="btn ghost compact" data-action="remove-transfer" data-id="'+esc(t.id)+'">×<\/button><\/div>'; }).join(''); ed.innerHTML='<div class="acc-transfer" data-r199="transfer"><div class="acc-transfer-head">账户间转账<\/div><div class="acc-transfer-form"><div class="acc-tr-line"><select data-acc-transfer-from>'+accOpts+'<\/select><span class="acc-transfer-arrow">→<\/span><select data-acc-transfer-to>'+accOpts+'<\/select><\/div><div class="acc-tr-line"><input type="number" data-acc-transfer-amount placeholder="金额" step="0.01" min="0"><\/div><div class="acc-tr-line"><input type="text" data-acc-transfer-note placeholder="备注（可选）"><button class="btn primary compact" data-action="add-transfer" type="button">添加<\/button><\/div><\/div><div class="acc-transfer-list">'+trs+'<\/div><\/div>'; }
+  function openTransfer(){ renderTransferEditor(); var ov=document.getElementById('transferOverlay'); if(ov){ ov.hidden=false; ov.style.display='flex'; } }
+  function closeTransfer(){ var ov=document.getElementById('transferOverlay'); if(ov){ ov.hidden=true; ov.style.display='none'; } try{ saveState(); renderAccounts(); }catch(e){ console.warn('closeTransfer:',e); } }
 
   /* ── 清单管理（日程模块） ── */
 
@@ -10557,6 +10588,7 @@ function jumpToRecord(view, id, date){
     document.getElementById('brandSettings').addEventListener('click',function(e){ if(e.target.id==='brandSettings') closeBrandSettings(); });
 
     document.getElementById('accountsOverlay').addEventListener('click',function(e){ if(e.target.id==='accountsOverlay') closeAccountsEdit(); });
+      document.getElementById('transferOverlay').addEventListener('click',function(e){ if(e.target.id==='transferOverlay') closeTransfer(); });
 
     document.getElementById('categoriesOverlay').addEventListener('click',function(e){
       if(e.target.id==='categoriesOverlay'){ closeCategoriesEdit(); return; }
@@ -10759,11 +10791,15 @@ function jumpToRecord(view, id, date){
       if(type==='import-money'){ try{ if(typeof openImportHelp==='function'){ openImportHelp('money'); } else { importData('money'); } }catch(e){ toast('导入失败：'+(e&&e.message?e.message:e)); } }
       if(type==='import-media'){ try{ if(typeof openImportHelp==='function'){ openImportHelp('media'); } else { importData('media'); } }catch(e){ toast('导入失败：'+(e&&e.message?e.message:e)); } }
 
-      if(type==='open-accounts-edit') openAccountsEdit(); if(type==='close-accounts') closeAccountsEdit();
+      if(type==='open-accounts-edit') openAccountsEdit(); if(type==='close-accounts') closeAccountsEdit(); if(type==='open-transfer') openTransfer(); if(type==='close-transfer') closeTransfer();
 
       if(type==='add-account'){ if(!state.settings.accounts) state.settings.accounts=[]; state.settings.accounts.push({name:'新账户',opening:0}); renderAccountsEditor(); }
 
-      if(type==='remove-account'){ var idx=Number(id); if(state.settings.accounts) state.settings.accounts.splice(idx,1); renderAccountsEditor(); }
+      if(type==='remove-account'){ var idx=Number(id); var acc=(state.settings.accounts||[])[idx]; var accName=acc?acc.name:'该账户'; showConfirm({title:'删除账户',body:'确定要删除 <b>'+esc(accName)+'</b> 这个账户吗？',detail:'该操作会从本机和云端同时移除，<b>不可恢复</b>。<br>相关转账记录不会自动删除。',danger:false,confirmText:'删除',onConfirm:function(){ if(state.settings.accounts) state.settings.accounts.splice(idx,1); renderAccountsEditor(); }}); }
+
+      if(type==='add-transfer'){ var tf=document.querySelector('#transferEditor [data-acc-transfer-from]'); var tt=document.querySelector('#transferEditor [data-acc-transfer-to]'); var ta=document.querySelector('#transferEditor [data-acc-transfer-amount]'); var tn=document.querySelector('#transferEditor [data-acc-transfer-note]'); var tfv=tf?tf.value:''; var ttv=tt?tt.value:''; var tamt=ta?Number(ta.value)||0:0; var tnv=tn?tn.value.trim():''; if(!tfv||!ttv||tfv===ttv||!(tamt>0)){ if(typeof toast==='function') toast('请选择两个不同的账户并填写金额'); } else { if(!state.settings.transfers) state.settings.transfers=[]; state.settings.transfers.push({id:'t'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),from:tfv,to:ttv,amount:tamt,note:tnv}); renderTransferEditor(); if(typeof saveState==='function') saveState(); if(typeof renderAccounts==='function') renderAccounts(); if(typeof updateMoneyAccountOptions==='function') updateMoneyAccountOptions(); } }
+
+      if(type==='remove-transfer'){ var tid2=id; if(state.settings.transfers) state.settings.transfers=state.settings.transfers.filter(function(t){return String(t.id)!==String(tid2);}); renderTransferEditor(); if(typeof saveState==='function') saveState(); if(typeof renderAccounts==='function') renderAccounts(); }
 
       if(type==='open-categories-edit') openCategoriesEdit(); if(type==='close-categories') closeCategoriesEdit();
 
@@ -11385,6 +11421,7 @@ function renderDashboard(){
           var opening=(a.opening!=null)?Number(a.opening):(Number(a.balance)||0);
           var inc=0,exp=0;
           (state.records||[]).forEach(function(r){ if(r.type==='money'&&r.data&&r.data.account===a.name){ if(r.data.flow==='income') inc+=Number(r.data.amount)||0; else exp+=Number(r.data.amount)||0; } });
+          (state.settings.transfers||[]).forEach(function(t){ if(t.from===a.name) exp+=Number(t.amount)||0; if(t.to===a.name) inc+=Number(t.amount)||0; });
           var bal=opening+inc-exp; totOpen+=opening; totInc+=inc; totExp+=exp;
           return '<tr><td>'+esc(a.name)+'</td><td>'+money(opening)+'</td><td class="acc-inc">'+money(inc)+'</td><td class="acc-exp">'+money(exp)+'</td><td>'+money(bal)+'</td></tr>';
         });
@@ -11765,6 +11802,7 @@ function renderAccounts(){
           var opening=(a.opening!=null)?Number(a.opening):(Number(a.balance)||0);
           var inc=0,exp=0;
           (state.records||[]).forEach(function(r){ if(r.type==='money'&&r.data&&r.data.account===a.name){ if(r.data.flow==='income') inc+=Number(r.data.amount)||0; else exp+=Number(r.data.amount)||0; } });
+          (state.settings.transfers||[]).forEach(function(t){ if(t.from===a.name) exp+=Number(t.amount)||0; if(t.to===a.name) inc+=Number(t.amount)||0; });
           var bal=opening+inc-exp; totOpen+=opening; totInc+=inc; totExp+=exp;
           return '<tr><td>'+esc(a.name)+'</td><td>'+money(opening)+'</td><td class="acc-inc">'+money(inc)+'</td><td class="acc-exp">'+money(exp)+'</td><td>'+money(bal)+'</td></tr>';
         });
@@ -11945,19 +11983,25 @@ function openAccountsEdit(){ try{ renderAccountsEditor(); }catch(e){ console.war
 
 function closeAccountsEdit(){
 
-    var ov=document.getElementById('accountsOverlay');
+    showConfirm({title:'保存编辑',body:'是否保存此次编辑？',detail:'未保存的修改将丢失。',danger:false,confirmText:'保存',onConfirm:function(){
 
-    if(ov){ ov.hidden=true; ov.style.display='none'; }
+      var ov=document.getElementById('accountsOverlay');
 
-    try{ saveAccountsFromEditor(); }catch(e){ console.warn('saveAcc:',e); }
+      if(ov){ ov.hidden=true; ov.style.display='none'; }
 
-    try{ saveState(); renderMoney(); renderAccounts(); updateMoneyAccountOptions(); }catch(e2){ console.warn('render:',e2); }
+      try{ saveAccountsFromEditor(); }catch(e){ console.warn('saveAcc:',e); }
+
+      try{ saveState(); renderMoney(); renderAccounts(); updateMoneyAccountOptions(); }catch(e2){ console.warn('render:',e2); }
+
+    }});
 
   }
 
-function renderAccountsEditor(){ var accs=state.settings.accounts||[], ed=document.getElementById('accountsEditor'); ed.innerHTML=accs.length?accs.map(function(a,i){ var open=(a.opening!=null)?a.opening:(a.balance||0); return '<div class="acc-edit-row"><input type="text" value="'+esc(a.name)+'" data-acc-name="'+i+'" placeholder="账户名称"><input type="number" value="'+open+'" data-acc-open="'+i+'" step="0.01" placeholder="期初余额"><button class="btn ghost compact" data-action="remove-account" data-id="'+i+'">×<\/button><\/div>'; }).join(''):'<p class="mini-note">还没有账户，点击下方添加</p>'; }
-
+  function renderAccountsEditor(){ var accs=state.settings.accounts||[], ed=document.getElementById('accountsEditor'); var headHtml=accs.length?'<div class="acc-edit-head" data-r203="acc-edit-head"><span>账户名称<\/span><span>期初<\/span><span><\/span><\/div>':''; var rowsHtml=accs.length?accs.map(function(a,i){ var open=(a.opening!=null)?a.opening:(a.balance||0); return '<div class="acc-edit-row" data-r202="acc-edit-row"><label class="acc-flow"><input type="text" value="'+esc(a.name)+'" data-acc-name="'+i+'" placeholder="账户名称"><\/label><label class="acc-flow"><input type="number" value="'+open+'" data-acc-open="'+i+'" step="0.01"><\/label><button class="btn ghost compact" data-action="remove-account" data-id="'+i+'">×<\/button><\/div>'; }).join(''):''; ed.innerHTML=accs.length?(headHtml+rowsHtml):'<p class="mini-note">还没有账户，点击下方添加</p>'; }
 function saveAccountsFromEditor(){ var rows=document.querySelectorAll('#accountsEditor .acc-edit-row'); var accs=[]; rows.forEach(function(row){ var name=row.querySelector('[data-acc-name]').value.trim(); if(!name) return; var openEl=row.querySelector('[data-acc-open]'); var open=openEl?Number(openEl.value)||0:0; accs.push({name:name,opening:open}); }); state.settings.accounts=accs; }
+  function renderTransferEditor(){ var accs=state.settings.accounts||[], ed=document.getElementById('transferEditor'); if(!ed) return; var accOpts=accs.map(function(a){return '<option>'+esc(a.name)+'<\/option>';}).join(''); var trs=(state.settings.transfers||[]).map(function(t){ var note=t.note?(' · '+esc(t.note)):''; return '<div class="acc-tr-row"><span class="acc-tr-text">'+esc(t.from)+' → '+esc(t.to)+'：¥'+(Number(t.amount)||0)+note+'<\/span><button class="btn ghost compact" data-action="remove-transfer" data-id="'+esc(t.id)+'">×<\/button><\/div>'; }).join(''); ed.innerHTML='<div class="acc-transfer" data-r199="transfer"><div class="acc-transfer-head">账户间转账<\/div><div class="acc-transfer-form"><div class="acc-tr-line"><select data-acc-transfer-from>'+accOpts+'<\/select><span class="acc-transfer-arrow">→<\/span><select data-acc-transfer-to>'+accOpts+'<\/select><\/div><div class="acc-tr-line"><input type="number" data-acc-transfer-amount placeholder="金额" step="0.01" min="0"><\/div><div class="acc-tr-line"><input type="text" data-acc-transfer-note placeholder="备注（可选）"><button class="btn primary compact" data-action="add-transfer" type="button">添加<\/button><\/div><\/div><div class="acc-transfer-list">'+trs+'<\/div><\/div>'; }
+  function openTransfer(){ renderTransferEditor(); var ov=document.getElementById('transferOverlay'); if(ov){ ov.hidden=false; ov.style.display='flex'; } }
+  function closeTransfer(){ var ov=document.getElementById('transferOverlay'); if(ov){ ov.hidden=true; ov.style.display='none'; } try{ saveState(); renderAccounts(); }catch(e){ console.warn('closeTransfer:',e); } }
 
 function moneyNavPrev(){ state.settings.moneyMonthOffset=(state.settings.moneyMonthOffset||0)+1; saveState(); renderMoney(); }
 
@@ -12038,7 +12082,7 @@ function sortedRecords(type, all){
 
 function recordRow(r){
 
-    var tone = r.type==='money'?(r.data.flow==='income'?'#86b3a1':colorForCategory(r.data.category,0)):r.type==='planner'?'#9a7cc0':r.type==='cycle'?'#cf8aa0':r.type==='home'?'#9a7cc0':'#9a7cc0';
+    var tone = r.type==='money'?colorForCategory(r.data.category,0):r.type==='planner'?'#9a7cc0':r.type==='cycle'?'#cf8aa0':r.type==='home'?'#9a7cc0':'#9a7cc0';
 
     var cat = r.type==='money'?r.data.category : r.type==='planner'?'日程' : r.type==='cycle'?'经期':'待买';
 
