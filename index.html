@@ -420,6 +420,9 @@ h1{margin:2px 0 0;font:700 30px/1.2 "Songti SC",serif;letter-spacing:.02em}
 
 .metric{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow)}
 
+/* R206: 日程视图统计卡片可点击切换智能清单筛选 */
+#view-planner .metric[data-action="jump-planner"]{cursor:pointer}
+
 .metric span{font-size:12px;color:var(--muted)}
 
 .metric strong{display:block;font-size:21px;font-weight:700;margin-top:4px}
@@ -1157,6 +1160,22 @@ h1{margin:2px 0 0;font:700 30px/1.2 "Songti SC",serif;letter-spacing:.02em}
 .view-toggle button.active{background:#fff;color:var(--plum-deep);box-shadow:0 2px 8px rgba(142,130,200,.12)}
 
 .compact-select{padding:4px 6px;border:1px solid var(--line);border-radius:8px;background:#fff;font-size:10px;white-space:nowrap}
+
+/* R211: 流水卡片自定义日期段筛选器，视觉复用 compact-select 令牌（零新色） */
+.compact-date{padding:4px 6px;border:1px solid var(--line);border-radius:8px;background:#fff;font-size:12px;color:var(--ink)}
+.money-filters .money-date-sep{color:var(--muted);font-size:12px;white-space:nowrap}
+
+/* R212: 日期段筛选改为图标触发浮层（仅保留日历图标，点击弹出时间段输入框） */
+.date-pop-wrap{position:relative;display:inline-flex;align-items:center}
+.icon-btn{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;padding:0;background:transparent;border:0;border-radius:8px;color:var(--plum-deep);cursor:pointer}
+.icon-btn:hover{background:var(--plum-soft)}
+.icon-btn.active{background:var(--plum-soft)}
+.icon-btn svg{width:16px;height:16px;opacity:.9}
+.date-popup{position:absolute;top:calc(100% + 6px);right:0;z-index:30;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:8px}
+.date-popup[hidden]{display:none}
+.date-popup-row{display:flex;align-items:center;gap:6px}
+.date-popup-field{display:flex;flex-direction:column;gap:2px;font-size:11px;color:var(--muted)}
+.date-popup-actions{display:flex;justify-content:flex-end}
 
 .rating-distribution{display:flex;gap:10px;align-items:flex-end;height:90px}
 
@@ -3289,7 +3308,7 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
 
           <!--pnid:ZWhngaxSoTD4JR5HHEbfZE--><!-- 流水（记一笔账正下方，填满左列空白） -->
 
-<article data-page-node-id="ZBucWcXWyV4QPOSQnfzsaO" class="panel money-panel" style="margin:0; width:100%; box-sizing:border-box"><div class="panel-head" style="gap:8px"><div data-page-node-id="v50HRF29Eobi4q3a8OeGK2" style=""><p data-page-node-id="zXEORactZbmEeAHGn8XUk5" class="eyebrow" style="margin:0"><!--pnid:6EFSgir4wQjhLDtOa5k2pa-->流水</p><h2 data-page-node-id="gM43kUyQ3PsOLRU95YEWfx" style="margin:2px 0 0"><!--pnid:Fu5RzAbLGr4mrNeE5xFSf1-->最近账目</h2></div><div class="money-monthnav-row" style="display:flex; align-items:center; justify-content:center; gap:8px; "><div data-page-node-id="miEQAHJdFDTUEOB9dFepE5" class="month-nav" style="align-items:center; background:var(--plum-soft); border-radius:999px; display:inline-flex; padding:3px"><button data-page-node-id="drVx7CKxu8nFF7QF8kmhJa" class="month-nav-btn" data-action="money-prev-month" onclick="if(typeof moneyNavPrev==='function'){moneyNavPrev();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:3MtXq0TPq30wlqrOpRjxAB-->‹</button><span data-page-node-id="8bQ7u4NimCsC5pLjMg8fit" id="moneyMonthLabel" style="color:var(--plum-deep); font-size:13px; font-weight:600; min-width:80px; padding:0 8px; text-align:center"><!--pnid:dS1pI7tU12JCJIZ32i1Kn6-->本月</span><button data-page-node-id="fIJSTWIyNq1F11HwnJ6EFs" class="month-nav-btn" data-action="money-next-month" onclick="if(typeof moneyNavNext==='function'){moneyNavNext();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:inqeM0x9CxZWmyrMmVOFij-->›</button></div><button data-page-node-id="dRv5V7VWI5hxytErrMw3fM" class="text-btn" data-action="money-reset-month" id="moneyResetBtn" onclick="if(typeof moneyNavReset==='function'){moneyNavReset();return false;}" type="button" style="display:none; font-size:12px"><!--pnid:LQLS0KSHnAaJtMh5E1S6UQ-->回到本月</button></div><div data-page-node-id="WZ4RFqka7gESmB8A6WVf9Q" class="money-filters" style="align-items:center; display:flex; gap:8px"><select data-page-node-id="PEiJz7tyoTD1CGLmKYa7LS" class="compact-select" id="moneyFilter" onchange="if(typeof moneyFilterChange==='function'){moneyFilterChange(this.value);return false;}" style="flex-shrink:0"><option data-page-node-id="XPvmwJlydgNTPoOAEh3KFj" value="all"><!--pnid:VElmF9GXCw5wuLmiF9WyLG-->全部分类</option></select></div></div><div data-page-node-id="hkAL5KYdlOaj8mYGZSJxkz" class="record-list" id="moneyList"></div><p data-page-node-id="r196countFooter" id="moneyListCount" class="mini-note" style="margin:10px 0 0;text-align:center"></p></article>
+<article data-page-node-id="ZBucWcXWyV4QPOSQnfzsaO" class="panel money-panel" style="margin:0; width:100%; box-sizing:border-box"><div class="panel-head" style="gap:8px"><div data-page-node-id="v50HRF29Eobi4q3a8OeGK2" style=""><p data-page-node-id="zXEORactZbmEeAHGn8XUk5" class="eyebrow" style="margin:0"><!--pnid:6EFSgir4wQjhLDtOa5k2pa-->流水</p><h2 data-page-node-id="gM43kUyQ3PsOLRU95YEWfx" style="margin:2px 0 0"><!--pnid:Fu5RzAbLGr4mrNeE5xFSf1-->最近账目</h2></div><div class="money-monthnav-row" style="display:flex; align-items:center; justify-content:center; gap:8px; "><div data-page-node-id="miEQAHJdFDTUEOB9dFepE5" class="month-nav" style="align-items:center; background:var(--plum-soft); border-radius:999px; display:inline-flex; padding:3px"><button data-page-node-id="drVx7CKxu8nFF7QF8kmhJa" class="month-nav-btn" data-action="money-prev-month" onclick="if(typeof moneyNavPrev==='function'){moneyNavPrev();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:3MtXq0TPq30wlqrOpRjxAB-->‹</button><span data-page-node-id="8bQ7u4NimCsC5pLjMg8fit" id="moneyMonthLabel" style="color:var(--plum-deep); font-size:13px; font-weight:600; min-width:80px; padding:0 8px; text-align:center"><!--pnid:dS1pI7tU12JCJIZ32i1Kn6-->本月</span><button data-page-node-id="fIJSTWIyNq1F11HwnJ6EFs" class="month-nav-btn" data-action="money-next-month" onclick="if(typeof moneyNavNext==='function'){moneyNavNext();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:inqeM0x9CxZWmyrMmVOFij-->›</button></div><button data-page-node-id="dRv5V7VWI5hxytErrMw3fM" class="text-btn" data-action="money-reset-month" id="moneyResetBtn" onclick="if(typeof moneyNavReset==='function'){moneyNavReset();return false;}" type="button" style="display:none; font-size:12px"><!--pnid:LQLS0KSHnAaJtMh5E1S6UQ-->回到本月</button></div><div data-page-node-id="WZ4RFqka7gESmB8A6WVf9Q" class="money-filters" style="align-items:center; display:flex; gap:8px"><select data-page-node-id="PEiJz7tyoTD1CGLmKYa7LS" class="compact-select" id="moneyFilter" onchange="if(typeof moneyFilterChange==='function'){moneyFilterChange(this.value);return false;}" style="flex-shrink:0"><option data-page-node-id="XPvmwJlydgNTPoOAEh3KFj" value="all"><!--pnid:VElmF9GXCw5wuLmiF9WyLG-->全部分类</option></select><select data-page-node-id="PEiJz7tyoTD1CGLmKYa7LS-acc" class="compact-select" id="moneyAccountFilter" onchange="if(typeof moneyAccountFilterChange==='function'){moneyAccountFilterChange(this.value);return false;}" style="flex-shrink:0" data-r210="account-filter"><option data-page-node-id="XPvmwJlydgNTPoOAEh3KFj-acc" value="all"><!--pnid:VElmF9GXCw5wuLmiF9WyLG-acc-->全部账户</option></select><span data-r212="date-pop-wrap" class="date-pop-wrap"><button data-r212="date-icon" class="icon-btn" id="moneyDateBtn" type="button" title="按日期段筛选" aria-label="按日期段筛选" onclick="if(typeof toggleDatePopup==='function'){toggleDatePopup(event);return false;}"><svg viewBox="0 0 24 24" width="16" height="16"><use href="#i-calendar"/></svg></button><div data-r212="date-popup" class="date-popup" id="moneyDatePopup" hidden onclick="if(event&&event.stopPropagation){event.stopPropagation();}"><div class="date-popup-row"><label class="date-popup-field">起始<input data-r211="date-from" class="compact-date" id="moneyDateFrom" type="date" onchange="if(typeof moneyDateRangeChange==='function'){moneyDateRangeChange();return false;}"></label><span class="money-date-sep" data-r211="date-sep">至</span><label class="date-popup-field">结束<input data-r211="date-to" class="compact-date" id="moneyDateTo" type="date" onchange="if(typeof moneyDateRangeChange==='function'){moneyDateRangeChange();return false;}"></label></div><div class="date-popup-actions"><button data-r211="date-clear" class="text-btn" id="moneyDateClear" type="button" onclick="if(typeof moneyDateRangeClear==='function'){moneyDateRangeClear();return false;}">清除</button></div></div></span></div></div><div data-page-node-id="hkAL5KYdlOaj8mYGZSJxkz" class="record-list" id="moneyList"></div><p data-page-node-id="r196countFooter" id="moneyListCount" class="mini-note" style="margin:10px 0 0;text-align:center"></p></article>
 
           <!--pnid:R85-monthSummary--><!-- 月度对比 + 月度预算（挪到左列 row 3，紧贴流水卡片下方） -->
           <!-- R89-1: 双行等宽（默认纵向堆叠，每行占满父容器宽度） -->
@@ -3632,17 +3651,17 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
 
             <div data-page-node-id="LHVRsokUh9RiSU6fjR8MNV" class="metric-row">
 
-              <article data-page-node-id="qu2mQq6L7YeGndCVxbU1bg" class="metric"><span data-page-node-id="swhoZM8T6gwbXImsFwRXfj"><!--pnid:U2Ys8GSpFOU9tNhNv62oTv-->今天</span><strong data-page-node-id="UN0Qn5htdrh9a8MWXWgDPy" id="plannerToday"><!--pnid:mzLIpzPcObJ5CW006isb4N-->0</strong></article>
+              <article data-page-node-id="qu2mQq6L7YeGndCVxbU1bg" class="metric" data-action="jump-planner" data-planner-filter="today" data-r206="metric-jump"><span data-page-node-id="swhoZM8T6gwbXImsFwRXfj"><!--pnid:U2Ys8GSpFOU9tNhNv62oTv-->今天</span><strong data-page-node-id="UN0Qn5htdrh9a8MWXWgDPy" id="plannerToday"><!--pnid:mzLIpzPcObJ5CW006isb4N-->0</strong></article>
 
-              <article data-page-node-id="4Bose1pYFIqaFDGTE5eFEa" class="metric"><span data-page-node-id="taK2dR9JYZ9mU2GkOWDQ3Z"><!--pnid:cOTIFA0GWy6i4vcUmWGtQK-->已逾期</span><strong data-page-node-id="umkQ356WwFZH9hdRX16hvm" id="plannerOverdue"><!--pnid:sY291NnhEDbGDMLWBaG5Wc-->0</strong></article>
+              <article data-page-node-id="4Bose1pYFIqaFDGTE5eFEa" class="metric" data-action="jump-planner" data-planner-filter="overdue" data-r206="metric-jump"><span data-page-node-id="taK2dR9JYZ9mU2GkOWDQ3Z"><!--pnid:cOTIFA0GWy6i4vcUmWGtQK-->已逾期</span><strong data-page-node-id="umkQ356WwFZH9hdRX16hvm" id="plannerOverdue"><!--pnid:sY291NnhEDbGDMLWBaG5Wc-->0</strong></article>
 
-              <article data-page-node-id="AqbquOTI3iUldvalyrLkQn" class="metric"><span data-page-node-id="gOQxPti6XRBDfsy0tvO9VL"><!--pnid:FkWjC4L0UE4bH0pzaNAtv6-->未来 7 天</span><strong data-page-node-id="1wC4C5CzHLFVz0vVH25o4m" id="plannerWeek"><!--pnid:cl5kKtNehKdKWd8jEWZufa-->0</strong></article>
+              <article data-page-node-id="AqbquOTI3iUldvalyrLkQn" class="metric" data-action="jump-planner" data-planner-filter="scheduled" data-r206="metric-jump"><span data-page-node-id="gOQxPti6XRBDfsy0tvO9VL"><!--pnid:FkWjC4L0UE4bH0pzaNAtv6-->未来 7 天</span><strong data-page-node-id="1wC4C5CzHLFVz0vVH25o4m" id="plannerWeek"><!--pnid:cl5kKtNehKdKWd8jEWZufa-->0</strong></article>
 
             </div>
 
             <article data-page-node-id="d8324HIQqFK8p5hM12ABFJ" class="panel"><div data-page-node-id="XxbroX9mB63xGhci33bFat" class="panel-head"><div data-page-node-id="95qjvktoZD2P9F8bR9YOKc"><p data-page-node-id="6fBonF2rb588KCii3TbTuE" class="eyebrow"><!--pnid:4GBWT8aXTADgjqdcbwT1wg-->一周日历</p><h2 data-page-node-id="2AqmEnR2kxxDySEuMI8hJU"><!--pnid:Hvic8mZl1lovNcE70e4XY2-->接下来七天</h2></div></div><div data-page-node-id="Km9OO9gMWw01oyOMIAy8NM" class="week-strip" id="weekStrip"></div></article>
 
-            <article data-page-node-id="D4eNZlR8fuxIV764DhEVrP" class="panel"><div data-page-node-id="gmJzqLcKE76NbBkFGipnuj" class="panel-head"><div data-page-node-id="o2DaS7S1PAKuAOLvCbvRd6"><p data-page-node-id="YVgADx6ywQJZ7dVyY3qk8L" class="eyebrow"><!--pnid:cIgVKJ67Zt1iTVSysxXYI4-->智能清单</p><h2 data-page-node-id="z2XTIWFwZEx6vhcFHrmP56"><!--pnid:MGQ9iYpM05gRGgNjZ6eWzM-->我的提醒事项</h2></div><div data-page-node-id="LtfjkywYjlkf4DgMNUVbTi" class="filter-chips" id="plannerFilters"><button data-page-node-id="WrRiCLCIv1hW2brlPEKugX" class="active" data-planner-filter="all"><!--pnid:02uHTcXc7ksJQkcN3c2KSv-->全部</button><button data-page-node-id="1NmxJkgm5ZX0WADLU7e01R" data-planner-filter="today"><!--pnid:o9gpRRoUSr6zgpLErDgVus-->今天</button><button data-page-node-id="oVTVwDzz6segs61ZVX4e86" data-planner-filter="scheduled"><!--pnid:gSC2dlznJuw1MetRPnzaKX-->计划内</button><button data-page-node-id="088oT03gkEhytSDudR92J3" data-planner-filter="done"><!--pnid:x1NNSjVMlesvNUC4tVyAxo-->已完成</button></div></div><div data-page-node-id="yUoZbMuwrLcuXCIjI1gMHE" class="date-groups" id="plannerList"></div></article>
+            <article data-page-node-id="D4eNZlR8fuxIV764DhEVrP" class="panel"><div data-page-node-id="gmJzqLcKE76NbBkFGipnuj" class="panel-head"><div data-page-node-id="o2DaS7S1PAKuAOLvCbvRd6"><p data-page-node-id="YVgADx6ywQJZ7dVyY3qk8L" class="eyebrow"><!--pnid:cIgVKJ67Zt1iTVSysxXYI4-->智能清单</p><h2 data-page-node-id="z2XTIWFwZEx6vhcFHrmP56"><!--pnid:MGQ9iYpM05gRGgNjZ6eWzM-->我的提醒事项</h2></div><div data-page-node-id="LtfjkywYjlkf4DgMNUVbTi" class="filter-chips" id="plannerFilters"><button data-page-node-id="WrRiCLCIv1hW2brlPEKugX" class="active" data-planner-filter="all"><!--pnid:02uHTcXc7ksJQkcN3c2KSv-->全部</button><button data-page-node-id="1NmxJkgm5ZX0WADLU7e01R" data-planner-filter="today"><!--pnid:o9gpRRoUSr6zgpLErDgVus-->今天</button><button data-page-node-id="oVTVwDzz6segs61ZVX4e86" data-planner-filter="scheduled"><!--pnid:gSC2dlznJuw1MetRPnzaKX-->计划内</button><button data-page-node-id="r206FilterOverdue" data-planner-filter="overdue" data-r206="planner-filter"><!--pnid:r206FilterOverdueT-->已逾期</button><button data-page-node-id="088oT03gkEhytSDudR92J3" data-planner-filter="done"><!--pnid:x1NNSjVMlesvNUC4tVyAxo-->已完成</button></div></div><div data-page-node-id="yUoZbMuwrLcuXCIjI1gMHE" class="date-groups" id="plannerList"></div></article>
 
           </div>
 
@@ -3864,7 +3883,7 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
 
               <label data-page-node-id="m3s0jVo8MLvp6WKJWjoYRC" class="field"><span data-page-node-id="F8DIIRzT3bamX5Y4WEyjEq"><!--pnid:JuhcybMDzprdYJM1H5JYRg-->日均在场时间（小时）</span><input data-page-node-id="9E6N3ubQDqUCMcOF6Yh6t0" max="24" min="0" name="onsite" step="0.5" type="number" value="8"></label>
 
-              <div data-page-node-id="KM4yCH0nZkn5vKYV3jUAvQ" class="form-row"><label data-page-node-id="A1ZgdRV0e4qygDvpL44sKt" class="field"><span data-page-node-id="rqVT6E37hR5BwyaKs8kivQ"><!--pnid:DmuHMQ7QMNlHWosYGHTC84-->单程通勤（小时）</span><input data-page-node-id="czEWjLnjL07hOjnVnJLRhZ" max="6" min="0" name="commute" step="0.5" type="number" value="0.6"></label><label data-page-node-id="7uxqQ9zyhdkNvoEkzXA9wj" class="field"><span data-page-node-id="AYQDdQPNngC36I0hzlHSCL"><!--pnid:whnuHItscMlL1d9CyMFcZt-->月均加班（小时）</span><input data-page-node-id="wBfT7xxfVkjFV4jZnNZFf1" max="200" min="0" name="overtime" step="1" type="number" value="10"></label></div>
+              <div data-page-node-id="KM4yCH0nZkn5vKYV3jUAvQ" class="form-row"><label data-page-node-id="A1ZgdRV0e4qygDvpL44sKt" class="field"><span data-page-node-id="rqVT6E37hR5BwyaKs8kivQ"><!--pnid:DmuHMQ7QMNlHWosYGHTC84-->单程通勤（小时）</span><input data-page-node-id="czEWjLnjL07hOjnVnJLRhZ" data-r207="commute-step-any" max="6" min="0" name="commute" step="any" type="number" value="0.6"></label><label data-page-node-id="7uxqQ9zyhdkNvoEkzXA9wj" class="field"><span data-page-node-id="AYQDdQPNngC36I0hzlHSCL"><!--pnid:whnuHItscMlL1d9CyMFcZt-->月均加班（小时）</span><input data-page-node-id="wBfT7xxfVkjFV4jZnNZFf1" max="200" min="0" name="overtime" step="1" type="number" value="10"></label></div>
 
               <label data-page-node-id="vbOn5e8EKjpsYEN31lAii6" class="field"><span data-page-node-id="UFp73ZeqGIZyLxdwPiNzjD"><!--pnid:6OiiPTQzDIfCPD6s1mjGkW-->月工作成本（通勤+餐饮+其他，元）</span><input data-page-node-id="R5ZKHMAM3lJvTsU9vOVfLg" min="0" name="cost" step="50" type="number" value="1500"></label>
 
@@ -4782,6 +4801,11 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
         if(typeof s.barYearOffset !== 'number') s.barYearOffset = legacy;
         if(typeof s.balanceTrendYearOffset !== 'number') s.balanceTrendYearOffset = legacy;
       }
+      /* R210: 新增账户筛选器默认值为全部账户 */
+      if(!s.moneyAccountFilter) s.moneyAccountFilter='all';
+      /* R211: 新增自定义日期段筛选器，默认无（空串表示不限） */
+      if(typeof s.moneyDateFrom !== 'string') s.moneyDateFrom='';
+      if(typeof s.moneyDateTo !== 'string') s.moneyDateTo='';
     })(raw.settings||{});
 
     if(!raw||raw.version!==3) return def;
@@ -5101,8 +5125,31 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
     });
   }
 
+  /* R211: 记账导入时，按字段自动补齐收支分类与账户到设置中（若设置尚不存在则新增） */
+  function syncImportMeta(kind, cands){
+    if(kind!=='money') return;
+    var s=state.settings=state.settings||{};
+    if(!s.customCategories) s.customCategories={};
+    if(!Array.isArray(s.customCategories.expense)) s.customCategories.expense=[];
+    if(!Array.isArray(s.customCategories.income)) s.customCategories.income=[];
+    if(!Array.isArray(s.accounts)) s.accounts=[];
+    cands.forEach(function(rec){
+      var d=rec.data||{};
+      var flow = d.flow==='income'?'income':'expense';
+      var cat = String(d.category||'').trim();
+      if(cat && s.customCategories[flow].indexOf(cat)<0){ s.customCategories[flow].push(cat); }
+      var acc = String(d.account||'').trim();
+      if(acc){
+        var exists = s.accounts.some(function(a){ return (a&&a.name)===acc; });
+        if(!exists){ s.accounts.push({name:acc, opening:0}); }
+      }
+    });
+  }
+
   /* R160-2: 全量覆盖该类型记录（money 仅替换 money 类型，保留其他记录类型） */
   function overwriteImport(kind, cands, input, removed){
+    /* R211: 导入前先按字段补齐分类/账户，确保下拉与账户筛选可选 */
+    try{ syncImportMeta(kind, cands); }catch(e){ console.warn('syncImportMeta:',e); }
     if(kind==='money'){
       state.records = state.records.filter(function(r){return r.type!=='money';}).concat(cands);
     } else {
@@ -6914,7 +6961,7 @@ function renderPlannerErrorReviews(){ /* R76-1 no-op */ if(true) return; /*
 
     document.querySelectorAll('[data-planner-filter]').forEach(function(b){ b.classList.toggle('active',b.dataset.plannerFilter===filter); });
 
-    var filtered=recs.filter(function(r){return filter==='all'||(filter==='today'&&r.date===today&&!r.data.done)||(filter==='scheduled'&&r.date>=today&&!r.data.done)||(filter==='done'&&r.data.done);});
+    var filtered=recs.filter(function(r){return filter==='all'||(filter==='today'&&r.date===today&&!r.data.done)||(filter==='scheduled'&&r.date>=today&&!r.data.done)||(filter==='overdue'&&r.date<today&&!r.data.done)||(filter==='done'&&r.data.done);});
 
     var groups={}; filtered.forEach(function(r){ (groups[r.date]=groups[r.date]||[]).push(r); });
 
@@ -7917,11 +7964,16 @@ function openSubsetEdit(jid, sid){
       s.showGrid=sgEl?!!sgEl.checked:true;
       s.collapse=clEl?!!clEl.checked:false;
       s.link=lkEl?(lkEl.value||'').trim():'';
-      /* R184-2: 创建进度集时按步进数(goal)自动生成相应数量的空步进格子 */
-      if(isNew){
-        var _gn=Math.max(0,Math.floor(Number(s.goal)||0));
-        s.steps=[];
-        for(var _gi=0;_gi<_gn;_gi++){ s.steps.push({id:uid(),idx:_gi+1,content:'',summary:'',ts:0,done:false}); }
+      /* R209: 编辑进度集时，若目标数大于当前步进数则自动补齐空格子；若目标数变小则移除末尾未填写也未完成的空格子 */
+      var _gn=Math.max(0,Math.floor(Number(s.goal)||0));
+      if(!s.steps) s.steps=[];
+      if(s.steps.length < _gn){
+        for(var _gi=s.steps.length;_gi<_gn;_gi++){ s.steps.push({id:uid(),idx:_gi+1,content:'',summary:'',ts:0,done:false}); }
+      }
+      while(s.steps.length > _gn){
+        var _last=s.steps[s.steps.length-1];
+        if(!_last || _last.content || _last.done) break;
+        s.steps.pop();
       }
       if(isNew) subsets.push(s);
       saveState(); modal.remove(); renderJournalDetail(); renderJournals(); toast(isNew?'已添加进度集':'已更新');
@@ -7955,7 +8007,7 @@ function openStepEdit(jid, sid, stid){
       '<h3>编辑步进'+(st.idx!=null?(' #'+st.idx):'')+'</h3>'+
       '<div class="j-form-row"><span>随记</span><textarea class="j-textarea" id="jseContent">'+esc(st.content||'')+'</textarea></div>'+
       '<div class="j-form-row"><span>摘要</span><input class="j-input" id="jseSummary" maxlength="120" value="'+esc(st.summary||'')+'" placeholder="可写一句简短总结（可选）"></div>'+
-      '<label class="j-check-row"><input type="checkbox" id="jseDone"'+(st.done?' checked':'')+'> 已完成</label>'+
+      '<label class="j-check-row" data-r208="step-ts-now"><input type="checkbox" id="jseDone"'+(st.done?' checked':'')+'> 已完成</label>'+
       '<div class="j-form-row"><span>记录时间</span><input class="j-input" id="jseTs" type="datetime-local" value="'+tsToLocalInput(st.ts)+'"></div>'+
       '<div class="lbi-foot">'+
         '<button class="btn ghost" type="button" data-sc="close">取消</button>'+
@@ -7965,6 +8017,7 @@ function openStepEdit(jid, sid, stid){
   document.body.appendChild(modal);
   var cEl=modal.querySelector('#jseContent'), dEl=modal.querySelector('#jseDone'), tsEl=modal.querySelector('#jseTs');
   if(cEl) setTimeout(function(){ cEl.focus(); },30);
+  if(dEl && tsEl){ dEl.addEventListener('change',function(){ if(dEl.checked){ tsEl.value=tsToLocalInput(Date.now()); } }); }
   modal.addEventListener('click',function(e){
     var act=e.target.dataset&&e.target.dataset.sc;
     if(act==='close'){ modal.remove(); return; }
@@ -9556,7 +9609,7 @@ function renderAll(){ renderDashboard(); renderMoney(); renderHabits(); renderHa
     setDateDefaults();
   }
 
-  function clearDraft(f){ delete state.drafts[f.dataset.draft]; f.reset(); setDateDefaults(); saveState(); }
+  function clearDraft(f){ delete state.drafts[f.dataset.draft]; f.reset(); setDateDefaults(); /* R205: form.reset() 不触发 change，需手动同步 .segmented 的 is-active class，防止两个 label 同时高亮 */ f.querySelectorAll('.segmented input[type="radio"]').forEach(function(r){ var group=r.closest('.segmented'); if(!group) return; group.querySelectorAll('label').forEach(function(l){ var inp=l.querySelector('input[type="radio"]'); if(inp && inp.checked){ l.classList.add('is-active'); } else { l.classList.remove('is-active'); } }); }); saveState(); }
 
   function updateMoneyCategories(){ var f=document.getElementById('moneyForm'), flow=f.querySelector('[name="flow"]:checked').value, sel=document.getElementById('moneyCategory'); if(!sel) return; var cur=sel.value, cats=getCategories(flow); sel.innerHTML=cats.map(function(c){return '<option '+(c===cur?'selected':'')+'>'+c+'</option>';}).join(''); }
 
@@ -9719,6 +9772,16 @@ function renderAll(){ renderDashboard(); renderMoney(); renderHabits(); renderHa
     document.getElementById('budgetInput').addEventListener('change',function(e){ state.settings.budget=Math.max(0,Number(e.target.value||0)); saveState(); renderMoney(); toast('月度预算已更新'); });
 
     document.getElementById('moneyFilter').addEventListener('change',function(e){ state.settings.moneyFilter=e.target.value; saveState(); renderMoney(); });
+
+    var mafEl=document.getElementById('moneyAccountFilter'); if(mafEl){ mafEl.addEventListener('change',function(e){ state.settings.moneyAccountFilter=e.target.value; saveState(); renderMoney(); }); }
+
+    /* R211: 自定义日期段筛选器事件绑定（change 由内联 onchange 兜底，这里再绑一次以防内联失效） */
+    var mdfEl=document.getElementById('moneyDateFrom'); if(mdfEl){ mdfEl.addEventListener('change',function(e){ state.settings.moneyDateFrom=e.target.value||''; saveState(); renderMoney(); }); }
+    var mdtEl=document.getElementById('moneyDateTo'); if(mdtEl){ mdtEl.addEventListener('change',function(e){ state.settings.moneyDateTo=e.target.value||''; saveState(); renderMoney(); }); }
+    var mdcEl=document.getElementById('moneyDateClear'); if(mdcEl){ mdcEl.addEventListener('click',function(){ state.settings.moneyDateFrom=''; state.settings.moneyDateTo=''; saveState(); renderMoney(); }); }
+
+    /* R212: 点击图标浮层外部时自动收起时间段弹层 */
+    document.addEventListener('click',function(){ closeDatePopup(); }, false);
 
     document.getElementById('plannerFilters').addEventListener('click',function(e){ var b=e.target.closest('[data-planner-filter]'); if(!b) return; state.settings.plannerFilter=b.dataset.plannerFilter; saveState(); renderPlanner(); });
 
@@ -10668,6 +10731,16 @@ function saveAccountsFromEditor(){ var rows=document.querySelectorAll('#accounts
       if(type==='edit-media') openMediaEdit(id);
 
       if(type==='open-record'){ var vt=a.dataset.type; if(vt){ switchView(vt); } }
+
+      /* R206: 日程视图统计卡点击切换智能清单筛选 */
+      if(type==='jump-planner'){
+        var pf=a.dataset.plannerFilter||'all';
+        state.settings.plannerFilter=pf;
+        saveState();
+        try{ renderPlanner(); }catch(e){ console.warn('renderPlanner:',e); }
+        var pl=document.getElementById('plannerList'); if(pl) pl.scrollIntoView({behavior:'smooth',block:'start'});
+        return;
+      }
 
       /* 生活聚合卡：年/月/周视图切换 + 返回今天 + 上/下周期 + 日期事件popover */
       if(type==='dash-set-mode'){
@@ -11770,21 +11843,51 @@ function renderDashboard(){
     /* ── 原有：流水列表 ── */
 
     var filter=state.settings.moneyFilter;
+    var accountFilter=state.settings.moneyAccountFilter||'all';
 
     var mf=document.getElementById('moneyFilter');Array.from(mf.options).slice(1).forEach(function(o){o.remove();});getCategories('expense').concat(getCategories('income')).forEach(function(c){var o=document.createElement('option');o.value=c;o.textContent=c;mf.appendChild(o);});
 
     document.getElementById('moneyFilter').value=filter;
 
+    /* R210: 账户筛选器动态填充选项 */
+    var maf=document.getElementById('moneyAccountFilter');
+    if(maf){
+      Array.from(maf.options).slice(1).forEach(function(o){o.remove();});
+      (state.settings.accounts||[]).forEach(function(a){ if(a && a.name){ var o=document.createElement('option'); o.value=a.name; o.textContent=a.name; maf.appendChild(o); } });
+      maf.value=accountFilter;
+    }
+
+    /* R211/R212: 自定义日期段筛选器 —— 回填输入框值，并标记图标按钮激活态 */
+    var dateFrom=state.settings.moneyDateFrom||'';
+    var dateTo=state.settings.moneyDateTo||'';
+    var dfEl=document.getElementById('moneyDateFrom'); if(dfEl) dfEl.value=dateFrom;
+    var dtEl=document.getElementById('moneyDateTo'); if(dtEl) dtEl.value=dateTo;
+    var mdbEl=document.getElementById('moneyDateBtn'); if(mdbEl){ if(dateFrom||dateTo){ mdbEl.classList.add('active'); } else { mdbEl.classList.remove('active'); } }
+    var useRange=!!(dateFrom||dateTo);
+
     /* R126: 流水按时间顺序排序（同一天内按 id 倒序，新→旧），保证列表可视化清晰 */
-    var list=recs.filter(function(r){return r.date.slice(0,7)===targetMonthKey;}).filter(function(r){return filter==='all'||r.data.category===filter;}).slice();
+    var list=recs.slice();
+    if(useRange){
+      /* R211: 自定义时间段（r.date 为 YYYY-MM-DD，字符串比较即时间顺序） */
+      list=list.filter(function(r){
+        var d=r.date||'';
+        if(dateFrom && d<dateFrom) return false;
+        if(dateTo && d>dateTo) return false;
+        return true;
+      });
+    } else {
+      list=list.filter(function(r){return r.date.slice(0,7)===targetMonthKey;});
+    }
+    list=list.filter(function(r){return filter==='all'||r.data.category===filter;}).filter(function(r){return accountFilter==='all'||(r.data.account||'')===accountFilter;});
     list.sort(function(a,b){
       if(a.date!==b.date) return a.date<b.date?1:-1;
       return (b.id||'').localeCompare(a.id||'');
     });
-    document.getElementById('moneyList').innerHTML = list.length? list.map(recordRow).join('') : empty(moneyOffset===0?'这个分类还没有流水':'该月份还没有流水');
+    document.getElementById('moneyList').innerHTML = list.length? list.map(recordRow).join('') : empty(useRange?'该时间段还没有流水':(moneyOffset===0?'这个分类还没有流水':'该月份还没有流水'));
 
     /* R196-5: 「该月 N 条 · 全部 M 条」移到流水卡片底部最下方呈现；month-nav 月份切换按钮保持原状 */
-    var _mcEl=document.getElementById('moneyListCount'); if(_mcEl) _mcEl.textContent='该月 '+list.length+' 条 · 全部 '+recs.length+' 条';
+    var _mcText = useRange ? ('筛选 '+list.length+' 条 · 全部 '+recs.length+' 条') : ('该月 '+list.length+' 条 · 全部 '+recs.length+' 条');
+    var _mcEl=document.getElementById('moneyListCount'); if(_mcEl) _mcEl.textContent=_mcText;
 
   }
 
@@ -12015,6 +12118,15 @@ function consumeNavPrev(){ var cur=(typeof state.settings.consumeMonthOffset==='
 function consumeNavNext(){ var cur=(typeof state.settings.consumeMonthOffset==='number'&&state.settings.consumeMonthOffset>0)?state.settings.consumeMonthOffset:0; if(cur<=0) return; state.settings.consumeMonthOffset=cur-1; saveState(); renderMoney(); }
 
 function moneyFilterChange(v){ state.settings.moneyFilter=v; saveState(); renderMoney(); }
+function moneyAccountFilterChange(v){ state.settings.moneyAccountFilter=v; saveState(); renderMoney(); }
+
+/* R211: 自定义日期段筛选器 —— 两个日期框共用一个 change 入口，读取两者值后保存并重渲染 */
+function moneyDateRangeChange(){ state.settings.moneyDateFrom=(document.getElementById('moneyDateFrom')||{}).value||''; state.settings.moneyDateTo=(document.getElementById('moneyDateTo')||{}).value||''; saveState(); renderMoney(); }
+function moneyDateRangeClear(){ state.settings.moneyDateFrom=''; state.settings.moneyDateTo=''; saveState(); renderMoney(); }
+
+/* R212: 日期段筛选改为图标触发浮层 —— 点击日历图标弹出/收起时间段输入框，点击浮层外部自动收起 */
+function toggleDatePopup(e){ if(e&&e.stopPropagation) e.stopPropagation(); var p=document.getElementById('moneyDatePopup'); if(!p) return; if(p.hasAttribute('hidden')){ p.removeAttribute('hidden'); } else { p.setAttribute('hidden',''); } }
+function closeDatePopup(){ var p=document.getElementById('moneyDatePopup'); if(p) p.setAttribute('hidden',''); }
 
 function submitMoneyForm(formEl){ if(!formEl) return; var d=Object.fromEntries(new FormData(formEl)); if(!(Number(d.amount)>0)){ toast('请输入有效金额'); return; } if(addRecord('money',d.date,{flow:d.flow,amount:Number(d.amount),category:d.category,account:(d.account||'').trim(),note:(d.note||'').trim()})) clearDraft(formEl); }
 
@@ -12944,6 +13056,13 @@ function submitCycleForm(formEl){ if(!formEl) return; var d=Object.fromEntries(n
   window.moneyNavReset=moneyNavReset;
 
   window.moneyFilterChange=moneyFilterChange;
+
+  window.moneyAccountFilterChange=moneyAccountFilterChange;
+  window.moneyDateRangeChange=moneyDateRangeChange;
+  window.moneyDateRangeClear=moneyDateRangeClear;
+  window.toggleDatePopup=toggleDatePopup;
+  window.closeDatePopup=closeDatePopup;
+  window.syncImportMeta=syncImportMeta;
 
   window.consumeNavPrev=consumeNavPrev;
 
