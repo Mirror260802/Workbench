@@ -2939,6 +2939,51 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
   .panel.money-panel .money-monthnav-row{order:0;width:auto;margin:0}
   .panel.money-panel .money-filters{justify-self:end}
 }
+
+/* ─── R234：往来账目卡片 ─── */
+.wanglai-list{display:flex;flex-direction:column;gap:10px;max-height:360px;overflow:auto}
+.wl-row{background:#fbf9fe;border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.wl-row:hover{border-color:var(--plum)}
+.wl-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.wl-badge{display:inline-flex;align-items:center;padding:2px 9px;border-radius:7px;font-size:11px;font-weight:700}
+.wl-badge.loan-out{background:var(--plum-soft);color:var(--plum-deep)}
+.wl-badge.loan-in{background:var(--sand-soft);color:var(--sand)}
+.wl-badge.gift-out{background:var(--rose-soft);color:var(--rose)}
+.wl-badge.gift-in{background:var(--sage-soft);color:var(--sage)}
+.wl-badge.reimb-out{background:var(--blue-soft);color:var(--blue)}
+.wl-badge.reimb-in{background:var(--blue-soft);color:var(--blue)}
+.wl-kind{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:1px 7px}
+.wl-person{font-weight:700;font-size:14px}
+.wl-amt{margin-left:auto;font-weight:700;font-size:16px;font-variant-numeric:tabular-nums}
+.wl-sub{display:flex;align-items:center;gap:10px;margin-top:5px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.wl-progress{margin-top:9px}
+.wl-progress .progress-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:6px;font-variant-numeric:tabular-nums}
+.wl-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px}
+.wl-status{display:inline-flex;align-items:center;padding:2px 9px;border-radius:99px;font-size:11px;font-weight:600}
+.wl-status.ongoing{background:var(--plum-soft);color:var(--plum-deep)}
+.wl-status.partial{background:var(--sand-soft);color:var(--sand)}
+.wl-status.done{background:var(--sage-soft);color:var(--sage)}
+.wl-status.gift{background:var(--blue-soft);color:var(--blue)}
+.wl-actions{display:flex;align-items:center;gap:6px}
+.wl-actions button{font-size:12px;padding:5px 10px;border-radius:8px}
+.wl-row.pinned{box-shadow:inset 3px 0 0 var(--plum)}
+.wl-pin{font-size:11px;font-weight:700;color:var(--plum-deep);margin-right:4px}
+.wl-batch-cb{display:inline-flex;align-items:center;gap:3px;font-size:11px;color:var(--muted);margin-right:4px;cursor:pointer}
+.wl-batch-cb input{width:14px;height:14px;accent-color:var(--plum-deep)}
+/* R241: 报销汇总行 + 已结清禁改按钮（旧 .wl-batch-bar 已随逐行勾选移除） */
+.wl-sum{cursor:pointer}
+.wl-sum:hover{border-color:var(--plum)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+#wanglaiOverlay .form-row{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+#wanglaiOverlay .form-row .field{grid-column:span 1}
+#wanglaiOverlay .form-row .field.full{grid-column:1 / -1}
+#wanglaiRepayHistory .repay-item{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:13px;font-variant-numeric:tabular-nums}
+#wanglaiRepayHistory .repay-item:last-child{border-bottom:0}
+#wanglaiRepayHistory .ri-amt{font-weight:700}
+#wanglaiRepayHistory .ri-date{color:var(--muted);font-size:12px}
+#wanglaiRepayHistory .ri-note{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
+#wanglaiRepayHistory .ri-del{border:0;background:transparent;color:var(--muted);font-size:15px;line-height:1;padding:2px 6px;border-radius:8px}
+#wanglaiRepayHistory .ri-del:hover{color:var(--rose);background:var(--rose-soft)}
 </style>
 
 <style id="r165">
@@ -3314,6 +3359,8 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
 
               <label data-page-node-id="moneyAccountField" class="field"><span data-page-node-id="moneyAccountLabel">账户</span><select data-page-node-id="moneyAccountSel" id="moneyAccount" name="account"></select></label>
 
+              <label id="moneyWanglaiField" class="field" style="display:none"><span>往来对象</span><input id="moneyWanglaiPerson" name="wlperson" maxlength="20" placeholder="谁借的 / 随礼给谁" autocomplete="off"></label>
+
               <label data-page-node-id="c94dO9qo4VYPy8Rq6MzLGF" class="field"><span data-page-node-id="S325MXw4eN17R7K0WKFl8Q"><!--pnid:MVkHiF3CA3Fi6b8P9VFYQy-->备注</span><textarea data-page-node-id="uDZB3XDYZPsFmFA6xTMwpS" maxlength="60" name="note" placeholder="这笔钱花在了哪里"></textarea></label>
 
               <button data-page-node-id="0lrBIolJfGZ2n2S1BTEMnM" class="btn primary full" onclick="if(typeof submitMoneyForm==='function'){submitMoneyForm(this.form);return false;}" type="submit"><svg data-page-node-id="8jWj6jjFhvdx1jIUU9NbEJ"><use data-page-node-id="eihqrquqX5r27a7vAPy3Ny" href="#i-plus"/></svg><!--pnid:9GbMrqdUlNWxRHktK5gZZU-->记下这笔</button>
@@ -3326,6 +3373,27 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
 
 <article data-page-node-id="ZBucWcXWyV4QPOSQnfzsaO" class="panel money-panel" style="margin:0; width:100%; box-sizing:border-box"><div class="panel-head" style="gap:8px"><div data-page-node-id="v50HRF29Eobi4q3a8OeGK2" style=""><p data-page-node-id="zXEORactZbmEeAHGn8XUk5" class="eyebrow" style="margin:0"><!--pnid:6EFSgir4wQjhLDtOa5k2pa-->流水</p><h2 data-page-node-id="gM43kUyQ3PsOLRU95YEWfx" style="margin:2px 0 0"><!--pnid:Fu5RzAbLGr4mrNeE5xFSf1-->最近账目</h2></div><div class="money-monthnav-row" style="display:flex; align-items:center; justify-content:center; gap:8px; "><div data-page-node-id="miEQAHJdFDTUEOB9dFepE5" class="month-nav" style="align-items:center; background:var(--plum-soft); border-radius:999px; display:inline-flex; padding:3px"><button data-page-node-id="drVx7CKxu8nFF7QF8kmhJa" class="month-nav-btn" data-action="money-prev-month" onclick="if(typeof moneyNavPrev==='function'){moneyNavPrev();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:3MtXq0TPq30wlqrOpRjxAB-->‹</button><span data-page-node-id="8bQ7u4NimCsC5pLjMg8fit" id="moneyMonthLabel" style="color:var(--plum-deep); font-size:13px; font-weight:600; min-width:80px; padding:0 8px; text-align:center"><!--pnid:dS1pI7tU12JCJIZ32i1Kn6-->本月</span><button data-page-node-id="fIJSTWIyNq1F11HwnJ6EFs" class="month-nav-btn" data-action="money-next-month" onclick="if(typeof moneyNavNext==='function'){moneyNavNext();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:inqeM0x9CxZWmyrMmVOFij-->›</button></div><button data-page-node-id="dRv5V7VWI5hxytErrMw3fM" class="text-btn" data-action="money-reset-month" id="moneyResetBtn" onclick="if(typeof moneyNavReset==='function'){moneyNavReset();return false;}" type="button" style="display:none; font-size:12px"><!--pnid:LQLS0KSHnAaJtMh5E1S6UQ-->回到本月</button></div><div data-page-node-id="WZ4RFqka7gESmB8A6WVf9Q" class="money-filters" style="align-items:center; display:flex; gap:8px"><select data-page-node-id="PEiJz7tyoTD1CGLmKYa7LS" class="compact-select" id="moneyFilter" onchange="if(typeof moneyFilterChange==='function'){moneyFilterChange(this.value);return false;}" style="flex-shrink:0"><option data-page-node-id="XPvmwJlydgNTPoOAEh3KFj" value="all"><!--pnid:VElmF9GXCw5wuLmiF9WyLG-->全部分类</option></select><select data-page-node-id="PEiJz7tyoTD1CGLmKYa7LS-acc" class="compact-select" id="moneyAccountFilter" onchange="if(typeof moneyAccountFilterChange==='function'){moneyAccountFilterChange(this.value);return false;}" style="flex-shrink:0" data-r210="account-filter"><option data-page-node-id="XPvmwJlydgNTPoOAEh3KFj-acc" value="all"><!--pnid:VElmF9GXCw5wuLmiF9WyLG-acc-->全部账户</option></select><span data-r212="date-pop-wrap" class="date-pop-wrap"><button data-r212="date-icon" class="icon-btn" id="moneyDateBtn" type="button" title="按日期段筛选" aria-label="按日期段筛选" onclick="if(typeof toggleDatePopup==='function'){toggleDatePopup(event);return false;}"><svg viewBox="0 0 24 24" width="16" height="16"><use href="#i-calendar"/></svg></button><div data-r212="date-popup" class="date-popup" id="moneyDatePopup" hidden onclick="if(event&&event.stopPropagation){event.stopPropagation();}"><div class="date-popup-row"><label class="date-popup-field">起始<input data-r211="date-from" class="compact-date" id="moneyDateFrom" type="date" onchange="if(typeof moneyDateRangeChange==='function'){moneyDateRangeChange();return false;}"></label><span class="money-date-sep" data-r211="date-sep">至</span><label class="date-popup-field">结束<input data-r211="date-to" class="compact-date" id="moneyDateTo" type="date" onchange="if(typeof moneyDateRangeChange==='function'){moneyDateRangeChange();return false;}"></label></div><div class="date-popup-actions"><button data-r211="date-clear" class="text-btn" id="moneyDateClear" type="button" onclick="if(typeof moneyDateRangeClear==='function'){moneyDateRangeClear();return false;}">清除</button></div></div></span></div></div><div class="money-search-row" style="display:flex;gap:8px;margin:8px 0 4px"><input type="search" id="moneySearchInput" placeholder="搜索流水：分类/备注/账户/金额/转账…" autocomplete="off" style="flex:1;min-width:0;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);font-size:13px" oninput="if(typeof moneySearchHandle==='function') moneySearchHandle(this.value);"></div>
 <div data-page-node-id="hkAL5KYdlOaj8mYGZSJxkz" class="record-list" id="moneyList"></div><p data-page-node-id="r196countFooter" id="moneyListCount" class="mini-note" style="margin:10px 0 0;text-align:center"></p></article>
+
+          <!-- R234: 往来账目卡片 -->
+          <article data-page-node-id="wanglaiPanel" class="panel" style="margin:0; width:100%; box-sizing:border-box">
+            <div class="panel-head" style="gap:8px">
+              <div>
+                <p class="eyebrow" style="margin:0">往来</p>
+                <h2 style="margin:2px 0 0">往来账目</h2>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px">
+                <!-- R241: 批量报销入口移入「报销汇总」记录（点击汇总行选择单笔/多笔/全选） -->
+                <button class="text-btn" data-action="wanglai-reset-month" id="wanglaiResetBtn" type="button" style="display:none">本月</button>
+                <div class="month-nav" style="align-items:center; background:var(--plum-soft); border-radius:999px; display:inline-flex; padding:3px">
+                  <button class="month-nav-btn" data-action="wanglai-prev-month" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px">‹</button>
+                  <span id="wanglaiMonthLabel" style="color:var(--plum-deep); font-size:13px; font-weight:600; min-width:80px; padding:0 8px; text-align:center">本月</span>
+                  <button class="month-nav-btn" data-action="wanglai-next-month" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px">›</button>
+                </div>
+              </div>
+            </div>
+            <p id="wanglaiFilterHint" class="mini-note" style="display:none;margin:0 0 10px"></p>
+            <div id="wanglaiList" class="wanglai-list"></div>
+          </article>
 
           <!--pnid:R85-monthSummary--><!-- 月度对比 + 月度预算（挪到左列 row 3，紧贴流水卡片下方） -->
           <!-- R89-1: 双行等宽（默认纵向堆叠，每行占满父容器宽度） -->
@@ -3406,6 +3474,53 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
         <div class="overlay-card">
           <div class="panel-head"><div><p class="eyebrow">资产管理</p><h2>账户间转账</h2></div><button class="text-btn" data-action="close-transfer" type="button">完成</button></div>
           <div id="transferEditor"></div>
+        </div>
+      </div>
+
+      <!-- R234: 往来账目编辑/还款弹窗 -->
+      <div class="overlay" hidden id="wanglaiOverlay" style="display:none">
+        <div class="overlay-card" style="max-width:520px">
+          <div class="panel-head"><div><p class="eyebrow" id="wanglaiTitleSub">往来</p><h2 id="wanglaiTitle">登记往来</h2></div><button class="text-btn" data-action="close-wanglai" type="button">完成</button></div>
+
+          <!-- R240: 往来记录统一由记账页「记一笔账」自动生成，弹窗只保留金额/日期/账户/备注，类型与方向不再可改 -->
+          <div id="wanglaiFormBox">
+            <div class="form-row">
+              <label class="field"><span>金额（元）</span><input id="wlAmount" type="number" min="0.01" step="0.01" placeholder="0.00"></label>
+              <label class="field"><span>日期</span><input id="wlDate" type="date"></label>
+            </div>
+            <label class="field"><span>关联账户</span><select id="wlAccount"></select></label>
+            <label class="field"><span>事由 / 备注</span><input id="wlNote" type="text" placeholder="如：应急周转 / 同事结婚" maxlength="60"></label>
+            <p class="mini-note" id="wanglaiEditHint" style="display:none;color:var(--muted);margin:-6px 0 10px">借款的还款进度请通过列表「还款」按钮登记</p>
+          </div>
+
+          <div id="wanglaiRepayBox" style="display:none">
+            <p class="mini-note" id="wanglaiRepaySub" style="margin:0 0 14px"></p>
+            <div class="form-row">
+              <label class="field"><span>本次还款金额（元）</span><input id="wlRepayAmount" type="number" min="0.01" step="0.01" placeholder="0.00"></label>
+              <label class="field"><span>还款日期</span><input id="wlRepayDate" type="date"></label>
+            </div>
+            <!-- R238: 还款 / 报销支持选择账户（报销为回款账户） -->
+            <label class="field"><span id="wlRepayAccountLabel">回款账户</span><select id="wlRepayAccount"></select></label>
+            <label class="field"><span>备注</span><input id="wlRepayNote" type="text" placeholder="可选" maxlength="60"></label>
+            <div id="wanglaiRepayHistory" style="margin-top:14px"></div>
+          </div>
+
+          <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:18px">
+            <button class="btn ghost" data-action="close-wanglai" type="button">取消</button>
+            <button class="btn primary" data-action="save-wanglai" id="wanglaiSaveBtn" type="button">保存</button>
+          </div>
+        </div>
+      </div>
+      <!-- R241: 报销汇总明细弹窗（当月垫付 单笔/多笔/全选报销） -->
+      <div class="overlay" hidden id="wanglaiSummaryOverlay" style="display:none">
+        <div class="overlay-card" style="max-width:520px">
+          <div class="panel-head"><div><p class="eyebrow">往来</p><h2 id="wanglaiSumTitle">报销汇总</h2></div><button class="text-btn" data-action="close-wanglai-summary" type="button">完成</button></div>
+          <p class="mini-note" id="wanglaiSumSub" style="margin:0 0 10px"></p>
+          <div id="wanglaiSumList" class="wanglai-list"></div>
+          <div id="wanglaiSumFoot" style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px">
+            <button class="btn ghost" data-action="wanglai-sum-all" type="button">全选</button>
+            <button class="btn primary" data-action="wanglai-sum-repay" type="button">报销所选</button>
+          </div>
         </div>
       </div>
       <!--pnid:r121-search--><!-- R121-4: 全局搜索浮层 -->
@@ -4792,7 +4907,7 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
 
       ],
 
-      settings:{budget:5000,moneyFilter:'all',plannerFilter:'all',shoppingFilter:'pending',mediaView:'table',mediaStatusFilter:'all',mediaRatingFilter:0,mediaTypeFilter:'all',mediaPlatformFilter:'all',mediaQuery:'',mediaTablePage:1,mediaTablePageSize:50,mediaWallPage:1,mediaWallPageSize:20,habitYearView:'all',hiddenHabitKeys:[],mediaPlatforms:['Netflix','Bilibili','爱奇艺','腾讯视频','优酷','芒果TV','YouTube','Apple TV+','HBO','影院','纸质书','Kindle','微信读书','其他'],mediaTypes:['电影','电视剧','书籍','动漫','播客','舞台'],mediaTags:[],mediaThemes:[],brand:{name:'日常集',avatar:'日',tagline:'生活有迹可循',theme:'lavender'},cycleDefaults:{cycleLen:28,periodLen:5},accounts:[{name:'支付宝',balance:0},{name:'余额宝',balance:0},{name:'微信',balance:0},{name:'银行卡',balance:0},{name:'现金',balance:0}],customCategories:{expense:['吃饭','交通','购物','娱乐','房租','看病','学习','其他'],income:['工资','奖金','兼职','理财','其他']},customLists:['生活','工作','家庭','个人'],expenseTopYearOffset:0,incomeTopYearOffset:0,barYearOffset:0,balanceTrendYearOffset:0},
+      settings:{budget:5000,moneyFilter:'all',plannerFilter:'all',shoppingFilter:'pending',mediaView:'table',mediaStatusFilter:'all',mediaRatingFilter:0,mediaTypeFilter:'all',mediaPlatformFilter:'all',mediaQuery:'',mediaTablePage:1,mediaTablePageSize:50,mediaWallPage:1,mediaWallPageSize:20,habitYearView:'all',hiddenHabitKeys:[],mediaPlatforms:['Netflix','Bilibili','爱奇艺','腾讯视频','优酷','芒果TV','YouTube','Apple TV+','HBO','影院','纸质书','Kindle','微信读书','其他'],mediaTypes:['电影','电视剧','书籍','动漫','播客','舞台'],mediaTags:[],mediaThemes:[],brand:{name:'日常集',avatar:'日',tagline:'生活有迹可循',theme:'lavender'},cycleDefaults:{cycleLen:28,periodLen:5},accounts:[{name:'支付宝',balance:0},{name:'余额宝',balance:0},{name:'微信',balance:0},{name:'银行卡',balance:0},{name:'现金',balance:0}],customCategories:{expense:['吃饭','交通','购物','娱乐','房租','看病','学习','其他'],income:['工资','奖金','兼职','理财','其他']},customLists:['生活','工作','家庭','个人'],expenseTopYearOffset:0,incomeTopYearOffset:0,barYearOffset:0,balanceTrendYearOffset:0,wanglaiRecords:[]},
 
       drafts:{},
 
@@ -4823,6 +4938,8 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
       /* R211: 新增自定义日期段筛选器，默认无（空串表示不限） */
       if(typeof s.moneyDateFrom !== 'string') s.moneyDateFrom='';
       if(typeof s.moneyDateTo !== 'string') s.moneyDateTo='';
+      /* R234: 新增往来账目记录数组 */
+      if(!Array.isArray(s.wanglaiRecords)) s.wanglaiRecords=[];
     })(raw.settings||{});
 
     if(!raw||raw.version!==3) return def;
@@ -5300,6 +5417,9 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
 
     else if(type==='cycle') pushCycle(rec);
 
+    /* R235: 通过「记一笔账」登记借款 / 人情份子时，自动在往来卡片生成对应记录（已关联则跳过） */
+    if(type==='money' && rec.data && !rec.data.wanglaiId){ try{ wlSyncFromMoney(rec); }catch(e){ console.warn('wl auto-link failed',e); } }
+
     saveState(); renderAll();
 
     if(type==='money') toast('已记下这笔');
@@ -5322,7 +5442,53 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
 
     if(rec.remoteId) deleteRemote(rec.type,rec.remoteId);
 
-    state.records.splice(idx,1); saveState(); renderAll(); toast('记录已删除');
+    /* R235/R237: 删除与往来卡片联动的流水 —— 还款/报销抵扣记录回冲已还金额；主记录则连带删除往来条目及其流水 */
+    var _wlKill=null;
+    if(rec.data && rec.data.wanglaiId){
+      var _wls=state.settings.wanglaiRecords||[];
+      var _wl=_wls.find(function(x){return x.id===rec.data.wanglaiId;});
+      if(_wl){
+        if(rec.data.wanglaiRepay){
+          var _amt=Number(rec.data.amount||0);
+          _wl.repaid=Math.max(0,Number(_wl.repaid||0)-_amt);
+          _wl.repayments=(_wl.repayments||[]).filter(function(rp){return rp.moneyRecordId!==rec.id;});
+          _wl.moneyRecordIds=(_wl.moneyRecordIds||[]).filter(function(mid){return mid!==rec.id;});
+        } else {
+          _wlKill=_wl.id;
+        }
+      }
+    }
+    /* R237: 报销收入（自动抵扣）被删 → 回冲每笔被抵扣垫付的已报金额 */
+    if(rec.data && rec.data.wanglaiRepay && rec.data.wanglaiIds && rec.data.wanglaiIds.length){
+      var _wls3=state.settings.wanglaiRecords||[];
+      rec.data.wanglaiIds.forEach(function(wid){
+        var _wr=_wls3.find(function(x){return x.id===wid;});
+        if(_wr){
+          var _rp=_wr.repayments && _wr.repayments.find(function(p){return p.moneyRecordId===rec.id;});
+          if(_rp){ _wr.repaid=Math.max(0,Number(_wr.repaid||0)-Number(_rp.amount||0)); _wr.repayments=_wr.repayments.filter(function(p){return p.moneyRecordId!==rec.id;}); }
+          _wr.moneyRecordIds=(_wr.moneyRecordIds||[]).filter(function(mid){return mid!==rec.id;});
+        }
+      });
+    }
+
+    state.records.splice(idx,1);
+    if(_wlKill){
+      state.records=state.records.filter(function(r){ return !(r.data && r.data.wanglaiId===_wlKill); });
+      /* 同时清理引用该垫付的「报销收入」抵扣记录（避免孤儿收入） */
+      state.records=state.records.filter(function(r){ return !(r.data && r.data.wanglaiRepay && r.data.wanglaiIds && r.data.wanglaiIds.indexOf(_wlKill)>=0); });
+      var _wls2=state.settings.wanglaiRecords||[];
+      var _i=_wls2.findIndex(function(x){return x.id===_wlKill;}); if(_i>=0) _wls2.splice(_i,1);
+    }
+    /* R237: 删除报销收入流水时，移除由其派生的「报销余额」独立行（reimburse/in 且回链该流水 / 或在其 wanglaiIds 中） */
+    state.settings.wanglaiRecords=(state.settings.wanglaiRecords||[]).filter(function(x){
+      if(x.kind==='reimburse'&&x.direction==='in'){
+        if(x.moneyRecordIds && x.moneyRecordIds.indexOf(rec.id)>=0) return false;
+        if(rec.data && rec.data.wanglaiIds && rec.data.wanglaiIds.indexOf(x.id)>=0) return false;
+      }
+      return true;
+    });
+
+    saveState(); renderAll(); toast('记录已删除');
 
   }
 
@@ -9072,11 +9238,10 @@ function renderAll(){ renderDashboard(); renderMoney(); renderHabits(); renderHa
   }
 
   function loadSampleData(){
+    /* R233: 示例重载确认改走通用 showConfirm（统一弹窗样式，替换原生 confirm） */
     if(state.records.some(function(r){return r.sample;})||state.habits.some(function(h){return h.sample;})||state.mediaItems.some(function(i){return i.sample;})){
-      if(!confirm('已存在示例数据，要清空后重新加载吗？\n（你自己的内容不受影响）')) return;
-      state.records=state.records.filter(function(r){return !r.sample;});
-      state.mediaItems=state.mediaItems.filter(function(i){return !i.sample;});
-      state.habits.forEach(function(h){ if(h.sample){h.entries={};h.sample=false;} });
+      showConfirm({title:'重新加载示例', body:'已存在示例数据，要清空后重新加载吗？', detail:'你自己的内容不受影响。', confirmText:'清空并加载', onConfirm:function(){ state.records=state.records.filter(function(r){return !r.sample;}); state.mediaItems=state.mediaItems.filter(function(i){return !i.sample;}); state.habits.forEach(function(h){ if(h.sample){h.entries={};h.sample=false;} }); loadSampleData(); }});
+      return;
     }
     var fresh=makeInitialState();
     (fresh.records||[]).forEach(function(r){ state.records.push(Object.assign({},r,{id:uid()})); });
@@ -9088,15 +9253,7 @@ function renderAll(){ renderDashboard(); renderMoney(); renderHabits(); renderHa
     saveState(); renderAll(); toast('✓ 示例数据已加载');
   }
 
-  /* ── 习惯删除确认弹窗 ── */
-
-  var _pendingDeleteHabitId=null;
-
-  function openDeleteConfirm(habitId){ var h=state.habits.find(function(x){return x.id===habitId;}); if(!h) return; _pendingDeleteHabitId=habitId; var t=document.getElementById('deleteConfirmTitle'), ov=document.getElementById('deleteConfirmOverlay'); if(t) t.textContent=h.name||'该习惯'; if(ov){ ov.hidden=false; ov.style.display=''; } }
-
-  function closeDeleteConfirm(){ var ov=document.getElementById('deleteConfirmOverlay'); if(ov){ ov.hidden=true; ov.style.display='none'; } _pendingDeleteHabitId=null; }
-
-  function doDeleteHabit(){ var id=_pendingDeleteHabitId; if(!id) return closeDeleteConfirm(); var h=state.habits.find(function(x){return x.id===id;}); closeDeleteConfirm(); if(!h) return; if(h.remoteIds){ Object.keys(h.remoteIds).forEach(function(d){ if(h.remoteIds[d]) dbDelete(DB_HABIT,h.remoteIds[d]); }); } state.habits=state.habits.filter(function(x){return x.id!==id;}); saveState(); renderAll(); var hm=document.getElementById('habitManageOverlay'); if(hm&&!hm.hidden) renderHabitManage(); toast('习惯已删除'); }
+  /* R233: 习惯删除已统一改走通用 showConfirm（见点击委托 delete-habit-custom 分支），移除独立 overlay 实现 */
 
   /* ── 书影音删除确认弹窗 ── */
 
@@ -9457,36 +9614,22 @@ function renderAll(){ renderDashboard(); renderMoney(); renderHabits(); renderHa
       onConfirm:function(){ deleteRecord(id); }
     });
   }
-  /* R129-3: 阅读日历时间轴记录删除（带二次确认弹窗） */
+  /* R129-3+R233: 阅读日历时间轴删除改走通用 showConfirm（统一弹窗样式） */
   function confirmDeleteMediaItem(mediaId){
     var m=state.mediaItems.find(function(x){return x.id===mediaId;}); if(!m) return;
     var name=m.name||'该记录';
-    var modal=document.createElement('div'); modal.className='lbi-modal'; modal.id='tlDelModal';
-    modal.innerHTML=
-      '<div class="lbi-mask" data-tl-del="close"></div>'+
-      '<div class="lbi-card" role="dialog" aria-modal="true">'+
-      '<h3>删除书影音记录</h3>'+
-      '<p>确定要删除 <b>'+esc(name)+'</b> 吗？</p>'+
-      '<p style="color:var(--muted);font-size:12px;margin-top:-6px">该操作会从本机和云端同时移除，<b>不可恢复</b>。</p>'+
-      '<div class="lbi-foot">'+
-        '<button class="btn ghost" type="button" data-tl-del="close">取消</button>'+
-        '<button class="btn primary" type="button" data-tl-del="confirm" data-id="'+esc(mediaId)+'">删除</button>'+
-      '</div></div>';
-    document.body.appendChild(modal);
-    modal.addEventListener('click',function(e){
-      var act=e.target.dataset&&e.target.dataset.tlDel;
-      if(act==='close'){ modal.remove(); }
-      else if(act==='confirm'){
-        var id=e.target.dataset.id;
-        var it=state.mediaItems.find(function(x){return x.id===id;});
-        if(it){
-          if(it.remoteId){ try{ dbDelete(DB_MEDIA, it.remoteId); }catch(e){} }
-          state.mediaItems=state.mediaItems.filter(function(x){return x.id!==id;});
-          saveState();
-          try{ toast('已删除：'+name); }catch(e){}
-          try{ renderAll(); }catch(e){}
-        }
-        modal.remove();
+    showConfirm({
+      title:'删除书影音记录',
+      body:'确定要删除 <b>'+esc(name)+'</b> 吗？',
+      detail:'该操作会从本机和云端同时移除，<b>不可恢复</b>。',
+      danger:true,
+      confirmText:'删除',
+      onConfirm:function(){
+        if(m.remoteId){ try{ dbDelete(DB_MEDIA, m.remoteId); }catch(e){} }
+        state.mediaItems=state.mediaItems.filter(function(x){return x.id!==mediaId;});
+        saveState();
+        try{ toast('已删除：'+name); }catch(e){}
+        try{ renderAll(); }catch(e){}
       }
     });
   }
@@ -9535,11 +9678,7 @@ function renderAll(){ renderDashboard(); renderMoney(); renderHabits(); renderHa
 
   }
 
-  function openMediaDeleteConfirm(mediaId){ var m=state.mediaItems.find(function(x){return x.id===mediaId;}); if(!m) return; _pendingMediaDeleteId=mediaId; var t=document.getElementById('mediaDeleteConfirmTitle'), ov=document.getElementById('mediaDeleteConfirmOverlay'); if(t) t.textContent=m.name||'该作品'; if(ov){ ov.hidden=false; ov.style.display=''; } }
-
-  function closeMediaDeleteConfirm(){ var ov=document.getElementById('mediaDeleteConfirmOverlay'); if(ov){ ov.hidden=true; ov.style.display='none'; } _pendingMediaDeleteId=null; }
-
-  function doMediaDelete(){ var id=_pendingMediaDeleteId; if(!id) return closeMediaDeleteConfirm(); var m=state.mediaItems.find(function(x){return x.id===id;}); closeMediaDeleteConfirm(); if(!m) return; if(m.remoteId) dbDelete(DB_MEDIA,m.remoteId); state.mediaItems=state.mediaItems.filter(function(x){return x.id!==id;}); saveState(); renderMedia(); toast('已从书影音清单移除'); }
+  /* R233: 书影音删除已统一改走通用 showConfirm（见点击委托 delete-media 分支），移除独立 overlay 实现 */
 
   /* ── 新习惯建立成功弹窗 ── */
 
@@ -9698,7 +9837,7 @@ function renderAll(){ renderDashboard(); renderMoney(); renderHabits(); renderHa
 
   /* R119: 这 4 个字段不回填也不入草稿（金额、物品名、价格、收藏标题，避免预填造成重复输入）
      启动时若 localStorage 中已有旧草稿，立即清掉（确保旧用户刷新即生效） */
-  var NO_DRAFT_KEYS={'moneyForm':['amount'],'homeForm':['name','price'],'mediaForm':['name']};
+  var NO_DRAFT_KEYS={'moneyForm':['amount','wlperson'],'homeForm':['name','price'],'mediaForm':['name']};
 
   function restoreDrafts(){
     Object.keys(NO_DRAFT_KEYS).forEach(function(fid){
@@ -9723,7 +9862,7 @@ function renderAll(){ renderDashboard(); renderMoney(); renderHabits(); renderHa
 
   function clearDraft(f){ delete state.drafts[f.dataset.draft]; f.reset(); setDateDefaults(); /* R205: form.reset() 不触发 change，需手动同步 .segmented 的 is-active class，防止两个 label 同时高亮 */ f.querySelectorAll('.segmented input[type="radio"]').forEach(function(r){ var group=r.closest('.segmented'); if(!group) return; group.querySelectorAll('label').forEach(function(l){ var inp=l.querySelector('input[type="radio"]'); if(inp && inp.checked){ l.classList.add('is-active'); } else { l.classList.remove('is-active'); } }); }); /* R221: form.reset() 切回支出后必须同步分类下拉，否则仍显示上一笔的收入分类 */ if(f.id==='moneyForm'){ try{ updateMoneyCategories(); }catch(e){} } saveState(); }
 
-  function updateMoneyCategories(){ var f=document.getElementById('moneyForm'), flow=f.querySelector('[name="flow"]:checked').value, sel=document.getElementById('moneyCategory'); if(!sel) return; var cur=sel.value, cats=getCategories(flow); sel.innerHTML=cats.map(function(c){return '<option '+(c===cur?'selected':'')+'>'+c+'</option>';}).join(''); }
+  function updateMoneyCategories(){ if(typeof wlEnsureBaseCategories==='function') wlEnsureBaseCategories(); var f=document.getElementById('moneyForm'), flow=f.querySelector('[name="flow"]:checked').value, sel=document.getElementById('moneyCategory'); if(!sel) return; var cur=sel.value, cats=getCategories(flow); sel.innerHTML=cats.map(function(c){return '<option '+(c===cur?'selected':'')+'>'+c+'</option>';}).join(''); if(typeof updateMoneyWanglaiField==='function') updateMoneyWanglaiField(); }
 
   function bindForms(){
 
@@ -9759,7 +9898,7 @@ function renderAll(){ renderDashboard(); renderMoney(); renderHabits(); renderHa
       });
     });
 
-    document.getElementById('moneyForm').addEventListener('change',function(e){ if(e.target.name==='flow') updateMoneyCategories(); });
+    document.getElementById('moneyForm').addEventListener('change',function(e){ if(e.target.name==='flow') updateMoneyCategories(); updateMoneyWanglaiField(); });
 
     document.getElementById('plannerForm').addEventListener('change',function(e){ if(e.target.name==='priority'){ var f=e.currentTarget, p=f.querySelector('[name="priority"]').value, rm=f.querySelector('[name="remind"]'); if(p==='high'){ rm.checked=true; toast('高优先级事项已自动开启到点提醒'); } } });
 
@@ -9882,6 +10021,10 @@ function renderAll(){ renderDashboard(); renderMoney(); renderHabits(); renderHa
     document.getElementById('salaryForm').addEventListener('submit',function(e){ e.preventDefault(); var sf=e.currentTarget; if(!state.settings.salaryDefaults) state.settings.salaryDefaults={}; ['takeHome','payMonths','workDays','onsite','commute','overtime','cost'].forEach(function(n){ if(sf.elements[n]) state.settings.salaryDefaults[n]=sf.elements[n].value; }); saveState(); renderSalary(); toast('已计算真实时薪并自动保存'); });
 
     document.getElementById('budgetInput').addEventListener('change',function(e){ state.settings.budget=Math.max(0,Number(e.target.value||0)); saveState(); renderMoney(); toast('月度预算已更新'); });
+
+    /* R234/R240: 往来账目弹窗账户下拉同步（类型/方向选择器已随手动登记一并移除） */
+    var _wlOv=document.getElementById('wanglaiOverlay');
+    if(_wlOv){ _wlOv.addEventListener('click',function(e){ if(e.target.id==='wanglaiOverlay') closeWanglai(); }); }
 
     document.getElementById('moneyFilter').addEventListener('change',function(e){ state.settings.moneyFilter=e.target.value; saveState(); renderMoney(); });
 
@@ -10045,11 +10188,9 @@ function renderAll(){ renderDashboard(); renderMoney(); renderHabits(); renderHa
     document.getElementById('clearSamplesBtn').addEventListener('click',function(){
       var hasSample = state.records.some(function(r){return r.sample;})||state.habits.some(function(h){return h.sample;})||state.mediaItems.some(function(i){return i.sample;});
       if(hasSample){
-        if(!confirm('将清空示例记录和示例打卡，你自己的内容会保留。是否继续？')) return;
-        state.records=state.records.filter(function(r){return !r.sample;});
-        state.mediaItems=state.mediaItems.filter(function(i){return !i.sample;});
-        state.habits.forEach(function(h){ if(h.sample){h.entries={};h.sample=false;} });
-        saveState(); renderAll(); toast('示例内容已清空');
+        /* R233: 清空示例确认改走通用 showConfirm（统一弹窗样式，替换原生 confirm） */
+        showConfirm({title:'清空示例', body:'将清空示例记录和示例打卡，你自己的内容会保留。确定继续吗？', confirmText:'清空', onConfirm:function(){ state.records=state.records.filter(function(r){return !r.sample;}); state.mediaItems=state.mediaItems.filter(function(i){return !i.sample;}); state.habits.forEach(function(h){ if(h.sample){h.entries={};h.sample=false;} }); saveState(); renderAll(); toast('示例内容已清空'); }});
+        return;
       } else {
         loadSampleData();
       }
@@ -10285,6 +10426,9 @@ function saveAccountsFromEditor(){ var rows=document.querySelectorAll('#accounts
   function closeTransfer(){ var ed=document.getElementById('transferEditor'); if(ed) delete ed.dataset.editingId; var ov=document.getElementById('transferOverlay'); if(ov){ ov.hidden=true; ov.style.display='none'; } try{ saveState(); renderAccounts(); renderMoney(); }catch(e){ console.warn('closeTransfer:',e); } }
   function openTransferEdit(rawId){ if(!rawId) return; var id=String(rawId).replace(/^t_/,''); var t=(state.settings.transfers||[]).find(function(x){return String(x.id)===id;}); if(!t){ if(typeof toast==='function') toast('未找到该转账'); return; } var ov=document.getElementById('transferOverlay'), ed=document.getElementById('transferEditor'); if(!ov||!ed) return; ed.dataset.editingId=id; renderTransferEditor(); ov.hidden=false; ov.style.display='flex'; }
 
+  /* R232: 删除单笔转账（IIFE 顶层定义，供 delegate 与 window 暴露区使用） */
+  function removeTransferById(rawId){ var tid2=rawId; if(state.settings.transfers) state.settings.transfers=state.settings.transfers.filter(function(t){return String(t.id)!==String(tid2);}); renderTransferEditor(); if(typeof saveState==='function') saveState(); if(typeof renderAccounts==='function') renderAccounts(); if(typeof renderMoney==='function') renderMoney(); }
+
   /* ── 清单管理（日程模块） ── */
 
   function getLists(){ var l=state.settings&&state.settings.customLists; return (l&&l.length)?l.slice():['生活','工作','家庭','个人']; }
@@ -10370,6 +10514,8 @@ function saveAccountsFromEditor(){ var rows=document.querySelectorAll('#accounts
     r.data.account=(d.editAccount||'').trim();
 
     r.data.note=(d.editNote||'').trim();
+
+    try{ if(r.data && typeof wlSyncFromMoney==='function'){ wlSyncFromMoney(r); } }catch(e){ console.warn('wl edit sync',e); }
 
     try{ if(typeof saveState==='function') saveState(); }catch(e){ console.warn('save:',e); }
 
@@ -10649,17 +10795,7 @@ function saveAccountsFromEditor(){ var rows=document.querySelectorAll('#accounts
 
     document.getElementById('habitSettings').addEventListener('click',function(e){ if(e.target.id==='habitSettings') closeHabitSettings(); });
 
-    document.getElementById('deleteConfirmOverlay').addEventListener('click',function(e){ if(e.target.id==='deleteConfirmOverlay') closeDeleteConfirm(); });
-
-    var dcOk=document.getElementById('deleteConfirmOk'); if(dcOk) dcOk.addEventListener('click',doDeleteHabit);
-
-    var dcCancel=document.getElementById('deleteConfirmCancel'); if(dcCancel) dcCancel.addEventListener('click',closeDeleteConfirm);
-
-    var mdOk=document.getElementById('mediaDeleteConfirmOk'); if(mdOk) mdOk.addEventListener('click',doMediaDelete);
-
-    var mdCancel=document.getElementById('mediaDeleteConfirmCancel'); if(mdCancel) mdCancel.addEventListener('click',closeMediaDeleteConfirm);
-
-    document.getElementById('mediaDeleteConfirmOverlay').addEventListener('click',function(e){ if(e.target.id==='mediaDeleteConfirmOverlay') closeMediaDeleteConfirm(); });
+    /* R233: 习惯/书影音删除已统一改走通用 showConfirm，移除原 overlay 监听器 */
 
     /* R58-4: 导入说明弹窗 — 关闭/选择文件按钮绑定 */
     var imphelpCloseBtn=document.getElementById('imphelpCloseBtn');
@@ -10677,7 +10813,7 @@ function saveAccountsFromEditor(){ var rows=document.querySelectorAll('#accounts
     var r60ErForm=document.getElementById('r60ErNewForm'); if(r60ErForm) r60ErForm.addEventListener('submit',saveErrorReviewItem);
     var r60ErOverlay=document.getElementById('r60ErNewOverlay'); if(r60ErOverlay) r60ErOverlay.addEventListener('click',function(e){ if(e.target.id==='r60ErNewOverlay') closeErrorReviewNew(); });
     var r60ErList=document.getElementById('r60ErrReviewList');
-    if(r60ErList){ r60ErList.addEventListener('click',function(e){ var btn=e.target.closest('[data-er-action]'); if(!btn) return; if(btn.dataset.erAction==='review') markErrorReview(btn.dataset.id); else if(btn.dataset.erAction==='del') deleteErrorReview(btn.dataset.id); else if(btn.dataset.erAction==='edit') openErrorReviewEdit(btn.dataset.id); }); }
+    if(r60ErList){ r60ErList.addEventListener('click',function(e){ var btn=e.target.closest('[data-er-action]'); if(!btn) return; if(btn.dataset.erAction==='review') markErrorReview(btn.dataset.id); else if(btn.dataset.erAction==='del'){ var _eid=btn.dataset.id; showConfirm({title:'删除复盘', body:'确定要删除这条错题复盘吗？', detail:'该操作不可恢复。', danger:true, confirmText:'删除', onConfirm:function(){ deleteErrorReview(_eid); }}); } else if(btn.dataset.erAction==='edit') openErrorReviewEdit(btn.dataset.id); }); }
 
     document.getElementById('mediaOptionsManageOverlay').addEventListener('click',function(e){ if(e.target.id==='mediaOptionsManageOverlay') closeMediaOptionsManage(); });
 
@@ -10814,7 +10950,7 @@ function saveAccountsFromEditor(){ var rows=document.querySelectorAll('#accounts
 
     if(accDoneBtn) accDoneBtn.addEventListener('click',function(e){ e.stopPropagation(); closeAccountsEdit(); });
 
-    document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ closeHabitSettings(); closeCycleSettings(); closeBrandSettings(); closeAccountsEdit(); closeCategoriesEdit(); closeListsEdit(); closeReminder(); closeDeleteConfirm(); closeMediaDeleteConfirm(); closeMediaOptionsManage(); closeHabitAdded(); closeHabitManage(); closeHabitEdit(); } });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ closeHabitSettings(); closeCycleSettings(); closeBrandSettings(); closeAccountsEdit(); closeCategoriesEdit(); closeListsEdit(); closeReminder(); closeMediaOptionsManage(); closeHabitAdded(); closeHabitManage(); closeHabitEdit(); } });
 
     document.addEventListener('click',function(e){
 
@@ -10949,7 +11085,26 @@ function saveAccountsFromEditor(){ var rows=document.querySelectorAll('#accounts
 
       var ydTip=document.getElementById('ydNoteTip'); if(ydTip && !e.target.closest('#ydNoteTip')) ydTip.classList.remove('show');
 
-      if(type==='delete-media' && e.target.closest('.media-delete')) openMediaDeleteConfirm(id);
+      /* R233: 书影音删除改走通用 showConfirm（统一弹窗样式） */
+      if(type==='delete-media' && e.target.closest('.media-delete')){ var _mid=id; var _m=state.mediaItems.find(function(x){return x.id===_mid;}); showConfirm({title:'删除作品', body:'确定要从清单中删除 <b>'+esc((_m&&_m.name)||'该作品')+'</b> 吗？', detail:'该操作不可恢复。', danger:true, confirmText:'删除', onConfirm:function(){ if(_m&&_m.remoteId) dbDelete(DB_MEDIA,_m.remoteId); state.mediaItems=state.mediaItems.filter(function(x){return x.id!==_mid;}); saveState(); renderMedia(); toast('已从书影音清单移除'); }}); }
+
+      /* R234: 往来账目操作 */
+      if(type==='open-wanglai-edit'){ wlCloseSummary(); openWanglaiEdit(id||null); return; }
+      if(type==='open-wanglai-repay'){ wlCloseSummary(); openWanglaiRepay(id); return; }
+      if(type==='close-wanglai'){ closeWanglai(); return; }
+      if(type==='save-wanglai'){ if(_wlBatchMode||_wlRepayId) saveWanglaiRepay(); else saveWanglaiEdit(); return; }
+      if(type==='delete-wanglai'){ deleteWanglaiRecord(id); return; }
+      if(type==='delete-wanglai-repay'){ var _wlid=a.dataset.wlId, _rid=a.dataset.rid; if(_wlid&&_rid) deleteWanglaiRepay(_wlid,_rid); return; }
+      if(type==='toggle-wanglai-pin'){ wanglaiTogglePin(id); return; }
+      /* R241: 报销汇总明细（单笔 / 多笔 / 全选报销） */
+      if(type==='open-wanglai-summary'){ openWanglaiSummary(id); return; }
+      if(type==='close-wanglai-summary'){ wlCloseSummary(); return; }
+      if(type==='wanglai-sum-toggle'){ var _sti=_wlSumSel.indexOf(id); if(_sti>=0) _wlSumSel.splice(_sti,1); else _wlSumSel.push(id); renderWanglaiSumList(); return; }
+      if(type==='wanglai-sum-all'){ wanglaiSumSelectAll(); return; }
+      if(type==='wanglai-sum-repay'){ if(!_wlSumSel.length){ toast('请先勾选要报销的垫付'); return; } _wlBatch={on:true,ids:_wlSumSel.slice()}; wlCloseSummary(); openWanglaiBatchRepay(); return; }
+      if(type==='wanglai-prev-month'){ wanglaiNavPrev(); return; }
+      if(type==='wanglai-next-month'){ wanglaiNavNext(); return; }
+      if(type==='wanglai-reset-month'){ wanglaiNavReset(); return; }
 
       if(type==='clear-media-search'){ state.settings.mediaQuery=''; state.settings.mediaTablePage=1; state.settings.mediaWallPage=1; var si=document.getElementById('mediaSearch'); if(si) si.value=''; saveState(); renderMedia(); var _dd=document.getElementById('mediaSearchDropdown'); if(_dd) _dd.hidden=true; }
 
@@ -10968,7 +11123,8 @@ function saveAccountsFromEditor(){ var rows=document.querySelectorAll('#accounts
         changeMediaPage(pk,newP);
       }
 
-      if(type==='delete-habit-custom'){ openDeleteConfirm(id); }
+      /* R233: 习惯删除改走通用 showConfirm（统一弹窗样式） */
+      if(type==='delete-habit-custom'){ var _hid=id; var _h=state.habits.find(function(x){return x.id===_hid;}); showConfirm({title:'删除习惯', body:'确定要删除 <b>'+esc((_h&&_h.name)||'该习惯')+'</b> 吗？', detail:'历史打卡也会一起移除，且无法恢复。', danger:true, confirmText:'删除', onConfirm:function(){ if(_h&&_h.remoteIds){ Object.keys(_h.remoteIds).forEach(function(d){ if(_h.remoteIds[d]) dbDelete(DB_HABIT,_h.remoteIds[d]); }); } state.habits=state.habits.filter(function(x){return x.id!==_hid;}); saveState(); renderAll(); var hm=document.getElementById('habitManageOverlay'); if(hm&&!hm.hidden) renderHabitManage(); toast('习惯已删除'); }}); }
 
       if(type==='open-habit-settings') openHabitSettings(); if(type==='close-habit-settings') closeHabitSettings();
 
@@ -10990,7 +11146,8 @@ function saveAccountsFromEditor(){ var rows=document.querySelectorAll('#accounts
 
       if(type==='add-transfer'){ var ted=document.getElementById('transferEditor'); var editingId=ted?ted.dataset.editingId:null; var tf=document.querySelector('#transferEditor [data-acc-transfer-from]'); var tt=document.querySelector('#transferEditor [data-acc-transfer-to]'); var ta=document.querySelector('#transferEditor [data-acc-transfer-amount]'); var tn=document.querySelector('#transferEditor [data-acc-transfer-note]'); var td=document.querySelector('#transferEditor [data-acc-transfer-date]'); var tfv=tf?tf.value:''; var ttv=tt?tt.value:''; var tamt=ta?Number(ta.value)||0:0; var tnv=tn?tn.value.trim():''; var tdv=td?td.value:''; if(!tdv) tdv=isoDate(); if(!tfv||!ttv||tfv===ttv||!(tamt>0)){ if(typeof toast==='function') toast('请选择两个不同的账户并填写金额'); } else { if(!state.settings.transfers) state.settings.transfers=[]; if(editingId){ var idx=-1; for(var ti=0;ti<state.settings.transfers.length;ti++){ if(String(state.settings.transfers[ti].id)===String(editingId)){ idx=ti; break; } } if(idx>-1){ state.settings.transfers[idx]={id:editingId,from:tfv,to:ttv,amount:tamt,note:tnv,date:tdv}; } else { state.settings.transfers.push({id:editingId,from:tfv,to:ttv,amount:tamt,note:tnv,date:tdv}); } delete ted.dataset.editingId; } else { state.settings.transfers.push({id:'t'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),from:tfv,to:ttv,amount:tamt,note:tnv,date:tdv}); } renderTransferEditor(); if(typeof saveState==='function') saveState(); if(typeof renderAccounts==='function') renderAccounts(); if(typeof renderMoney==='function') renderMoney(); if(typeof updateMoneyAccountOptions==='function') updateMoneyAccountOptions(); } }
 
-      if(type==='remove-transfer'){ var tid2=id; if(state.settings.transfers) state.settings.transfers=state.settings.transfers.filter(function(t){return String(t.id)!==String(tid2);}); renderTransferEditor(); if(typeof saveState==='function') saveState(); if(typeof renderAccounts==='function') renderAccounts(); if(typeof renderMoney==='function') renderMoney(); }
+      /* R233: 转账删除改走通用二次确认弹窗 showConfirm（统一弹窗样式） */
+      if(type==='remove-transfer'){ e.stopPropagation(); var _rid2=id; showConfirm({title:'删除转账', body:'确定要删除这条转账记录吗？', detail:'该操作不可恢复。', danger:true, confirmText:'删除', onConfirm:function(){ if(typeof removeTransferById==='function') removeTransferById(_rid2); }}); return; }
 
       if(type==='open-categories-edit') openCategoriesEdit(); if(type==='close-categories') closeCategoriesEdit();
 
@@ -11041,7 +11198,8 @@ function saveAccountsFromEditor(){ var rows=document.querySelectorAll('#accounts
 
       if(type==='habit-edit') openHabitEdit(id);
 
-      if(type==='habit-del') openDeleteConfirm(id);
+      /* R233: 习惯删除改走通用 showConfirm（统一弹窗样式） */
+      if(type==='habit-del'){ var _hid2=id; var _h2=state.habits.find(function(x){return x.id===_hid2;}); showConfirm({title:'删除习惯', body:'确定要删除 <b>'+esc((_h2&&_h2.name)||'该习惯')+'</b> 吗？', detail:'历史打卡也会一起移除，且无法恢复。', danger:true, confirmText:'删除', onConfirm:function(){ if(_h2&&_h2.remoteIds){ Object.keys(_h2.remoteIds).forEach(function(d){ if(_h2.remoteIds[d]) dbDelete(DB_HABIT,_h2.remoteIds[d]); }); } state.habits=state.habits.filter(function(x){return x.id!==_hid2;}); saveState(); renderAll(); var hm=document.getElementById('habitManageOverlay'); if(hm&&!hm.hidden) renderHabitManage(); toast('习惯已删除'); }}); }
 
       /* 清单编辑操作 */
 
@@ -11966,6 +12124,11 @@ function renderDashboard(){
 
     var mf=document.getElementById('moneyFilter');Array.from(mf.options).slice(1).forEach(function(o){o.remove();});getCategories('expense').concat(getCategories('income')).forEach(function(c){var o=document.createElement('option');o.value=c;o.textContent=c;mf.appendChild(o);});
 
+    /* R242: 分类被废弃/删除后，若当前筛选值已不存在则回落「全部分类」，避免流水列表空白 */
+    if(filter && filter!=='all'){
+      var _has=Array.prototype.some.call(mf.options,function(o){return o.value===filter;});
+      if(!_has){ filter='all'; state.settings.moneyFilter='all'; try{ saveState(); }catch(e){} }
+    }
     document.getElementById('moneyFilter').value=filter;
 
     /* R210: 账户筛选器动态填充选项 */
@@ -12058,6 +12221,9 @@ function renderDashboard(){
     /* R196-5: 「该月 N 条 · 全部 M 条」移到流水卡片底部最下方呈现；month-nav 月份切换按钮保持原状 */
     var _mcText = useRange ? ('筛选 '+list.length+' 条 · 全部 '+recs.length+' 条') : ('该月 '+list.length+' 条 · 全部 '+recs.length+' 条');
     var _mcEl=document.getElementById('moneyListCount'); if(_mcEl) _mcEl.textContent=_mcText;
+
+    /* R234: 渲染往来账目卡片 */
+    renderWanglai();
 
   }
 
@@ -12249,7 +12415,7 @@ function renderMonthlyBars(){
 
     }
 
-function updateMoneyCategories(){ var f=document.getElementById('moneyForm'), flow=f.querySelector('[name="flow"]:checked').value, sel=document.getElementById('moneyCategory'); if(!sel) return; var cur=sel.value, cats=getCategories(flow); sel.innerHTML=cats.map(function(c){return '<option '+(c===cur?'selected':'')+'>'+c+'</option>';}).join(''); }
+function updateMoneyCategories(){ if(typeof wlEnsureBaseCategories==='function') wlEnsureBaseCategories(); var f=document.getElementById('moneyForm'), flow=f.querySelector('[name="flow"]:checked').value, sel=document.getElementById('moneyCategory'); if(!sel) return; var cur=sel.value, cats=getCategories(flow); sel.innerHTML=cats.map(function(c){return '<option '+(c===cur?'selected':'')+'>'+c+'</option>';}).join(''); if(typeof updateMoneyWanglaiField==='function') updateMoneyWanglaiField(); }
 
 function updateMoneyAccountOptions(){ var sel=document.getElementById('moneyAccount'); if(!sel) return; var accs=state.settings.accounts||[], cur=sel.value; sel.innerHTML='<option value="">未指定</option>'+accs.map(function(a){return '<option'+(a.name===cur?' selected':'')+'>'+esc(a.name)+'</option>';}).join(''); }
 
@@ -12291,6 +12457,14 @@ function consumeNavNext(){ var cur=(typeof state.settings.consumeMonthOffset==='
 function moneyFilterChange(v){ state.settings.moneyFilter=v; saveState(); renderMoney(); }
 function moneyAccountFilterChange(v){ state.settings.moneyAccountFilter=v; saveState(); renderMoney(); }
 
+/* R237: 往来账目卡片导航与批量报销状态 */
+function wanglaiNavPrev(){ state.settings.wanglaiMonthOffset=(state.settings.wanglaiMonthOffset||0)+1; saveState(); renderWanglai(); }
+function wanglaiNavNext(){ state.settings.wanglaiMonthOffset=Math.max(0,(state.settings.wanglaiMonthOffset||0)-1); saveState(); renderWanglai(); }
+function wanglaiNavReset(){ state.settings.wanglaiMonthOffset=0; saveState(); renderWanglai(); }
+/* R241: 逐行批量开关已移除（批量报销入口改在「报销汇总」明细内） */
+function wanglaiTogglePin(id){ var rec=(state.settings.wanglaiRecords||[]).find(function(x){return x.id===id;}); if(!rec) return; rec.pinned=!rec.pinned; saveState(); renderAll(); wlRefreshSummary(); }
+function openWanglaiBatchRepay(){ if(!_wlBatch.ids||!_wlBatch.ids.length){ toast('请先勾选要报销的垫付'); return; } _wlRepayId=null; _wlBatchMode=true; var wls=state.settings.wanglaiRecords||[]; var sel=_wlBatch.ids.map(function(i){return wls.find(function(x){return x.id===i;});}).filter(Boolean); var total=sel.reduce(function(s,r){return s+wlOutstanding(r);},0); var t=document.getElementById('wanglaiTitle'); if(t) t.textContent='批量报销'; var ts=document.getElementById('wanglaiTitleSub'); if(ts) ts.textContent='往来'; document.getElementById('wanglaiFormBox').style.display='none'; document.getElementById('wanglaiRepayBox').style.display=''; document.getElementById('wanglaiSaveBtn').textContent='确认报销'; var sub=document.getElementById('wanglaiRepaySub'); if(sub) sub.innerHTML='共选中 <b>'+sel.length+'</b> 笔垫付，待报销合计 <b>'+money(total)+'</b>'; document.getElementById('wlRepayAmount').value=total>0?total:''; document.getElementById('wlRepayDate').value=isoDate(); document.getElementById('wlRepayNote').value=''; var _rl=document.getElementById('wlRepayAccountLabel'); if(_rl) _rl.textContent='回款账户'; wlUpdateAccountSel(); var _ras=document.getElementById('wlRepayAccount'); if(_ras) _ras.value=''; document.getElementById('wanglaiRepayHistory').innerHTML=''; var ov=document.getElementById('wanglaiOverlay'); if(ov){ ov.hidden=false; ov.style.display='flex'; } }
+
 /* R211: 自定义日期段筛选器 —— 两个日期框共用一个 change 入口，读取两者值后保存并重渲染 */
 function moneyDateRangeChange(){ state.settings.moneyDateFrom=(document.getElementById('moneyDateFrom')||{}).value||''; state.settings.moneyDateTo=(document.getElementById('moneyDateTo')||{}).value||''; saveState(); renderMoney(); }
 function moneyDateRangeClear(){ state.settings.moneyDateFrom=''; state.settings.moneyDateTo=''; saveState(); renderMoney(); }
@@ -12299,7 +12473,410 @@ function moneyDateRangeClear(){ state.settings.moneyDateFrom=''; state.settings.
 function toggleDatePopup(e){ if(e&&e.stopPropagation) e.stopPropagation(); var p=document.getElementById('moneyDatePopup'); if(!p) return; if(p.hasAttribute('hidden')){ p.removeAttribute('hidden'); } else { p.setAttribute('hidden',''); } }
 function closeDatePopup(){ var p=document.getElementById('moneyDatePopup'); if(p) p.setAttribute('hidden',''); }
 
-function submitMoneyForm(formEl){ if(!formEl) return; var d=Object.fromEntries(new FormData(formEl)); if(!(Number(d.amount)>0)){ toast('请输入有效金额'); return; } if(addRecord('money',d.date,{flow:d.flow,amount:Number(d.amount),category:d.category,account:(d.account||'').trim(),note:(d.note||'').trim()})) clearDraft(formEl); }
+function submitMoneyForm(formEl){ if(!formEl) return; var d=Object.fromEntries(new FormData(formEl)); if(!(Number(d.amount)>0)){ toast('请输入有效金额'); return; } if(addRecord('money',d.date,{flow:d.flow,amount:Number(d.amount),category:d.category,account:(d.account||'').trim(),note:(d.note||'').trim(),wlPerson:(d.wlperson||'').trim()})) clearDraft(formEl); }
+
+/* ─── R234: 往来账目（借款 · 人情份子）─── */
+var _wlEditingId=null, _wlRepayId=null, _wlBatch={on:false,ids:[]}, _wlBatchMode=false, _wlSumSel=[], _wlSumMonth='';
+
+function wlMoneyFlow(rec){ return (rec.kind==='loan'?rec.direction==='in':rec.direction==='in')?'income':'expense'; }
+function wlMoneyCategory(rec){ if(rec.kind==='reimburse') return rec.direction==='out'?'报销支出':'报销收入'; return rec.kind==='loan'?'借款':'人情份子'; }
+function wlRepayCategory(rec){ if(rec.kind==='reimburse') return rec.direction==='out'?'报销收入':'报销支出'; return rec.kind==='loan'?(rec.direction==='out'?'借款归还':'其他'):(rec.direction==='out'?'人情归还':'其他'); } /* R242: 借入/收礼方向还款不再用「借款收回/人情收回」，归入「其他」 */
+function wlDirLabel(rec){ if(rec.kind==='loan') return rec.direction==='out'?'借出':'借入'; if(rec.kind==='reimburse') return rec.direction==='out'?'垫付':'报销'; return rec.direction==='out'?'随礼':'收礼'; }
+function wlBadgeClass(rec){ if(rec.kind==='loan') return rec.direction==='out'?'loan-out':'loan-in'; if(rec.kind==='reimburse') return rec.direction==='out'?'reimb-out':'reimb-in'; return rec.direction==='out'?'gift-out':'gift-in'; }
+function wlOutstanding(rec){ return Math.max(0, Number(rec.amount||0)-Number(rec.repaid||0)); }
+function wlStatus(rec){
+  if(rec.kind==='gift') return {cls:'gift',text:'已登记'};
+  if(rec.kind==='reimburse' && rec.direction==='in') return {cls:'done',text:'已报销'};
+  var out=wlOutstanding(rec);
+  if(out<=0.001) return {cls:'done',text: rec.kind==='reimburse'?'已报销':'已结清'};
+  if(Number(rec.repaid||0)>0) return {cls:'partial',text: rec.kind==='reimburse'?'部分已报':'部分已还'};
+  return {cls:'ongoing',text: rec.kind==='reimburse'?'待报销':'进行中'};
+}
+function wlEnsureCategory(cat, flow){
+  if(!cat) return;
+  if(WL_DEPRECATED[cat]) return; /* R242: 已废弃类目（借款收回/人情收回）不再进入分类下拉 */
+  var fixed=WL_FIXED[cat]; if(fixed && fixed!==flow) return; /* R237: 固定类目只允许既定收支方向，避免下拉错配 */
+  var s=state.settings=state.settings||{}, cc=s.customCategories=s.customCategories||{};
+  cc.expense=cc.expense||[]; cc.income=cc.income||[];
+  var arr=flow==='income'?cc.income:cc.expense;
+  if(arr.indexOf(cat)<0) arr.push(cat);
+}
+function wlSyncInitialMoney(rec){
+  rec.moneyRecordIds=rec.moneyRecordIds||[];
+  rec.moneyRecordIds.forEach(function(mid){
+    var idx=state.records.findIndex(function(r){return r.id===mid && r.data && r.data.wanglaiId===rec.id && !r.data.wanglaiRepay;}); if(idx>=0) state.records.splice(idx,1);
+  });
+  var flow=wlMoneyFlow(rec), cat=wlMoneyCategory(rec); wlEnsureCategory(cat,flow);
+  var mrec={id:uid(),type:'money',date:rec.date,createdAt:Date.now(),sample:false,remoteId:null,data:{flow:flow,amount:rec.amount,category:cat,account:rec.account||'',note:'['+wlDirLabel(rec)+' '+esc(rec.person||'')+'] '+(rec.note||''),wanglaiId:rec.id}};
+  state.records.push(mrec);
+  rec.moneyRecordIds=rec.moneyRecordIds.filter(function(mid){return state.records.some(function(r){return r.id===mid;});});
+  rec.moneyRecordIds.push(mrec.id);
+}
+function wlSyncRepayMoney(rec, amt, date, note, acc){
+  var flow=rec.direction==='out'?'income':'expense', cat=wlRepayCategory(rec); wlEnsureCategory(cat,flow);
+  /* R238: 支持指定回款 / 还款账户；未传时沿用垫付记录的账户 */
+  var acct=(acc===undefined||acc===null)?(rec.account||''):String(acc).trim();
+  var mrec={id:uid(),type:'money',date:date,createdAt:Date.now(),sample:false,remoteId:null,data:{flow:flow,amount:amt,category:cat,account:acct,note:'[还款 '+esc(rec.person||'')+'] '+(note||''),wanglaiId:rec.id,wanglaiRepay:true}};
+  state.records.push(mrec);
+  rec.moneyRecordIds=rec.moneyRecordIds||[];
+  rec.moneyRecordIds.push(mrec.id);
+  return mrec.id;
+}
+
+/* R235: 反向联动 —— 通过记账页「记一笔账」登记借款 / 人情份子时，自动在往来卡片生成对应记录 */
+/* R237: 往来类目固定配对 —— 借款(支出)↔借款归还(收入)，人情份子(支出)↔人情归还(收入) */
+/* R242: 「借款收回 / 人情收回」与收入侧「借款归还 / 人情归还」语义重复，正式废弃，不再进入分类下拉 */
+var WL_FIXED={'借款':'expense','人情份子':'expense','借款归还':'income','人情归还':'income','借款收回':'expense','人情收回':'expense','报销支出':'expense','报销收入':'income'};
+var WL_DEPRECATED={'借款收回':1,'人情收回':1};
+function wlCleanupCategories(){
+  if(!state || !state.settings) return;
+  var cc=state.settings.customCategories=state.settings.customCategories||{};
+  cc.expense=cc.expense||[]; cc.income=cc.income||[];
+  /* R239: 清理 R237 之前误注册进错误收支方向的固定类目（借款归还/人情归还 曾被注册进支出，借款等曾被注册进收入） */
+  Object.keys(WL_FIXED).forEach(function(cat){
+    if(WL_DEPRECATED[cat]) return;
+    var wrong=WL_FIXED[cat]==='expense'?cc.income:cc.expense;
+    var i=wrong.indexOf(cat); if(i>=0) wrong.splice(i,1);
+  });
+  /* R242: 移除废弃类目（支出侧不再出现「借款收回 / 人情收回」） */
+  Object.keys(WL_DEPRECATED).forEach(function(cat){
+    var i=cc.expense.indexOf(cat); if(i>=0) cc.expense.splice(i,1);
+    var j=cc.income.indexOf(cat); if(j>=0) cc.income.splice(j,1);
+  });
+  /* R239: 历史流水类目改名对齐固定配对（不改收支方向，仅换标签） */
+  if(Array.isArray(state.records)){
+    var rename={'借款归还':'借款收回','人情归还':'人情收回','借款收回':'借款归还','人情收回':'人情归还'};
+    state.records.forEach(function(r){
+      if(!r || r.type!=='money' || !r.data) return;
+      var cat=r.data.category, want=rename[cat];
+      if(want && WL_FIXED[cat] && WL_FIXED[cat]!==r.data.flow && WL_FIXED[want]===r.data.flow) r.data.category=want;
+    });
+    /* R242: 废弃类目收敛 —— 收入侧并入「借款归还 / 人情归还」，支出侧归入「其他」，保证下拉始终可选 */
+    var dep={'借款收回':'借款归还','人情收回':'人情归还'};
+    state.records.forEach(function(r){
+      if(!r || r.type!=='money' || !r.data) return;
+      var cat=r.data.category; if(!WL_DEPRECATED[cat]) return;
+      var nc=(r.data.flow==='income')?dep[cat]:'其他';
+      r.data.category=nc;
+      wlEnsureCategory(nc, r.data.flow);
+    });
+  }
+}
+function wlEnsureBaseCategories(){
+  wlCleanupCategories();
+  wlEnsureCategory('借款','expense'); wlEnsureCategory('人情份子','expense');
+  wlEnsureCategory('借款归还','income'); wlEnsureCategory('人情归还','income');
+  wlEnsureCategory('报销支出','expense'); wlEnsureCategory('报销收入','income');
+}
+function updateMoneyWanglaiField(){
+  var f=document.getElementById('moneyForm'); if(!f) return;
+  var sel=f.querySelector('[name="category"]'); var cat=sel?sel.value:'';
+  var show=(cat==='借款'||cat==='人情份子');
+  var field=document.getElementById('moneyWanglaiField');
+  if(field) field.style.display=show?'':'none';
+}
+function wlSyncFromMoney(rec){
+  var d=rec.data; if(!d) return null;
+  /* 仅「借款 / 人情份子 / 报销支出 / 报销收入」主类目触发自动联动；还款类（收回 / 归还）由往来卡片统一处理 */
+  var map={'借款':{kind:'loan'},'人情份子':{kind:'gift'},'报销支出':{kind:'reimburse',direction:'out'},'报销收入':{kind:'reimburse',direction:'in'}};
+  var m=map[d.category]; if(!m) return null;
+  var person=(d.wlPerson||'').trim(); if('wlPerson' in d) delete d.wlPerson;
+  var direction=m.direction||(d.flow==='expense'?'out':'in');
+  var wls=state.settings.wanglaiRecords=state.settings.wanglaiRecords||[];
+  var wl=d.wanglaiId? wls.find(function(x){return x.id===d.wanglaiId;}):null;
+  if(wl){
+    wl.kind=m.kind; wl.direction=direction; wl.amount=Number(d.amount||0);
+    wl.date=rec.date; wl.note=(d.note||'').trim(); wl.account=(d.account||'').trim();
+    if(person) wl.person=person;
+    return wl;
+  }
+  /* R237: 登记「报销收入」时自动抵扣未报销的垫付记录（按日期 FIFO），剩余部分才独立成行 */
+  if(d.category==='报销收入'){ if(d.wanglaiRepay) return null; return wlAutoDeductReimburse(rec); }
+  wl={id:uid(),kind:m.kind,direction:direction,person:person,amount:Number(d.amount||0),date:rec.date,note:(d.note||'').trim(),account:(d.account||'').trim(),repaid:0,repayments:[],createdAt:Date.now(),moneyRecordIds:[rec.id]};
+  wls.push(wl); d.wanglaiId=wl.id;
+  return wl;
+}
+/* R237: 报销到账自动抵扣垫付 —— 把报销收入分摊到多笔未报完的垫付上，不另建独立收入行（余额才建） */
+function wlAutoDeductReimburse(rec){
+  var d=rec.data, total=Number(d.amount||0);
+  var wls=state.settings.wanglaiRecords=state.settings.wanglaiRecords||[];
+  var pool=wls.filter(function(x){return x.kind==='reimburse'&&x.direction==='out'&&wlOutstanding(x)>0.001;})
+              .sort(function(a,b){return (a.date||'').localeCompare(b.date||'')||a.createdAt-b.createdAt;});
+  var remaining=total, paidIds=[], paidTotal=0;
+  pool.forEach(function(r){
+    if(remaining<=0.001) return;
+    var out=wlOutstanding(r), pay=Math.min(remaining,out); if(pay<=0.001) return;
+    var rp={id:uid(),amount:pay,date:rec.date,note:'报销抵扣',createdAt:Date.now(),moneyRecordId:rec.id};
+    r.repaid=(Number(r.repaid)||0)+pay; r.repayments=r.repayments||[]; r.repayments.push(rp);
+    paidIds.push(r.id); paidTotal+=pay; remaining-=pay;
+  });
+  d.wanglaiRepay=true; d.wanglaiIds=paidIds;
+  var base=(d.note&&d.note.trim())?d.note.trim()+' ':'';
+  if(paidIds.length){ rec.note=base+'[报销抵扣 '+paidIds.length+' 笔垫付 ¥'+paidTotal.toFixed(2)+']'; }
+  if(remaining>0.001){
+    var nr={id:uid(),kind:'reimburse',direction:'in',person:'',amount:remaining,date:rec.date,note:'报销余额（未对应垫付）',account:(d.account||'').trim(),repaid:0,repayments:[],createdAt:Date.now(),moneyRecordIds:[rec.id]};
+    wls.push(nr); d.wanglaiIds=(d.wanglaiIds||[]).concat(nr.id);
+  }
+  return null;
+}
+
+
+function renderWanglai(){
+  var box=document.getElementById('wanglaiList'); if(!box) return;
+  var hint=document.getElementById('wanglaiFilterHint');
+  /* R234-联动：往来账目卡片跟随记账页「分类」筛选（moneyFilter）。仅借款/人情类目联动本卡片，其余类目保持全部显示。 */
+  var _wf={ '借款':function(r){return r.kind==='loan';}, '人情份子':function(r){return r.kind==='gift';}, '借款归还':function(r){return r.kind==='loan'&&r.direction==='out';}, '人情归还':function(r){return r.kind==='gift'&&r.direction==='out';}, '报销支出':function(r){return r.kind==='reimburse'&&r.direction==='out';}, '报销收入':function(r){return r.kind==='reimburse'&&r.direction==='in';} };
+  var _mf=state.settings.moneyFilter||'all';
+  var _filter=_wf[_mf];
+  var list=(state.settings.wanglaiRecords||[]).slice().sort(function(a,b){
+    var pa=a.pinned?1:0, pb=b.pinned?1:0; if(pa!==pb) return pb-pa;
+    return (b.date||'').localeCompare(a.date||'')||b.createdAt-a.createdAt;
+  });
+  /* R237: 月度步进（置顶记录始终显示） */
+  var off=state.settings.wanglaiMonthOffset||0;
+  var tl=document.getElementById('wanglaiMonthLabel');
+  if(tl){ var td=new Date(); td.setDate(1); td.setMonth(td.getMonth()-off); var mn=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']; tl.textContent= off===0?'本月':mn[td.getMonth()]+' ('+td.getFullYear()+'年)'; }
+  var rb=document.getElementById('wanglaiResetBtn'); if(rb) rb.style.display= off===0?'none':'';
+  var mk=(function(){ var d=new Date(); d.setDate(1); d.setMonth(d.getMonth()-off); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); })();
+  if(_filter){ list=list.filter(_filter); if(hint){ hint.style.display=''; hint.textContent='已按上方「分类」筛选「'+_mf+'」· 往来账目同步显示'; } } else { if(hint) hint.style.display='none'; }
+  list=list.filter(function(r){ if(r.pinned) return true; return (r.date||'').slice(0,7)===mk; });
+  /* R241: 当月未置顶的垫付（报销支出）汇总成一条「报销汇总」记录，点击进入明细可单笔/多笔/全选报销；置顶的垫付保持独立行 */
+  var sumRecs=list.filter(function(r){ return !r.pinned && r.kind==='reimburse' && r.direction==='out'; });
+  list=list.filter(function(r){ return r.pinned || !(r.kind==='reimburse' && r.direction==='out'); });
+  var sumHtml='';
+  if(sumRecs.length){
+    var _st=0,_sd=0,_oc=0;
+    sumRecs.forEach(function(r){ _st+=Number(r.amount||0); _sd+=Number(r.repaid||0); if(wlOutstanding(r)>0.001) _oc++; });
+    var _spct=Math.min(100, Math.round(_sd/Math.max(_st,1)*100));
+    sumHtml='<div class="wl-row wl-sum" data-action="open-wanglai-summary" data-id="'+esc(mk)+'">'+
+      '<div class="wl-top"><span class="wl-badge reimb-out">报销</span><span class="wl-kind">报销汇总</span><span class="wl-person">'+sumRecs.length+' 笔'+(_oc?(' · 待报 '+_oc+' 笔'):' · 全部已报')+'</span><span class="wl-amt">'+money(_st)+'</span></div>'+
+      '<div class="wl-sub"><span>点击管理本月报销明细（单笔 / 多笔 / 全选报销）</span></div>'+
+      '<div class="wl-progress"><div class="large-progress"><span style="width:'+_spct+'%"></span></div><div class="progress-label"><span>已报 '+money(_sd)+' / 总 '+money(_st)+'</span><span>'+_spct+'%</span></div></div>'+
+    '</div>';
+  }
+  if(!list.length && !sumRecs.length){ box.innerHTML='<p class="mini-note" style="text-align:center;padding:20px 0">'+(_filter?'当前「分类」筛选「'+esc(_mf)+'」下没有往来记录':'本月暂无往来记录，去记一笔账试试')+'</p>'; return; }
+  box.innerHTML=sumHtml + list.map(function(rec){
+    var st=wlStatus(rec), dir=wlDirLabel(rec), badge=wlBadgeClass(rec);
+    var progress='';
+    if(rec.kind==='loan'||(rec.kind==='reimburse'&&rec.direction==='out')){
+      var pct=Math.min(100, Math.round((Number(rec.repaid||0)/Math.max(Number(rec.amount||0),1))*100));
+      var _repLbl=rec.kind==='reimburse'?'已报':'已还';
+      progress='<div class="wl-progress"><div class="large-progress"><span style="width:'+pct+'%"></span></div><div class="progress-label"><span>'+_repLbl+' '+money(rec.repaid||0)+' / 总 '+money(rec.amount||0)+'</span><span>'+pct+'%</span></div></div>';
+    }
+    /* R241: 已报销/已结清的记录禁止修改（编辑按钮置灰） */
+    var _settled=(Number(rec.repaid||0)>0 && wlOutstanding(rec)<=0.001);
+    var _editBtn=_settled?'<button class="btn ghost compact" disabled title="已报销/已结清的记录不可修改">编辑</button>':'<button class="btn ghost compact" data-action="open-wanglai-edit" data-id="'+esc(rec.id)+'">编辑</button>';
+    return '<div class="wl-row'+(rec.pinned?' pinned':'')+'" data-wl-id="'+esc(rec.id)+'">'+
+      '<div class="wl-top">'+(rec.pinned?'<span class="wl-pin">置顶</span>':'')+'<span class="wl-badge '+badge+'">'+esc(dir)+'</span><span class="wl-kind">'+(rec.kind==='loan'?'借款':(rec.kind==='reimburse'?'报销':'人情'))+'</span><span class="wl-person">'+esc(rec.person||'')+'</span><span class="wl-amt">'+money(rec.amount||0)+'</span></div>'+
+      '<div class="wl-sub"><span>'+esc(rec.date||'')+'</span>'+(rec.note?'<span>'+esc(rec.note)+'</span>':'')+'</div>'+progress+
+      '<div class="wl-foot"><span class="wl-status '+st.cls+'">'+esc(st.text)+'</span>'+
+      '<div class="wl-actions">'+
+        (rec.kind==='loan'&&wlOutstanding(rec)>0.001?'<button class="btn ghost compact" data-action="open-wanglai-repay" data-id="'+esc(rec.id)+'">还款</button>':'')+
+        (rec.kind==='reimburse'&&rec.direction==='out'&&wlOutstanding(rec)>0.001?'<button class="btn ghost compact" data-action="open-wanglai-repay" data-id="'+esc(rec.id)+'">报销</button>':'')+
+        '<button class="btn ghost compact" data-action="toggle-wanglai-pin" data-id="'+esc(rec.id)+'">'+(rec.pinned?'取消置顶':'置顶')+'</button>'+
+        _editBtn+
+        '<button class="btn ghost compact danger" data-action="delete-wanglai" data-id="'+esc(rec.id)+'">删除</button>'+
+      '</div></div>'+
+    '</div>';
+  }).join('');
+}
+
+/* ─── R241: 报销汇总明细弹窗（当月垫付 单笔/多笔/全选报销）─── */
+function wlSumMonthLabel(mk){ var p=(mk||'').split('-'); if(p.length<2) return mk||''; var mn=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']; return (mn[Number(p[1])-1]||p[1])+' ('+p[0]+'年)'; }
+function wlCloseSummary(){ _wlSumSel=[]; _wlSumMonth=''; var ov=document.getElementById('wanglaiSummaryOverlay'); if(ov){ ov.hidden=true; ov.style.display='none'; } }
+function wlRefreshSummary(){ var so=document.getElementById('wanglaiSummaryOverlay'); if(so && !so.hidden && so.style.display!=='none' && _wlSumMonth) renderWanglaiSumList(); }
+function wlSumRecords(){
+  return (state.settings.wanglaiRecords||[]).filter(function(r){ return r.kind==='reimburse' && r.direction==='out' && (r.date||'').slice(0,7)===_wlSumMonth; })
+    .sort(function(a,b){ return (b.date||'').localeCompare(a.date||'')||b.createdAt-a.createdAt; });
+}
+function openWanglaiSummary(mk){
+  if(!mk) return;
+  _wlSumMonth=mk; _wlSumSel=[];
+  var t=document.getElementById('wanglaiSumTitle'); if(t) t.textContent='报销汇总 · '+wlSumMonthLabel(mk);
+  renderWanglaiSumList();
+  var ov=document.getElementById('wanglaiSummaryOverlay'); if(ov){ ov.hidden=false; ov.style.display='flex'; }
+}
+function renderWanglaiSumList(){
+  var box=document.getElementById('wanglaiSumList'); if(!box) return;
+  var list=wlSumRecords();
+  if(!list.length){
+    box.innerHTML='<p class="mini-note" style="text-align:center;padding:20px 0">该月没有报销垫付记录</p>';
+    var f=document.getElementById('wanglaiSumFoot'); if(f) f.style.display='none';
+    var sub=document.getElementById('wanglaiSumSub'); if(sub) sub.textContent='';
+    return;
+  }
+  var _ft=document.getElementById('wanglaiSumFoot'); if(_ft) _ft.style.display='';
+  var tot=0,done=0;
+  list.forEach(function(r){ tot+=Number(r.amount||0); done+=Number(r.repaid||0); });
+  var sub=document.getElementById('wanglaiSumSub');
+  if(sub) sub.innerHTML='共 <b>'+list.length+'</b> 笔垫付 · 合计 '+money(tot)+' · 已报 '+money(done)+' · 待报 <b>'+money(Math.max(0,tot-done))+'</b>';
+  box.innerHTML=list.map(function(rec){
+    var out=wlOutstanding(rec), st=wlStatus(rec);
+    var sel=_wlSumSel.indexOf(rec.id)>=0;
+    var cb=out>0.001?('<label class="wl-batch-cb"><input type="checkbox" '+(sel?'checked':'')+' data-action="wanglai-sum-toggle" data-id="'+esc(rec.id)+'"> 选</label>'):'';
+    var progress='';
+    if(Number(rec.repaid||0)>0){
+      var pct=Math.min(100,Math.round((Number(rec.repaid||0)/Math.max(Number(rec.amount||0),1))*100));
+      progress='<div class="wl-progress"><div class="large-progress"><span style="width:'+pct+'%"></span></div><div class="progress-label"><span>已报 '+money(rec.repaid||0)+' / 总 '+money(rec.amount||0)+'</span><span>'+pct+'%</span></div></div>';
+    }
+    /* R241: 已报销的垫付禁止修改（编辑按钮置灰） */
+    var settled=(Number(rec.repaid||0)>0 && out<=0.001);
+    var editBtn=settled?'<button class="btn ghost compact" disabled title="已报销的记录不可修改">编辑</button>':'<button class="btn ghost compact" data-action="open-wanglai-edit" data-id="'+esc(rec.id)+'">编辑</button>';
+    return '<div class="wl-row" data-wl-id="'+esc(rec.id)+'">'+
+      '<div class="wl-top">'+cb+'<span class="wl-badge reimb-out">垫付</span><span class="wl-person">'+esc(rec.person||'')+'</span><span class="wl-amt">'+money(rec.amount||0)+'</span></div>'+
+      '<div class="wl-sub"><span>'+esc(rec.date||'')+'</span>'+(rec.note?'<span>'+esc(rec.note)+'</span>':'')+'</div>'+progress+
+      '<div class="wl-foot"><span class="wl-status '+st.cls+'">'+esc(st.text)+'</span>'+
+      '<div class="wl-actions">'+
+        (out>0.001?'<button class="btn ghost compact" data-action="open-wanglai-repay" data-id="'+esc(rec.id)+'">报销</button>':'')+
+        '<button class="btn ghost compact" data-action="toggle-wanglai-pin" data-id="'+esc(rec.id)+'">'+(rec.pinned?'取消置顶':'置顶')+'</button>'+
+        editBtn+
+        '<button class="btn ghost compact danger" data-action="delete-wanglai" data-id="'+esc(rec.id)+'">删除</button>'+
+      '</div></div>'+
+    '</div>';
+  }).join('');
+}
+function wanglaiSumSelectAll(){
+  var outs=wlSumRecords().filter(function(r){ return wlOutstanding(r)>0.001; });
+  if(!outs.length){ toast('没有待报销的垫付'); return; }
+  var allSel=outs.every(function(r){ return _wlSumSel.indexOf(r.id)>=0; });
+  _wlSumSel=allSel?[]:outs.map(function(r){ return r.id; });
+  renderWanglaiSumList();
+}
+
+/* R240: 类型/方向段已移除（往来记录由记账页生成，编辑弹窗不再可改类型与方向） */
+function wlUpdateAccountSel(){
+  /* R238: 同时填充编辑表单与还款 / 报销弹窗的账户下拉 */
+  ['wlAccount','wlRepayAccount'].forEach(function(wid){
+    var sel=document.getElementById(wid); if(!sel) return;
+    var accs=state.settings.accounts||[], cur=sel.value;
+    sel.innerHTML='<option value="">未指定</option>'+accs.map(function(a){return '<option'+(a.name===cur?' selected':'')+'>'+esc(a.name)+'</option>';}).join('');
+  });
+}
+function openWanglaiEdit(id){
+  _wlEditingId=id||null; _wlRepayId=null;
+  var rec=id?(state.settings.wanglaiRecords||[]).find(function(x){return x.id===id;}):null;
+  if(!rec) return; /* R240: 仅编辑既有记录，手动登记入口已移除 */
+  /* R241: 已报销/已结清的记录禁止修改（防止改动金额导致已报进度错乱） */
+  if(Number(rec.repaid||0)>0 && wlOutstanding(rec)<=0.001){ toast(rec.kind==='reimburse'?'已报销的记录不可修改':'已结清的记录不可修改'); _wlEditingId=null; return; }
+  document.getElementById('wanglaiTitle').textContent='编辑往来';
+  document.getElementById('wanglaiTitleSub').textContent='编辑';
+  document.getElementById('wanglaiFormBox').style.display='';
+  document.getElementById('wanglaiRepayBox').style.display='none';
+  document.getElementById('wanglaiSaveBtn').textContent='保存';
+  document.getElementById('wanglaiEditHint').style.display='block';
+  wlUpdateAccountSel();
+  document.getElementById('wlAmount').value=rec.amount;
+  document.getElementById('wlDate').value=rec.date||isoDate();
+  document.getElementById('wlNote').value=rec.note||'';
+  document.getElementById('wlAccount').value=rec.account||'';
+  var ov=document.getElementById('wanglaiOverlay'); if(ov){ ov.hidden=false; ov.style.display='flex'; }
+}
+function wlRenderRepayHistory(rec){
+  var box=document.getElementById('wanglaiRepayHistory'); if(!box) return;
+  if(!rec.repayments||!rec.repayments.length){ box.innerHTML=''; return; }
+  box.innerHTML='<h4 style="margin:0 0 8px;font-size:13px;color:var(--muted);font-weight:600">'+(rec.kind==='reimburse'?'报销记录':'还款记录')+'（'+rec.repayments.length+' 笔）</h4>'+
+    rec.repayments.slice().reverse().map(function(r){
+      return '<div class="repay-item"><span class="ri-amt">'+money(r.amount)+'</span><span class="ri-date">'+esc(r.date||'')+'</span><span class="ri-note">'+esc(r.note||'')+'</span><button class="ri-del" type="button" data-action="delete-wanglai-repay" data-wl-id="'+esc(rec.id)+'" data-rid="'+esc(r.id)+'">×</button></div>';
+    }).join('');
+}
+function openWanglaiRepay(id){
+  _wlEditingId=null; _wlRepayId=id;
+  var rec=(state.settings.wanglaiRecords||[]).find(function(x){return x.id===id;}); if(!rec) return;
+  document.getElementById('wanglaiTitle').textContent= rec.kind==='reimburse'?'记录报销':'记录还款';
+  document.getElementById('wanglaiTitleSub').textContent='往来';
+  document.getElementById('wanglaiFormBox').style.display='none';
+  document.getElementById('wanglaiRepayBox').style.display='';
+  document.getElementById('wanglaiSaveBtn').textContent= rec.kind==='reimburse'?'确认报销':'确认还款';
+  var out=wlOutstanding(rec);
+  document.getElementById('wanglaiRepaySub').innerHTML='<b>'+esc(rec.person)+'</b> · '+esc(wlDirLabel(rec))+' '+money(rec.amount)+'　|　已还 '+money(rec.repaid||0)+'　剩余 <b>'+money(out)+'</b>';
+  document.getElementById('wlRepayAmount').value=out>0?out:'';
+  document.getElementById('wlRepayDate').value=isoDate();
+  document.getElementById('wlRepayNote').value='';
+  var _rl=document.getElementById('wlRepayAccountLabel'); if(_rl) _rl.textContent=rec.kind==='reimburse'?'回款账户':'还款账户';
+  wlUpdateAccountSel();
+  var _ras=document.getElementById('wlRepayAccount'); if(_ras) _ras.value=rec.account||'';
+  wlRenderRepayHistory(rec);
+  var ov=document.getElementById('wanglaiOverlay'); if(ov){ ov.hidden=false; ov.style.display='flex'; }
+}
+function closeWanglai(){ _wlEditingId=null; _wlRepayId=null; _wlBatchMode=false; var ov=document.getElementById('wanglaiOverlay'); if(ov){ ov.hidden=true; ov.style.display='none'; } }
+function saveWanglaiEdit(){
+  /* R240: 类型/方向/往来对象不再来自弹窗，编辑只改金额/日期/账户/备注 */
+  if(!_wlEditingId) return;
+  var amount=parseFloat(document.getElementById('wlAmount').value);
+  var date=document.getElementById('wlDate').value||isoDate();
+  var note=(document.getElementById('wlNote').value||'').trim();
+  var account=(document.getElementById('wlAccount').value||'').trim();
+  if(!(amount>0)){ toast('请填写有效金额'); return; }
+  var list=state.settings.wanglaiRecords=state.settings.wanglaiRecords||[];
+  var rec=list.find(function(x){return x.id===_wlEditingId;});
+  if(rec){
+    rec.amount=amount; rec.date=date; rec.note=note; rec.account=account;
+    if(rec.kind==='loan'){ if((Number(rec.repaid)||0)>amount) rec.repaid=amount; } else if(rec.kind!=='reimburse'){ rec.repaid=0; rec.repayments=[]; }
+    wlSyncInitialMoney(rec); toast('已更新');
+  }
+  saveState(); renderAll(); closeWanglai();
+}
+function saveWanglaiRepay(){
+  if(_wlBatchMode){
+    var amt=parseFloat(document.getElementById('wlRepayAmount').value);
+    if(!(amt>0)){ toast('请填写报销金额'); return; }
+    var date=document.getElementById('wlRepayDate').value||isoDate();
+    var note=(document.getElementById('wlRepayNote').value||'').trim()||'批量报销';
+    var acc=(document.getElementById('wlRepayAccount').value||'').trim();
+    var wls=state.settings.wanglaiRecords=state.settings.wanglaiRecords||[];
+    var remaining=amt;
+    _wlBatch.ids.forEach(function(rid){
+      if(remaining<=0.001) return;
+      var rec=wls.find(function(x){return x.id===rid;}); if(!rec) return;
+      var out=wlOutstanding(rec), pay=Math.min(remaining,out); if(pay<=0.001) return;
+      var rp={id:uid(),amount:pay,date:date,note:note,createdAt:Date.now()};
+      rp.moneyRecordId=wlSyncRepayMoney(rec,pay,date,note,acc);
+      rec.repaid=(Number(rec.repaid)||0)+pay; rec.repayments=rec.repayments||[]; rec.repayments.push(rp);
+      remaining-=pay;
+    });
+    _wlBatch={on:false,ids:[]}; _wlBatchMode=false;
+    saveState(); renderAll(); closeWanglai(); toast('已批量记录报销'); return;
+  }
+  if(!_wlRepayId) return;
+  var rec=(state.settings.wanglaiRecords||[]).find(function(x){return x.id===_wlRepayId;}); if(!rec) return;
+  var amt=parseFloat(document.getElementById('wlRepayAmount').value);
+  if(!(amt>0)){ toast('请填写还款金额'); return; }
+  var out=wlOutstanding(rec);
+  if(amt>out+1e-9){ toast('还款金额不能超过剩余 '+money(out)); return; }
+  var date=document.getElementById('wlRepayDate').value||isoDate();
+  var note=(document.getElementById('wlRepayNote').value||'').trim();
+  var acc=(document.getElementById('wlRepayAccount').value||'').trim();
+  var rp={id:uid(),amount:amt,date:date,note:note,createdAt:Date.now()};
+  rp.moneyRecordId=wlSyncRepayMoney(rec, amt, date, note, acc);
+  rec.repaid=(Number(rec.repaid)||0)+amt;
+  rec.repayments=rec.repayments||[];
+  rec.repayments.push(rp);
+  saveState(); renderAll(); closeWanglai(); toast(rec.kind==='reimburse'?'已记录报销':'已记录还款');
+}
+function deleteWanglaiRecord(id){
+  var rec=(state.settings.wanglaiRecords||[]).find(function(x){return x.id===id;}); if(!rec) return;
+  showConfirm({title:'删除往来记录',body:'确定要删除 '+esc(rec.person||'该记录')+' 的'+wlDirLabel(rec)+'记录吗？',detail:'关联的流水记录也会一并删除，此操作不可恢复。',danger:true,confirmText:'删除',onConfirm:function(){
+    var kill={};
+    (rec.moneyRecordIds||[]).forEach(function(m){kill[m]=1;});
+    (rec.repayments||[]).forEach(function(rp){ if(rp.moneyRecordId) kill[rp.moneyRecordId]=1; });
+    state.records.forEach(function(r){ if(r.data&&r.data.wanglaiRepay&&r.data.wanglaiIds&&r.data.wanglaiIds.indexOf(id)>=0) kill[r.id]=1; });
+    state.records=state.records.filter(function(r){return !kill[r.id];});
+    state.settings.wanglaiRecords=(state.settings.wanglaiRecords||[]).filter(function(x){return x.id!==id;});
+    saveState(); renderAll(); wlRefreshSummary(); toast('往来记录已删除');
+  }});
+}
+function deleteWanglaiRepay(wlId, rid){
+  var rec=(state.settings.wanglaiRecords||[]).find(function(x){return x.id===wlId;}); if(!rec||!rec.repayments) return;
+  var rp=rec.repayments.find(function(x){return x.id===rid;}); if(!rp) return;
+  showConfirm({title:'删除还款记录',body:'确定删除这笔 '+money(rp.amount)+' 的还款记录吗？',detail:'关联的流水记录也会一并删除。',danger:true,confirmText:'删除',onConfirm:function(){
+    rec.repaid=Math.max(0,(Number(rec.repaid)||0)-Number(rp.amount||0));
+    rec.repayments=rec.repayments.filter(function(x){return x.id!==rid;});
+    if(rp.moneyRecordId){ state.records=state.records.filter(function(r){return r.id!==rp.moneyRecordId;}); }
+    saveState(); renderAll();
+    if(_wlRepayId===wlId){ var r=(state.settings.wanglaiRecords||[]).find(function(x){return x.id===wlId;}); if(r) openWanglaiRepay(wlId); }
+    toast('还款记录已删除');
+  }});
+}
 
 function addAccount(){ if(!state.settings.accounts) state.settings.accounts=[]; state.settings.accounts.push({name:'新账户',opening:0}); renderAccountsEditor(); }
 
@@ -12323,6 +12900,9 @@ function addRecord(type,date,data){
 
     else if(type==='cycle') pushCycle(rec);
 
+    /* R235: 通过「记一笔账」登记借款 / 人情份子时，自动在往来卡片生成对应记录（已关联则跳过） */
+    if(type==='money' && rec.data && !rec.data.wanglaiId){ try{ wlSyncFromMoney(rec); }catch(e){ console.warn('wl auto-link failed',e); } }
+
     saveState(); renderAll();
 
     if(type==='money') toast('已记下这笔');
@@ -12345,7 +12925,53 @@ function deleteRecord(id){
 
     if(rec.remoteId) deleteRemote(rec.type,rec.remoteId);
 
-    state.records.splice(idx,1); saveState(); renderAll(); toast('记录已删除');
+    /* R235/R237: 删除与往来卡片联动的流水 —— 还款/报销抵扣记录回冲已还金额；主记录则连带删除往来条目及其流水 */
+    var _wlKill=null;
+    if(rec.data && rec.data.wanglaiId){
+      var _wls=state.settings.wanglaiRecords||[];
+      var _wl=_wls.find(function(x){return x.id===rec.data.wanglaiId;});
+      if(_wl){
+        if(rec.data.wanglaiRepay){
+          var _amt=Number(rec.data.amount||0);
+          _wl.repaid=Math.max(0,Number(_wl.repaid||0)-_amt);
+          _wl.repayments=(_wl.repayments||[]).filter(function(rp){return rp.moneyRecordId!==rec.id;});
+          _wl.moneyRecordIds=(_wl.moneyRecordIds||[]).filter(function(mid){return mid!==rec.id;});
+        } else {
+          _wlKill=_wl.id;
+        }
+      }
+    }
+    /* R237: 报销收入（自动抵扣）被删 → 回冲每笔被抵扣垫付的已报金额 */
+    if(rec.data && rec.data.wanglaiRepay && rec.data.wanglaiIds && rec.data.wanglaiIds.length){
+      var _wls3=state.settings.wanglaiRecords||[];
+      rec.data.wanglaiIds.forEach(function(wid){
+        var _wr=_wls3.find(function(x){return x.id===wid;});
+        if(_wr){
+          var _rp=_wr.repayments && _wr.repayments.find(function(p){return p.moneyRecordId===rec.id;});
+          if(_rp){ _wr.repaid=Math.max(0,Number(_wr.repaid||0)-Number(_rp.amount||0)); _wr.repayments=_wr.repayments.filter(function(p){return p.moneyRecordId!==rec.id;}); }
+          _wr.moneyRecordIds=(_wr.moneyRecordIds||[]).filter(function(mid){return mid!==rec.id;});
+        }
+      });
+    }
+
+    state.records.splice(idx,1);
+    if(_wlKill){
+      state.records=state.records.filter(function(r){ return !(r.data && r.data.wanglaiId===_wlKill); });
+      /* 同时清理引用该垫付的「报销收入」抵扣记录（避免孤儿收入） */
+      state.records=state.records.filter(function(r){ return !(r.data && r.data.wanglaiRepay && r.data.wanglaiIds && r.data.wanglaiIds.indexOf(_wlKill)>=0); });
+      var _wls2=state.settings.wanglaiRecords||[];
+      var _i=_wls2.findIndex(function(x){return x.id===_wlKill;}); if(_i>=0) _wls2.splice(_i,1);
+    }
+    /* R237: 删除报销收入流水时，移除由其派生的「报销余额」独立行（reimburse/in 且回链该流水 / 或在其 wanglaiIds 中） */
+    state.settings.wanglaiRecords=(state.settings.wanglaiRecords||[]).filter(function(x){
+      if(x.kind==='reimburse'&&x.direction==='in'){
+        if(x.moneyRecordIds && x.moneyRecordIds.indexOf(rec.id)>=0) return false;
+        if(rec.data && rec.data.wanglaiIds && rec.data.wanglaiIds.indexOf(x.id)>=0) return false;
+      }
+      return true;
+    });
+
+    saveState(); renderAll(); toast('记录已删除');
 
   }
 
@@ -12371,7 +12997,7 @@ function recordRow(r, opts){
       var _tone='var(--plum-soft)';
       var _bal=(typeof opts.balance==='number')?'<span class="rec-balance" data-r214="balance">余额 '+money(opts.balance)+'</span>':'';
       var _raw=(r._rawId||(r.id||'').replace('t_',''));
-      return '<div class="record-row" data-record-id="'+esc(r.id)+'" onclick="if(typeof openTransferEdit===\'function\'){openTransferEdit(this.dataset.recordId)}" role="button" tabindex="0" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();if(typeof openTransferEdit===\'function\'){openTransferEdit(this.dataset.recordId)}}"><div class="rec-cat" style="background:'+_tone+'">转账</div><div class="record-main"><strong>'+esc(recordTitle(r))+'</strong><small>'+esc(r.date)+'</small></div><div class="rec-amt-wrap"><span class="rec-amt">'+esc(recordValue(r))+'</span>'+_bal+'</div><button class="delete-btn" data-action="remove-transfer" data-id="'+esc(_raw)+'" onclick="if(typeof event!==\'undefined\'){event.stopPropagation();}" aria-label="删除">'+icon('i-trash')+'</button></div>';
+      return '<div class="record-row" data-record-id="'+esc(r.id)+'" onclick="if(event.target && event.target.closest && event.target.closest(\'.delete-btn\')) return; if(typeof openTransferEdit===\'function\'){openTransferEdit(this.dataset.recordId)}" role="button" tabindex="0" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();if(typeof openTransferEdit===\'function\'){openTransferEdit(this.dataset.recordId)}}"><div class="rec-cat" style="background:'+_tone+'">转账</div><div class="record-main"><strong>'+esc(recordTitle(r))+'</strong><small>'+esc(r.date)+'</small></div><div class="rec-amt-wrap"><span class="rec-amt">'+esc(recordValue(r))+'</span>'+_bal+'</div><button class="delete-btn" data-action="remove-transfer" data-id="'+esc(_raw)+'" aria-label="删除">'+icon('i-trash')+'</button></div>';
     }
 
     var tone = r.type==='money'?colorForCategory(r.data.category,0):r.type==='planner'?'#9a7cc0':r.type==='cycle'?'#cf8aa0':r.type==='home'?'#9a7cc0':'#9a7cc0';
@@ -12845,36 +13471,31 @@ function submitCycleForm(formEl){ if(!formEl) return; var d=Object.fromEntries(n
 
   // R67: 主动断开同步（保留配置；之后可点"重新测试连接"恢复）
   function sbDisconnect(){
-    if(typeof window.confirm!=='function'){ _sbConnected=false; sbSetStatus('err','已断开（配置已保留，可重新测试连接）'); sbRenderActions(); return; }
-    if(!window.confirm('确定断开云端连接吗？\n\n配置仍会保留在本地浏览器内，下次可重新连接。\n已有的本地与云端数据不会被删除。')) return;
-    _sbConnected=false;
-    var m=sbGetMeta(); m.lastErr='已断开'; sbSetMeta(m);
-    sbSetStatus('err','已断开（配置已保留，可重新测试连接）');
-    sbRenderActions();
-    try{toast('已断开云端连接（未删除任何数据）');}catch(e){}
+    /* R233: 云端断开确认改走通用 showConfirm（统一弹窗样式，替换原生 confirm） */
+    showConfirm({title:'断开云端连接', body:'确定断开云端连接吗？', detail:'配置仍会保留在本地浏览器内，下次可重新连接。已有的本地与云端数据不会被删除。', confirmText:'断开', onConfirm:function(){ _sbConnected=false; var m=sbGetMeta(); m.lastErr='已断开'; sbSetMeta(m); sbSetStatus('err','已断开（配置已保留，可重新测试连接）'); sbRenderActions(); try{toast('已断开云端连接（未删除任何数据）');}catch(e){} }});
   }
 
   // R111: 清除链接及配置——彻底移除本浏览器的云端连接身份（URL/Key + 同步密钥 + 同步 meta），
   // 回到「等待配置」状态，等价于首次打开。本地工作台数据（state）保留不动，仅断开并抹除云端关联。
   function sbClearCloudConfig(){
-    if(typeof window.confirm==='function'){
-      if(!window.confirm('确定清除本浏览器的云端链接及配置吗？\n\n将清除：\n· Supabase 配置（Project URL / Anon Key）\n· 同步状态缓存\n· 本机残留的旧随机槽位标识（如有）\n\n本机工作台数据不会被删除，只是断开与云端的关联。下次填同一套配置仍会自动关联到云端同一份数据。')) return;
-    }
-    // 先取消任何 in-flight 自动推送，避免清除过程中残留的定时器又把数据推上云端
-    try{ if(typeof _sbTimer!=='undefined' && _sbTimer){ clearTimeout(_sbTimer); _sbTimer=null; } }catch(e){}
-    if(typeof _sbPushQueued!=='undefined') _sbPushQueued=false;
-    _sbClient=null;
-    _sbConnected=false;
-    try{ localStorage.removeItem(SB_CONFIG_KEY); }catch(e){}
-    try{ localStorage.removeItem(SB_SLOT_KEY); }catch(e){}
-    try{ localStorage.removeItem(SB_META_KEY); }catch(e){}
-    // 清空输入框，让面板回到空白可重新填写状态
-    var u=document.getElementById('sbUrl'); if(u) u.value='';
-    var k=document.getElementById('sbKey'); if(k) k.value='';
-    // 重新渲染同步状态为「等待配置」
-    sbSetStatus('idle');
-    sbRenderActions();
-    try{toast('已清除云端链接及配置（本机数据未动）');}catch(e){}
+    /* R233: 云端配置清除确认改走通用 showConfirm（统一弹窗样式，替换原生 confirm） */
+    showConfirm({title:'清除云端配置', body:'确定清除本浏览器的云端链接及配置吗？', detail:'将清除：<br>· Supabase 配置（Project URL / Anon Key）<br>· 同步状态缓存<br>· 本机残留的旧随机槽位标识（如有）<br><br>本机工作台数据不会被删除，只是断开与云端的关联。下次填同一套配置仍会自动关联到云端同一份数据。', confirmText:'清除', onConfirm:function(){
+      // 先取消任何 in-flight 自动推送，避免清除过程中残留的定时器又把数据推上云端
+      try{ if(typeof _sbTimer!=='undefined' && _sbTimer){ clearTimeout(_sbTimer); _sbTimer=null; } }catch(e){}
+      if(typeof _sbPushQueued!=='undefined') _sbPushQueued=false;
+      _sbClient=null;
+      _sbConnected=false;
+      try{ localStorage.removeItem(SB_CONFIG_KEY); }catch(e){}
+      try{ localStorage.removeItem(SB_SLOT_KEY); }catch(e){}
+      try{ localStorage.removeItem(SB_META_KEY); }catch(e){}
+      // 清空输入框，让面板回到空白可重新填写状态
+      var u=document.getElementById('sbUrl'); if(u) u.value='';
+      var k=document.getElementById('sbKey'); if(k) k.value='';
+      // 重新渲染同步状态为「等待配置」
+      sbSetStatus('idle');
+      sbRenderActions();
+      try{toast('已清除云端链接及配置（本机数据未动）');}catch(e){}
+    }});
   }
 
   // R67: 导出当前数据为本地 JSON 备份（与「从本地备份恢复」配对）
@@ -13191,7 +13812,7 @@ function submitCycleForm(formEl){ if(!formEl) return; var d=Object.fromEntries(n
 
 
 
-    setDateDefaults(); updateMoneyCategories(); updateMoneyAccountOptions(); updatePlannerLists(); restoreDrafts(); bindForms(); bindEvents(); applyBrand(); seedDefaultCategories(); renderAll(); try{ renderHomeCategoryOptions(); }catch(e){}
+    setDateDefaults(); seedDefaultCategories(); updateMoneyCategories(); updateMoneyAccountOptions(); updatePlannerLists(); restoreDrafts(); bindForms(); bindEvents(); applyBrand(); renderAll(); try{ renderHomeCategoryOptions(); }catch(e){}
 
     /* R124-3: 本地数据已就绪，先检查一次当天日程（云端合并后 init 末尾还会再检查一次，函数幂等） */
     setTimeout(maybeShowDailyPlanReminder, 600);
@@ -13431,6 +14052,8 @@ function submitCycleForm(formEl){ if(!formEl) return; var d=Object.fromEntries(n
   window.openRecordEdit = openRecordEdit;
   /* R230: 暴露转账编辑函数到 window（inline onclick 才能调到） */
   window.openTransferEdit = openTransferEdit;
+  /* R232: 暴露转账删除函数到 window（转账行删除按钮 stopPropagation 后委托失效，需直接调用） */
+  window.removeTransferById = removeTransferById;
   /* R130-4: showConfirm 暴露到 window，供 inline onclick 字符串里调用 */
   window.showConfirm = showConfirm;
   /* R130-4: sbConfirmDelete 暴露到 window，供内联 onclick 调用（替代内嵌复杂对象字面量，规避引号转义风险） */
@@ -13440,6 +14063,22 @@ function submitCycleForm(formEl){ if(!formEl) return; var d=Object.fromEntries(n
   /* R231: 记账页流水搜索——处理函数暴露到 window（inline oninput 调用） */
   function moneySearchHandle(v){ renderMoney._search=(v||'').trim(); if(typeof renderMoney==='function') renderMoney(); }
   window.moneySearchHandle = moneySearchHandle;
+  /* R234: 往来账目函数暴露到 window（供 inline onclick / jsdom 调用） */
+  window.openWanglaiEdit = openWanglaiEdit;
+  window.openWanglaiRepay = openWanglaiRepay;
+  window.saveWanglaiEdit = saveWanglaiEdit;
+  window.saveWanglaiRepay = saveWanglaiRepay;
+  window.closeWanglai = closeWanglai;
+  window.deleteWanglaiRecord = deleteWanglaiRecord;
+  window.deleteWanglaiRepay = deleteWanglaiRepay;
+  window.renderWanglai = renderWanglai;
+  window.wanglaiNavPrev = wanglaiNavPrev;
+  window.wanglaiNavNext = wanglaiNavNext;
+  window.wanglaiNavReset = wanglaiNavReset;
+  /* R241: wanglaiBatchToggle 已随逐行批量勾选移除 */
+  window.wanglaiTogglePin = wanglaiTogglePin;
+  window.openWanglaiBatchRepay = openWanglaiBatchRepay;
+  window.wlAutoDeductReimburse = wlAutoDeductReimburse;
 
 })();
 
