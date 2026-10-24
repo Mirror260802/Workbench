@@ -12463,7 +12463,7 @@ function wanglaiNavNext(){ state.settings.wanglaiMonthOffset=Math.max(0,(state.s
 function wanglaiNavReset(){ state.settings.wanglaiMonthOffset=0; saveState(); renderWanglai(); }
 /* R241: 逐行批量开关已移除（批量报销入口改在「报销汇总」明细内） */
 function wanglaiTogglePin(id){ var rec=(state.settings.wanglaiRecords||[]).find(function(x){return x.id===id;}); if(!rec) return; rec.pinned=!rec.pinned; saveState(); renderAll(); wlRefreshSummary(); }
-function openWanglaiBatchRepay(){ if(!_wlBatch.ids||!_wlBatch.ids.length){ toast('请先勾选要报销的垫付'); return; } _wlRepayId=null; _wlBatchMode=true; var wls=state.settings.wanglaiRecords||[]; var sel=_wlBatch.ids.map(function(i){return wls.find(function(x){return x.id===i;});}).filter(Boolean); var total=sel.reduce(function(s,r){return s+wlOutstanding(r);},0); var t=document.getElementById('wanglaiTitle'); if(t) t.textContent='批量报销'; var ts=document.getElementById('wanglaiTitleSub'); if(ts) ts.textContent='往来'; document.getElementById('wanglaiFormBox').style.display='none'; document.getElementById('wanglaiRepayBox').style.display=''; document.getElementById('wanglaiSaveBtn').textContent='确认报销'; var sub=document.getElementById('wanglaiRepaySub'); if(sub) sub.innerHTML='共选中 <b>'+sel.length+'</b> 笔垫付，待报销合计 <b>'+money(total)+'</b>'; document.getElementById('wlRepayAmount').value=total>0?total:''; document.getElementById('wlRepayDate').value=isoDate(); document.getElementById('wlRepayNote').value=''; var _rl=document.getElementById('wlRepayAccountLabel'); if(_rl) _rl.textContent='回款账户'; wlUpdateAccountSel(); var _ras=document.getElementById('wlRepayAccount'); if(_ras) _ras.value=''; document.getElementById('wanglaiRepayHistory').innerHTML=''; var ov=document.getElementById('wanglaiOverlay'); if(ov){ ov.hidden=false; ov.style.display='flex'; } }
+function openWanglaiBatchRepay(){ if(!_wlBatch.ids||!_wlBatch.ids.length){ toast('请先勾选要报销的垫付'); return; } _wlRepayId=null; _wlBatchMode=true; var wls=state.settings.wanglaiRecords||[]; var sel=_wlBatch.ids.map(function(i){return wls.find(function(x){return x.id===i;});}).filter(Boolean); var total=sel.reduce(function(s,r){return s+wlOutstanding(r);},0); var t=document.getElementById('wanglaiTitle'); if(t) t.textContent='批量报销'; var ts=document.getElementById('wanglaiTitleSub'); if(ts) ts.textContent='往来'; document.getElementById('wanglaiFormBox').style.display='none'; document.getElementById('wanglaiRepayBox').style.display=''; document.getElementById('wanglaiSaveBtn').textContent='确认报销'; var sub=document.getElementById('wanglaiRepaySub'); if(sub) sub.innerHTML='共选中 <b>'+sel.length+'</b> 笔垫付，待报销合计 <b>'+money(total)+'</b>'; document.getElementById('wlRepayAmount').value=total>0?total:''; document.getElementById('wlRepayDate').value=isoDate(); var _bnotes=sel.map(function(r){return (r.note||'').trim();}).filter(Boolean); document.getElementById('wlRepayNote').value=_bnotes.length?(_bnotes.join('、')+' 已报销'):''; var _rl=document.getElementById('wlRepayAccountLabel'); if(_rl) _rl.textContent='回款账户'; wlUpdateAccountSel(); var _ras=document.getElementById('wlRepayAccount'); if(_ras) _ras.value=''; document.getElementById('wanglaiRepayHistory').innerHTML=''; var ov=document.getElementById('wanglaiOverlay'); if(ov){ ov.hidden=false; ov.style.display='flex'; } }
 
 /* R211: 自定义日期段筛选器 —— 两个日期框共用一个 change 入口，读取两者值后保存并重渲染 */
 function moneyDateRangeChange(){ state.settings.moneyDateFrom=(document.getElementById('moneyDateFrom')||{}).value||''; state.settings.moneyDateTo=(document.getElementById('moneyDateTo')||{}).value||''; saveState(); renderMoney(); }
@@ -12479,8 +12479,8 @@ function submitMoneyForm(formEl){ if(!formEl) return; var d=Object.fromEntries(n
 var _wlEditingId=null, _wlRepayId=null, _wlBatch={on:false,ids:[]}, _wlBatchMode=false, _wlSumSel=[], _wlSumMonth='';
 
 function wlMoneyFlow(rec){ return (rec.kind==='loan'?rec.direction==='in':rec.direction==='in')?'income':'expense'; }
-function wlMoneyCategory(rec){ if(rec.kind==='reimburse') return rec.direction==='out'?'报销支出':'报销收入'; return rec.kind==='loan'?'借款':'人情份子'; }
-function wlRepayCategory(rec){ if(rec.kind==='reimburse') return rec.direction==='out'?'报销收入':'报销支出'; return rec.kind==='loan'?(rec.direction==='out'?'借款归还':'其他'):(rec.direction==='out'?'人情归还':'其他'); } /* R242: 借入/收礼方向还款不再用「借款收回/人情收回」，归入「其他」 */
+function wlMoneyCategory(rec){ if(rec.kind==='reimburse') return rec.direction==='out'?'报销支出':'报销收入'; return rec.kind==='loan'?'借款':'人情支出'; } /* R244: 人情份子→人情支出 */
+function wlRepayCategory(rec){ if(rec.kind==='reimburse') return rec.direction==='out'?'报销收入':'报销支出'; return rec.kind==='loan'?(rec.direction==='out'?'还款':'其他'):(rec.direction==='out'?'人情收入':'其他'); } /* R244: 借款归还→还款、人情归还→人情收入 */
 function wlDirLabel(rec){ if(rec.kind==='loan') return rec.direction==='out'?'借出':'借入'; if(rec.kind==='reimburse') return rec.direction==='out'?'垫付':'报销'; return rec.direction==='out'?'随礼':'收礼'; }
 function wlBadgeClass(rec){ if(rec.kind==='loan') return rec.direction==='out'?'loan-out':'loan-in'; if(rec.kind==='reimburse') return rec.direction==='out'?'reimb-out':'reimb-in'; return rec.direction==='out'?'gift-out':'gift-in'; }
 function wlOutstanding(rec){ return Math.max(0, Number(rec.amount||0)-Number(rec.repaid||0)); }
@@ -12523,11 +12523,11 @@ function wlSyncRepayMoney(rec, amt, date, note, acc){
   return mrec.id;
 }
 
-/* R235: 反向联动 —— 通过记账页「记一笔账」登记借款 / 人情份子时，自动在往来卡片生成对应记录 */
-/* R237: 往来类目固定配对 —— 借款(支出)↔借款归还(收入)，人情份子(支出)↔人情归还(收入) */
-/* R242: 「借款收回 / 人情收回」与收入侧「借款归还 / 人情归还」语义重复，正式废弃，不再进入分类下拉 */
-var WL_FIXED={'借款':'expense','人情份子':'expense','借款归还':'income','人情归还':'income','借款收回':'expense','人情收回':'expense','报销支出':'expense','报销收入':'income'};
-var WL_DEPRECATED={'借款收回':1,'人情收回':1};
+/* R235: 反向联动 —— 通过记账页「记一笔账」登记借款 / 人情支出时，自动在往来卡片生成对应记录 */
+/* R237/R244: 往来类目固定配对 —— 借款(支出)↔还款(收入)，人情支出(支出)↔人情收入(收入) */
+/* R242/R244: 「借款收回 / 人情收回 / 人情份子 / 人情归还 / 借款归还」均已废弃（改名或重复），不再进入分类下拉 */
+var WL_FIXED={'借款':'expense','人情支出':'expense','还款':'income','人情收入':'income','借款收回':'expense','人情收回':'expense','报销支出':'expense','报销收入':'income'};
+var WL_DEPRECATED={'借款收回':1,'人情收回':1,'人情份子':1,'人情归还':1,'借款归还':1};
 function wlCleanupCategories(){
   if(!state || !state.settings) return;
   var cc=state.settings.customCategories=state.settings.customCategories||{};
@@ -12543,20 +12543,20 @@ function wlCleanupCategories(){
     var i=cc.expense.indexOf(cat); if(i>=0) cc.expense.splice(i,1);
     var j=cc.income.indexOf(cat); if(j>=0) cc.income.splice(j,1);
   });
-  /* R239: 历史流水类目改名对齐固定配对（不改收支方向，仅换标签） */
+  /* R244: 历史流水类目迁移 —— 人情份子→人情支出、人情归还→人情收入、借款归还→还款、借款收回→还款、人情收回→人情收入；方向不符的旧错侧数据归入「其他」（不改收支方向） */
   if(Array.isArray(state.records)){
-    var rename={'借款归还':'借款收回','人情归还':'人情收回','借款收回':'借款归还','人情收回':'人情归还'};
+    var map244={
+      '人情份子':{expense:'人情支出',income:'其他'},
+      '人情归还':{income:'人情收入',expense:'其他'},
+      '借款归还':{income:'还款',expense:'其他'},
+      '借款收回':{income:'还款',expense:'其他'},
+      '人情收回':{income:'人情收入',expense:'其他'}
+    };
     state.records.forEach(function(r){
       if(!r || r.type!=='money' || !r.data) return;
-      var cat=r.data.category, want=rename[cat];
-      if(want && WL_FIXED[cat] && WL_FIXED[cat]!==r.data.flow && WL_FIXED[want]===r.data.flow) r.data.category=want;
-    });
-    /* R242: 废弃类目收敛 —— 收入侧并入「借款归还 / 人情归还」，支出侧归入「其他」，保证下拉始终可选 */
-    var dep={'借款收回':'借款归还','人情收回':'人情归还'};
-    state.records.forEach(function(r){
-      if(!r || r.type!=='money' || !r.data) return;
-      var cat=r.data.category; if(!WL_DEPRECATED[cat]) return;
-      var nc=(r.data.flow==='income')?dep[cat]:'其他';
+      var m2=map244[r.data.category];
+      if(!m2) return;
+      var nc=m2[r.data.flow]||'其他';
       r.data.category=nc;
       wlEnsureCategory(nc, r.data.flow);
     });
@@ -12564,21 +12564,21 @@ function wlCleanupCategories(){
 }
 function wlEnsureBaseCategories(){
   wlCleanupCategories();
-  wlEnsureCategory('借款','expense'); wlEnsureCategory('人情份子','expense');
-  wlEnsureCategory('借款归还','income'); wlEnsureCategory('人情归还','income');
+  wlEnsureCategory('借款','expense'); wlEnsureCategory('人情支出','expense');
+  wlEnsureCategory('还款','income'); wlEnsureCategory('人情收入','income');
   wlEnsureCategory('报销支出','expense'); wlEnsureCategory('报销收入','income');
 }
 function updateMoneyWanglaiField(){
   var f=document.getElementById('moneyForm'); if(!f) return;
   var sel=f.querySelector('[name="category"]'); var cat=sel?sel.value:'';
-  var show=(cat==='借款'||cat==='人情份子');
+  var show=(cat==='借款'||cat==='人情支出');
   var field=document.getElementById('moneyWanglaiField');
   if(field) field.style.display=show?'':'none';
 }
 function wlSyncFromMoney(rec){
   var d=rec.data; if(!d) return null;
-  /* 仅「借款 / 人情份子 / 报销支出 / 报销收入」主类目触发自动联动；还款类（收回 / 归还）由往来卡片统一处理 */
-  var map={'借款':{kind:'loan'},'人情份子':{kind:'gift'},'报销支出':{kind:'reimburse',direction:'out'},'报销收入':{kind:'reimburse',direction:'in'}};
+  /* R243/R244: 收入「还款 / 人情收入」与支出「借款 / 人情支出」双向绑定往来 —— 收入侧按 FIFO 自动冲抵未结清的借出/随礼 */
+  var map={'借款':{kind:'loan'},'人情支出':{kind:'gift'},'报销支出':{kind:'reimburse',direction:'out'},'报销收入':{kind:'reimburse',direction:'in'},'还款':{kind:'loan',repay:true},'人情收入':{kind:'gift',repay:true}};
   var m=map[d.category]; if(!m) return null;
   var person=(d.wlPerson||'').trim(); if('wlPerson' in d) delete d.wlPerson;
   var direction=m.direction||(d.flow==='expense'?'out':'in');
@@ -12592,6 +12592,8 @@ function wlSyncFromMoney(rec){
   }
   /* R237: 登记「报销收入」时自动抵扣未报销的垫付记录（按日期 FIFO），剩余部分才独立成行 */
   if(d.category==='报销收入'){ if(d.wanglaiRepay) return null; return wlAutoDeductReimburse(rec); }
+  /* R243: 登记「借款归还 / 人情归还」时自动冲抵未结清的借出 / 随礼（按日期 FIFO），已全部冲抵完不再新建往来行 */
+  if(m.repay){ if(d.wanglaiRepay) return null; return wlAutoRepayLoanGift(rec, m.kind); }
   wl={id:uid(),kind:m.kind,direction:direction,person:person,amount:Number(d.amount||0),date:rec.date,note:(d.note||'').trim(),account:(d.account||'').trim(),repaid:0,repayments:[],createdAt:Date.now(),moneyRecordIds:[rec.id]};
   wls.push(wl); d.wanglaiId=wl.id;
   return wl;
@@ -12612,11 +12614,34 @@ function wlAutoDeductReimburse(rec){
   });
   d.wanglaiRepay=true; d.wanglaiIds=paidIds;
   var base=(d.note&&d.note.trim())?d.note.trim()+' ':'';
-  if(paidIds.length){ rec.note=base+'[报销抵扣 '+paidIds.length+' 笔垫付 ¥'+paidTotal.toFixed(2)+']'; }
+  if(paidIds.length){ d.note=base+'[报销抵扣 '+paidIds.length+' 笔垫付 ¥'+paidTotal.toFixed(2)+']'; }
   if(remaining>0.001){
     var nr={id:uid(),kind:'reimburse',direction:'in',person:'',amount:remaining,date:rec.date,note:'报销余额（未对应垫付）',account:(d.account||'').trim(),repaid:0,repayments:[],createdAt:Date.now(),moneyRecordIds:[rec.id]};
     wls.push(nr); d.wanglaiIds=(d.wanglaiIds||[]).concat(nr.id);
   }
+  return null;
+}
+/* R243: 收入「借款归还 / 人情归还」自动冲抵未结清的借出/随礼（按日期 FIFO）；主表单这条收入流水本身就是还款凭证，不再另建收入行；无未结清项时保持普通收入 */
+function wlAutoRepayLoanGift(rec, kind){
+  var d=rec.data, total=Number(d.amount||0);
+  var wls=state.settings.wanglaiRecords=state.settings.wanglaiRecords||[];
+  var pool=wls.filter(function(x){return x.kind===kind&&x.direction==='out'&&wlOutstanding(x)>0.001;})
+              .sort(function(a,b){return (a.date||'').localeCompare(b.date||'')||a.createdAt-b.createdAt;});
+  if(!pool.length) return null;
+  var remaining=total, paidIds=[], paidTotal=0;
+  var lbl=kind==='loan'?'借款':'人情';
+  pool.forEach(function(r){
+    if(remaining<=0.001) return;
+    var out=wlOutstanding(r), pay=Math.min(remaining,out); if(pay<=0.001) return;
+    var rp={id:uid(),amount:pay,date:rec.date,note:'还款抵扣',createdAt:Date.now(),moneyRecordId:rec.id};
+    r.repaid=(Number(r.repaid)||0)+pay; r.repayments=r.repayments||[]; r.repayments.push(rp);
+    r.moneyRecordIds=r.moneyRecordIds||[]; if(r.moneyRecordIds.indexOf(rec.id)<0) r.moneyRecordIds.push(rec.id);
+    paidIds.push(r.id); paidTotal+=pay; remaining-=pay;
+  });
+  if(!paidIds.length) return null;
+  d.wanglaiRepay=true; d.wanglaiIds=paidIds;
+  var base=(d.note&&d.note.trim())?d.note.trim()+' ':'';
+  d.note=base+'[还款抵扣 '+paidIds.length+' 笔'+lbl+' ¥'+paidTotal.toFixed(2)+']';
   return null;
 }
 
@@ -12625,7 +12650,7 @@ function renderWanglai(){
   var box=document.getElementById('wanglaiList'); if(!box) return;
   var hint=document.getElementById('wanglaiFilterHint');
   /* R234-联动：往来账目卡片跟随记账页「分类」筛选（moneyFilter）。仅借款/人情类目联动本卡片，其余类目保持全部显示。 */
-  var _wf={ '借款':function(r){return r.kind==='loan';}, '人情份子':function(r){return r.kind==='gift';}, '借款归还':function(r){return r.kind==='loan'&&r.direction==='out';}, '人情归还':function(r){return r.kind==='gift'&&r.direction==='out';}, '报销支出':function(r){return r.kind==='reimburse'&&r.direction==='out';}, '报销收入':function(r){return r.kind==='reimburse'&&r.direction==='in';} };
+  var _wf={ '借款':function(r){return r.kind==='loan';}, '人情支出':function(r){return r.kind==='gift';}, '还款':function(r){return r.kind==='loan'&&r.direction==='out';}, '人情收入':function(r){return r.kind==='gift'&&r.direction==='out';}, '报销支出':function(r){return r.kind==='reimburse'&&r.direction==='out';}, '报销收入':function(r){return r.kind==='reimburse'&&r.direction==='in';} };
   var _mf=state.settings.moneyFilter||'all';
   var _filter=_wf[_mf];
   var list=(state.settings.wanglaiRecords||[]).slice().sort(function(a,b){
@@ -12791,7 +12816,8 @@ function openWanglaiRepay(id){
   document.getElementById('wanglaiRepaySub').innerHTML='<b>'+esc(rec.person)+'</b> · '+esc(wlDirLabel(rec))+' '+money(rec.amount)+'　|　已还 '+money(rec.repaid||0)+'　剩余 <b>'+money(out)+'</b>';
   document.getElementById('wlRepayAmount').value=out>0?out:'';
   document.getElementById('wlRepayDate').value=isoDate();
-  document.getElementById('wlRepayNote').value='';
+  /* R243: 单笔报销备注自动带上垫付事由 ——「磨钥匙 已报销」；借款还款保持留空 */
+  document.getElementById('wlRepayNote').value=(rec.kind==='reimburse'&&(rec.note||'').trim())?((rec.note||'').trim()+' 已报销'):'';
   var _rl=document.getElementById('wlRepayAccountLabel'); if(_rl) _rl.textContent=rec.kind==='reimburse'?'回款账户':'还款账户';
   wlUpdateAccountSel();
   var _ras=document.getElementById('wlRepayAccount'); if(_ras) _ras.value=rec.account||'';
