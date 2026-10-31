@@ -3359,7 +3359,7 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
 
               <label data-page-node-id="moneyAccountField" class="field"><span data-page-node-id="moneyAccountLabel">账户</span><select data-page-node-id="moneyAccountSel" id="moneyAccount" name="account"></select></label>
 
-              <label id="moneyWanglaiField" class="field" style="display:none"><span>往来对象</span><input id="moneyWanglaiPerson" name="wlperson" maxlength="20" placeholder="谁借的 / 随礼给谁" autocomplete="off"></label>
+              <label id="moneyWanglaiField" class="field" style="display:none"><span>往来对象</span><input id="moneyWanglaiPerson" name="wlperson" maxlength="20" placeholder="谁借的 / 随礼给谁 / 还给谁" autocomplete="off"></label>
 
               <label data-page-node-id="c94dO9qo4VYPy8Rq6MzLGF" class="field"><span data-page-node-id="S325MXw4eN17R7K0WKFl8Q"><!--pnid:MVkHiF3CA3Fi6b8P9VFYQy-->备注</span><textarea data-page-node-id="uDZB3XDYZPsFmFA6xTMwpS" maxlength="60" name="note" placeholder="这笔钱花在了哪里"></textarea></label>
 
@@ -3371,8 +3371,8 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
 
           <!--pnid:ZWhngaxSoTD4JR5HHEbfZE--><!-- 流水（记一笔账正下方，填满左列空白） -->
 
-<article data-page-node-id="ZBucWcXWyV4QPOSQnfzsaO" class="panel money-panel" style="margin:0; width:100%; box-sizing:border-box"><div class="panel-head" style="gap:8px"><div data-page-node-id="v50HRF29Eobi4q3a8OeGK2" style=""><p data-page-node-id="zXEORactZbmEeAHGn8XUk5" class="eyebrow" style="margin:0"><!--pnid:6EFSgir4wQjhLDtOa5k2pa-->流水</p><h2 data-page-node-id="gM43kUyQ3PsOLRU95YEWfx" style="margin:2px 0 0"><!--pnid:Fu5RzAbLGr4mrNeE5xFSf1-->最近账目</h2></div><div class="money-monthnav-row" style="display:flex; align-items:center; justify-content:center; gap:8px; "><div data-page-node-id="miEQAHJdFDTUEOB9dFepE5" class="month-nav" style="align-items:center; background:var(--plum-soft); border-radius:999px; display:inline-flex; padding:3px"><button data-page-node-id="drVx7CKxu8nFF7QF8kmhJa" class="month-nav-btn" data-action="money-prev-month" onclick="if(typeof moneyNavPrev==='function'){moneyNavPrev();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:3MtXq0TPq30wlqrOpRjxAB-->‹</button><span data-page-node-id="8bQ7u4NimCsC5pLjMg8fit" id="moneyMonthLabel" style="color:var(--plum-deep); font-size:13px; font-weight:600; min-width:80px; padding:0 8px; text-align:center"><!--pnid:dS1pI7tU12JCJIZ32i1Kn6-->本月</span><button data-page-node-id="fIJSTWIyNq1F11HwnJ6EFs" class="month-nav-btn" data-action="money-next-month" onclick="if(typeof moneyNavNext==='function'){moneyNavNext();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:inqeM0x9CxZWmyrMmVOFij-->›</button></div><button data-page-node-id="dRv5V7VWI5hxytErrMw3fM" class="text-btn" data-action="money-reset-month" id="moneyResetBtn" onclick="if(typeof moneyNavReset==='function'){moneyNavReset();return false;}" type="button" style="display:none; font-size:12px"><!--pnid:LQLS0KSHnAaJtMh5E1S6UQ-->回到本月</button></div><div data-page-node-id="WZ4RFqka7gESmB8A6WVf9Q" class="money-filters" style="align-items:center; display:flex; gap:8px"><select data-page-node-id="PEiJz7tyoTD1CGLmKYa7LS" class="compact-select" id="moneyFilter" onchange="if(typeof moneyFilterChange==='function'){moneyFilterChange(this.value);return false;}" style="flex-shrink:0"><option data-page-node-id="XPvmwJlydgNTPoOAEh3KFj" value="all"><!--pnid:VElmF9GXCw5wuLmiF9WyLG-->全部分类</option></select><select data-page-node-id="PEiJz7tyoTD1CGLmKYa7LS-acc" class="compact-select" id="moneyAccountFilter" onchange="if(typeof moneyAccountFilterChange==='function'){moneyAccountFilterChange(this.value);return false;}" style="flex-shrink:0" data-r210="account-filter"><option data-page-node-id="XPvmwJlydgNTPoOAEh3KFj-acc" value="all"><!--pnid:VElmF9GXCw5wuLmiF9WyLG-acc-->全部账户</option></select><span data-r212="date-pop-wrap" class="date-pop-wrap"><button data-r212="date-icon" class="icon-btn" id="moneyDateBtn" type="button" title="按日期段筛选" aria-label="按日期段筛选" onclick="if(typeof toggleDatePopup==='function'){toggleDatePopup(event);return false;}"><svg viewBox="0 0 24 24" width="16" height="16"><use href="#i-calendar"/></svg></button><div data-r212="date-popup" class="date-popup" id="moneyDatePopup" hidden onclick="if(event&&event.stopPropagation){event.stopPropagation();}"><div class="date-popup-row"><label class="date-popup-field">起始<input data-r211="date-from" class="compact-date" id="moneyDateFrom" type="date" onchange="if(typeof moneyDateRangeChange==='function'){moneyDateRangeChange();return false;}"></label><span class="money-date-sep" data-r211="date-sep">至</span><label class="date-popup-field">结束<input data-r211="date-to" class="compact-date" id="moneyDateTo" type="date" onchange="if(typeof moneyDateRangeChange==='function'){moneyDateRangeChange();return false;}"></label></div><div class="date-popup-actions"><button data-r211="date-clear" class="text-btn" id="moneyDateClear" type="button" onclick="if(typeof moneyDateRangeClear==='function'){moneyDateRangeClear();return false;}">清除</button></div></div></span></div></div><div class="money-search-row" style="display:flex;gap:8px;margin:8px 0 4px"><input type="search" id="moneySearchInput" placeholder="搜索流水：分类/备注/账户/金额/转账…" autocomplete="off" style="flex:1;min-width:0;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);font-size:13px" oninput="if(typeof moneySearchHandle==='function') moneySearchHandle(this.value);"></div>
-<div data-page-node-id="hkAL5KYdlOaj8mYGZSJxkz" class="record-list" id="moneyList"></div><p data-page-node-id="r196countFooter" id="moneyListCount" class="mini-note" style="margin:10px 0 0;text-align:center"></p></article>
+<article data-page-node-id="ZBucWcXWyV4QPOSQnfzsaO" class="panel money-panel" style="margin:0; width:100%; box-sizing:border-box"><div class="panel-head" style="gap:8px"><div data-page-node-id="v50HRF29Eobi4q3a8OeGK2" style=""><p data-page-node-id="zXEORactZbmEeAHGn8XUk5" class="eyebrow" style="margin:0"><!--pnid:6EFSgir4wQjhLDtOa5k2pa-->流水</p><h2 data-page-node-id="gM43kUyQ3PsOLRU95YEWfx" style="margin:2px 0 0"><!--pnid:Fu5RzAbLGr4mrNeE5xFSf1-->最近账目</h2></div><div class="money-monthnav-row" style="display:flex; align-items:center; justify-content:center; gap:8px; "><div data-page-node-id="miEQAHJdFDTUEOB9dFepE5" class="month-nav" style="align-items:center; background:var(--plum-soft); border-radius:999px; display:inline-flex; padding:3px"><button data-page-node-id="drVx7CKxu8nFF7QF8kmhJa" class="month-nav-btn" data-action="money-prev-month" onclick="if(typeof moneyNavPrev==='function'){moneyNavPrev();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:3MtXq0TPq30wlqrOpRjxAB-->‹</button><span data-page-node-id="8bQ7u4NimCsC5pLjMg8fit" id="moneyMonthLabel" style="color:var(--plum-deep); font-size:13px; font-weight:600; min-width:80px; padding:0 8px; text-align:center"><!--pnid:dS1pI7tU12JCJIZ32i1Kn6-->本月</span><button data-page-node-id="fIJSTWIyNq1F11HwnJ6EFs" class="month-nav-btn" data-action="money-next-month" onclick="if(typeof moneyNavNext==='function'){moneyNavNext();return false;}" type="button" style="background:transparent; border:0; border-radius:50%; color:var(--plum-deep); cursor:pointer; font-size:14px; font-weight:700; height:26px; width:26px"><!--pnid:inqeM0x9CxZWmyrMmVOFij-->›</button></div><button data-page-node-id="dRv5V7VWI5hxytErrMw3fM" class="text-btn" data-action="money-reset-month" id="moneyResetBtn" onclick="if(typeof moneyNavReset==='function'){moneyNavReset();return false;}" type="button" style="display:none; font-size:12px"><!--pnid:LQLS0KSHnAaJtMh5E1S6UQ-->回到本月</button></div><div data-page-node-id="WZ4RFqka7gESmB8A6WVf9Q" class="money-filters" style="align-items:center; display:flex; gap:8px"><select data-page-node-id="PEiJz7tyoTD1CGLmKYa7LS" class="compact-select" id="moneyFilter" onchange="if(typeof moneyFilterChange==='function'){moneyFilterChange(this.value);return false;}" style="flex-shrink:0"><option data-page-node-id="XPvmwJlydgNTPoOAEh3KFj" value="all"><!--pnid:VElmF9GXCw5wuLmiF9WyLG-->全部分类</option></select><select data-page-node-id="PEiJz7tyoTD1CGLmKYa7LS-acc" class="compact-select" id="moneyAccountFilter" onchange="if(typeof moneyAccountFilterChange==='function'){moneyAccountFilterChange(this.value);return false;}" style="flex-shrink:0" data-r210="account-filter"><option data-page-node-id="XPvmwJlydgNTPoOAEh3KFj-acc" value="all"><!--pnid:VElmF9GXCw5wuLmiF9WyLG-acc-->全部账户</option></select><span data-r212="date-pop-wrap" class="date-pop-wrap"><button data-r212="date-icon" class="icon-btn" id="moneyDateBtn" type="button" title="按日期段筛选" aria-label="按日期段筛选" onclick="if(typeof toggleDatePopup==='function'){toggleDatePopup(event);return false;}"><svg viewBox="0 0 24 24" width="16" height="16"><use href="#i-calendar"/></svg></button><div data-r212="date-popup" class="date-popup" id="moneyDatePopup" hidden onclick="if(event&&event.stopPropagation){event.stopPropagation();}"><div class="date-popup-row"><label class="date-popup-field">起始<input data-r211="date-from" class="compact-date" id="moneyDateFrom" type="date" onchange="if(typeof moneyDateRangeChange==='function'){moneyDateRangeChange();return false;}"></label><span class="money-date-sep" data-r211="date-sep">至</span><label class="date-popup-field">结束<input data-r211="date-to" class="compact-date" id="moneyDateTo" type="date" onchange="if(typeof moneyDateRangeChange==='function'){moneyDateRangeChange();return false;}"></label></div><div class="date-popup-actions"><button data-r211="date-clear" class="text-btn" id="moneyDateClear" type="button" onclick="if(typeof moneyDateRangeClear==='function'){moneyDateRangeClear();return false;}">清除</button></div></div></span></div></div><div class="money-search-row" style="display:flex;gap:8px;margin:8px 0 4px"><input type="search" id="moneySearchInput" placeholder="搜索流水：分类/备注/账户/金额/往来对象/转账…" autocomplete="off" style="flex:1;min-width:0;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);font-size:13px" oninput="if(typeof moneySearchHandle==='function') moneySearchHandle(this.value);"></div>
+<div data-page-node-id="hkAL5KYdlOaj8mYGZSJxkz" class="record-list" id="moneyList"></div><div id="moneyWlSummary" style="margin:6px 0 0;text-align:center;display:none"></div><p data-page-node-id="r196countFooter" id="moneyListCount" class="mini-note" style="margin:10px 0 0;text-align:center"></p></article>
 
           <!-- R234: 往来账目卡片 -->
           <article data-page-node-id="wanglaiPanel" class="panel" style="margin:0; width:100%; box-sizing:border-box">
@@ -4385,6 +4385,8 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
         <div data-page-node-id="r53RecordEditAmtGroup" class="re-amount"><label data-page-node-id="r53RecordEditAmtLabel" class="re-section-label" for="recordEditAmount"><!--pnid:r53RecordEditAmtLabelT-->金额</label><div data-page-node-id="r53RecordEditAmtWrap" class="re-amount-wrap"><span data-page-node-id="r53RecordEditCurrency" class="re-currency"><!--pnid:r53RecordEditCurrencyT-->¥</span><input data-page-node-id="r53RecordEditAmount" autocomplete="off" id="recordEditAmount" type="number" name="editAmount" step="0.01" min="0" required placeholder="0.00"></div></div>
 
         <div data-page-node-id="r53RecordEditMetaRow" class="re-meta"><div data-page-node-id="r53RecordEditDateGroup" class="re-field"><label data-page-node-id="r53RecordEditDateLabel" class="re-section-label" for="recordEditDate"><!--pnid:r53RecordEditDateLabelT-->日期</label><input data-page-node-id="r53RecordEditDateI" id="recordEditDate" type="date" name="editDate" required></div><div data-page-node-id="r53RecordEditCatGroup" class="re-field"><label data-page-node-id="r53RecordEditCatLabel" class="re-section-label" for="recordEditCategory"><!--pnid:r53RecordEditCatLabelT-->分类</label><select data-page-node-id="r53RecordEditCatS" name="editCategory" id="recordEditCategory"></select></div><div data-page-node-id="r53RecordEditAccGroup" class="re-field"><label data-page-node-id="r53RecordEditAccLabel" class="re-section-label" for="recordEditAccount"><!--pnid:r53RecordEditAccLabelT-->账户</label><select data-page-node-id="r53RecordEditAccS" name="editAccount" id="recordEditAccount"><option data-page-node-id="r53RecordEditAccNone" value=""><!--pnid:r53RecordEditAccNoneT-->未指定</option></select></div></div>
+
+        <div data-page-node-id="r53RecordEditWlGroup" class="re-field" id="recordEditWlGroup" style="display:none"><label data-page-node-id="r53RecordEditWlLabel" class="re-section-label" for="recordEditWlPerson">往来对象</label><input data-page-node-id="r53RecordEditWlI" autocomplete="off" id="recordEditWlPerson" type="text" name="editWlPerson" maxlength="20" placeholder="谁借的 / 随礼给谁 / 还给谁"></div>
 
         <div data-page-node-id="r53RecordEditNoteGroup" class="re-field"><label data-page-node-id="r53RecordEditNoteLabel" class="re-section-label" for="recordEditNote"><!--pnid:r53RecordEditNoteLabelT-->备注 <span class="re-hint"><!--pnid:r53RecordEditNoteHintT-->（可选）</span></label><textarea class="j-textarea" data-page-node-id="r53RecordEditNoteI" id="recordEditNote" name="editNote" maxlength="60" placeholder="为这笔流水添加备注"></textarea></div>
 
@@ -5512,7 +5514,7 @@ mark{background:var(--plum-soft);color:var(--ink);border-radius:3px;padding:0 2p
 
   function formatDateHeading(d){ var dt=new Date(d+'T00:00:00'); var w=['日','一','二','三','四','五','六'][dt.getDay()]; return (dt.getMonth()+1)+' 月 '+dt.getDate()+' 日 · 周'+w; }
 
-  function recordTitle(r){ var d=r.data||{}; if(r.type==='money') return d.note||d.category||'一笔收支'; if(r.type==='transfer') return (d.from||'')+' → '+(d.to||'')+(d.note?(' · '+d.note):''); if(r.type==='planner') return d.title||'一项日程'; if(r.type==='cycle') return d.flow?('流量'+d.flow):'一次经期记录'; if(r.type==='home') return d.name||'待买物品'; return '生活记录'; }
+  function recordTitle(r){ var d=r.data||{}; if(r.type==='money'){ /* R247/R248: 借款/人情支出/还款/人情收入 关联往来对象时，标题=往来对象 + 分类 + 备注 */ var _wlCats={'借款':1,'人情支出':1,'还款':1,'人情收入':1}; if(_wlCats[d.category]&&typeof moneyWanglaiPersons==='function'){ var _p=moneyWanglaiPersons(r)[0]; if(_p) return _p+' '+(d.category||'')+((d.note&&d.note.trim())?(' '+d.note.trim()):''); } return d.note||d.category||'一笔收支'; } if(r.type==='transfer') return (d.from||'')+' → '+(d.to||'')+(d.note?(' · '+d.note):''); if(r.type==='planner') return d.title||'一项日程'; if(r.type==='cycle') return d.flow?('流量'+d.flow):'一次经期记录'; if(r.type==='home') return d.name||'待买物品'; return '生活记录'; }
 
   function recordTypeMeta(type){ switch(type){ case 'money': return {label:'记账',bg:'#efe8f9',fg:'#6b4ba3'}; case 'planner': return {label:'日程',bg:'#eceef4',fg:'#4f6098'}; case 'cycle': return {label:'经期',bg:'#f5e9ee',fg:'#a45673'}; case 'home': return {label:'待买',bg:'#f4ecdc',fg:'#937344'}; case 'media': return {label:'书影音',bg:'#fbe7d8',fg:'#a4642e'}; default: return {label:'记录',bg:'#f4f2f7',fg:'#5a5167'}; } }
 
@@ -10068,6 +10070,8 @@ function renderAll(){ renderDashboard(); renderMoney(); renderHabits(); renderHa
           var cats=(typeof getCategories==='function')?getCategories(flow):[];
           if(sel) sel.innerHTML=cats.map(function(c){return '<option>'+esc(c)+'</option>';}).join('');
         }
+        /* R247: 切换收支/分类时同步显隐「往来对象」编辑框 */
+        if(e.target.name==='editFlow'||e.target.id==='recordEditCategory'){ if(typeof updateRecordEditWlField==='function') updateRecordEditWlField(); }
       });
     }
     var _recClose=document.getElementById('recordEditClose');
@@ -10437,6 +10441,16 @@ function saveAccountsFromEditor(){ var rows=document.querySelectorAll('#accounts
 
   /* ============ 流水编辑（R51） ============ */
 
+  /* R247: 流水编辑弹窗——往来类分类（借款/人情支出/还款/人情收入）显示「往来对象」编辑框 */
+  var WL_EDIT_CATS={'借款':1,'人情支出':1,'还款':1,'人情收入':1};
+  function updateRecordEditWlField(){
+    var catSel=document.getElementById('recordEditCategory');
+    var cat=catSel?catSel.value:'';
+    var show=!!WL_EDIT_CATS[cat];
+    var grp=document.getElementById('recordEditWlGroup'), inp=document.getElementById('recordEditWlPerson');
+    if(grp) grp.style.display=show?'':'none';
+    if(inp&&!show) inp.value='';
+  }
   function openRecordEdit(id){
 
     var r=(state.records||[]).find(function(x){return x.id===id;});
@@ -10474,6 +10488,12 @@ function saveAccountsFromEditor(){ var rows=document.querySelectorAll('#accounts
     var curAcc=d.account||'';
 
     accSel.innerHTML='<option value="">未指定</option>'+accs.map(function(a){return '<option '+(a.name===curAcc?'selected':'')+'>'+esc(a.name)+'</option>';}).join('');
+
+    /* R247: 往来类分类显示「往来对象」并回填关联往来账目的 person */
+    var _isWlCat=!!WL_EDIT_CATS[d.category];
+    var _wlGrp=document.getElementById('recordEditWlGroup'), _wlInp=document.getElementById('recordEditWlPerson');
+    if(_wlGrp) _wlGrp.style.display=_isWlCat?'':'none';
+    if(_wlInp) _wlInp.value=_isWlCat?((moneyWanglaiPersons(r)[0])||''):'';
 
     form.dataset.editingId=id;
 
@@ -10514,6 +10534,9 @@ function saveAccountsFromEditor(){ var rows=document.querySelectorAll('#accounts
     r.data.account=(d.editAccount||'').trim();
 
     r.data.note=(d.editNote||'').trim();
+
+    /* R247: 往来类分类时，把弹窗中的往来对象写入 data.wlPerson，由 wlSyncFromMoney 同步到关联往来账目（清空=清除） */
+    if(WL_EDIT_CATS[r.data.category]) r.data.wlPerson=(d.editWlPerson||'').trim();
 
     try{ if(r.data && typeof wlSyncFromMoney==='function'){ wlSyncFromMoney(r); } }catch(e){ console.warn('wl edit sync',e); }
 
@@ -12147,6 +12170,10 @@ function renderDashboard(){
     var mdbEl=document.getElementById('moneyDateBtn'); if(mdbEl){ if(dateFrom||dateTo){ mdbEl.classList.add('active'); } else { mdbEl.classList.remove('active'); } }
     var useRange=!!(dateFrom||dateTo);
 
+    /* R250: 往来对象（人名）搜索——关键词命中某条流水的往来对象名称时，视为「按人查找」，跨全部时间（不受月份导航限制），仅保留显式日期段筛选 */
+    var _mq=(renderMoney._search||'').toLowerCase();
+    var _isWlQuery=!!_mq && recs.some(function(r){ return moneyWanglaiPersons(r).some(function(p){ return p.toLowerCase().indexOf(_mq)>=0; }); });
+
     /* R126: 流水按时间顺序排序（同一天内按 id 倒序，新→旧），保证列表可视化清晰 */
     var list=recs.slice();
     /* R228: 账户间转账作为流水显示（带日期、纳入余额） */
@@ -12164,20 +12191,23 @@ function renderDashboard(){
         return true;
       });
     } else {
-      list=list.filter(function(r){return r.date.slice(0,7)===targetMonthKey;});
+      if(_isWlQuery){ /* R250: 按人查找跨全部时间，不受月份导航限制 */ }
+      else { list=list.filter(function(r){return r.date.slice(0,7)===targetMonthKey;}); }
     }
     list=list.filter(function(r){
       if(r.type==='transfer'){ if(filter!=='all'&&r.data.category!==filter) return false; if(accountFilter!=='all'&&r.data.from!==accountFilter&&r.data.to!==accountFilter) return false; return true; }
       return (filter==='all'||r.data.category===filter) && (accountFilter==='all'||(r.data.account||'')===accountFilter);
     });
 
-    /* R231: 记账页流水搜索（关键词命中分类/备注/账户/金额/收支/转账/日期） */
-    var _mq=(renderMoney._search||'').toLowerCase();
+    /* R246: 记账页流水搜索——关键词命中 分类/备注/账户/金额/收支/转账/日期，并新增「往来对象」（商户/个人/转账对方）模糊匹配；与日期段/分类/账户筛选为 AND 组合 */
+    /* R250: _mq / _isWlQuery 已在月份过滤前计算（用于判断是否按人跨时间查找） */
     if(_mq){
       list=list.filter(function(r){
         var hay=[];
         if(r.type==='transfer'){ hay.push(r.data.from||'', r.data.to||'', r.data.note||'', '转账', String(r.data.amount||''), r.date||''); }
         else { hay.push(r.data.category||'', r.data.note||'', r.data.account||'', (r.data.flow==='income'?'收入':'支出'), String(r.data.amount||''), r.date||''); }
+        /* R246: 关联往来账目的「往来对象」名称也纳入模糊匹配 */
+        moneyWanglaiPersons(r).forEach(function(p){ hay.push(p); });
         return hay.join(' ').toLowerCase().indexOf(_mq)>=0;
       });
     }
@@ -12219,8 +12249,25 @@ function renderDashboard(){
     document.getElementById('moneyList').innerHTML = list.length? list.map(function(r){ return recordRow(r,{balance:balanceAfter[r.id]}); }).join('') : empty(useRange?'该时间段还没有流水':(moneyOffset===0?'这个分类还没有流水':'该月份还没有流水'));
 
     /* R196-5: 「该月 N 条 · 全部 M 条」移到流水卡片底部最下方呈现；month-nav 月份切换按钮保持原状 */
-    var _mcText = useRange ? ('筛选 '+list.length+' 条 · 全部 '+recs.length+' 条') : ('该月 '+list.length+' 条 · 全部 '+recs.length+' 条');
+    var _mcText = _isWlQuery ? ('匹配 '+list.length+' 条 · 全部 '+recs.length+' 条') : (useRange ? ('筛选 '+list.length+' 条 · 全部 '+recs.length+' 条') : ('该月 '+list.length+' 条 · 全部 '+recs.length+' 条'));
     var _mcEl=document.getElementById('moneyListCount'); if(_mcEl) _mcEl.textContent=_mcText;
+
+    /* R249: 搜索往来对象时，在「该月/全部」条数上方显示 出/进/剩余 净额汇总（仅对带往来对象的命中记录求和） */
+    var _sumEl=document.getElementById('moneyWlSummary');
+    if(_sumEl){
+      var _showSum=!!_mq && list.some(function(r){ return moneyWanglaiPersons(r).length>0; });
+      if(_showSum){
+        var _out=0,_in=0;
+        /* R250: 仅对「往来对象名称命中搜索词」的记录求和（跨全部时间），保证净额专指该人 */
+        list.forEach(function(r){ if(r.type==='transfer') return; var ps=moneyWanglaiPersons(r); if(!ps.length) return; if(_mq && !ps.some(function(p){ return p.toLowerCase().indexOf(_mq)>=0; })) return; var amt=Number(r.data.amount)||0; if(r.data.flow==='income') _in+=amt; else _out+=amt; });
+        var _rem=_in-_out; /* R250: 剩余 = 进 - 出 */
+        _sumEl.innerHTML='<span style="margin:0 4px">往来净额</span>'
+          +'<span style="margin:0 4px">出 '+money(_out)+'</span>'
+          +'<span style="margin:0 4px">进 '+money(_in)+'</span>'
+          +'<span style="margin:0 4px">剩余 '+(_rem<0?'-':'')+money(Math.abs(_rem))+'</span>';
+        _sumEl.style.display='';
+      } else { _sumEl.innerHTML=''; _sumEl.style.display='none'; }
+    }
 
     /* R234: 渲染往来账目卡片 */
     renderWanglai();
@@ -12516,7 +12563,12 @@ function wlSyncRepayMoney(rec, amt, date, note, acc){
   var flow=rec.direction==='out'?'income':'expense', cat=wlRepayCategory(rec); wlEnsureCategory(cat,flow);
   /* R238: 支持指定回款 / 还款账户；未传时沿用垫付记录的账户 */
   var acct=(acc===undefined||acc===null)?(rec.account||''):String(acc).trim();
-  var mrec={id:uid(),type:'money',date:date,createdAt:Date.now(),sample:false,remoteId:null,data:{flow:flow,amount:amt,category:cat,account:acct,note:'[还款 '+esc(rec.person||'')+'] '+(note||''),wanglaiId:rec.id,wanglaiRepay:true}};
+  /* R245: 备注前缀语义化 —— 报销→报销、借款→还款、人情→回礼；去方括号，格式：前缀 + 往来对象 + 备注 */
+  var _wlpre = rec.kind==='reimburse' ? '报销' : (rec.kind==='gift' ? '回礼' : '还款');
+  var _wlp = (rec.person||'').trim();
+  var _wln = (note||'').trim();
+  var _wlnote = _wlpre + (_wlp? ' '+_wlp:'') + (_wln? ' '+_wln:'');
+  var mrec={id:uid(),type:'money',date:date,createdAt:Date.now(),sample:false,remoteId:null,data:{flow:flow,amount:amt,category:cat,account:acct,note:_wlnote,wanglaiId:rec.id,wanglaiRepay:true}};
   state.records.push(mrec);
   rec.moneyRecordIds=rec.moneyRecordIds||[];
   rec.moneyRecordIds.push(mrec.id);
@@ -12571,7 +12623,7 @@ function wlEnsureBaseCategories(){
 function updateMoneyWanglaiField(){
   var f=document.getElementById('moneyForm'); if(!f) return;
   var sel=f.querySelector('[name="category"]'); var cat=sel?sel.value:'';
-  var show=(cat==='借款'||cat==='人情支出');
+  var show=(cat==='借款'||cat==='人情支出'||cat==='还款'||cat==='人情收入'); /* R248: 收入侧「还款/人情收入」同样显示往来对象 */
   var field=document.getElementById('moneyWanglaiField');
   if(field) field.style.display=show?'':'none';
 }
@@ -12580,20 +12632,20 @@ function wlSyncFromMoney(rec){
   /* R243/R244: 收入「还款 / 人情收入」与支出「借款 / 人情支出」双向绑定往来 —— 收入侧按 FIFO 自动冲抵未结清的借出/随礼 */
   var map={'借款':{kind:'loan'},'人情支出':{kind:'gift'},'报销支出':{kind:'reimburse',direction:'out'},'报销收入':{kind:'reimburse',direction:'in'},'还款':{kind:'loan',repay:true},'人情收入':{kind:'gift',repay:true}};
   var m=map[d.category]; if(!m) return null;
-  var person=(d.wlPerson||'').trim(); if('wlPerson' in d) delete d.wlPerson;
+  var person=(d.wlPerson||'').trim(), _hadWlP=('wlPerson' in d); if(_hadWlP) delete d.wlPerson; /* R247: _hadWlP=显式传入（编辑弹窗），空值也允许清除往来对象 */
   var direction=m.direction||(d.flow==='expense'?'out':'in');
   var wls=state.settings.wanglaiRecords=state.settings.wanglaiRecords||[];
   var wl=d.wanglaiId? wls.find(function(x){return x.id===d.wanglaiId;}):null;
   if(wl){
     wl.kind=m.kind; wl.direction=direction; wl.amount=Number(d.amount||0);
     wl.date=rec.date; wl.note=(d.note||'').trim(); wl.account=(d.account||'').trim();
-    if(person) wl.person=person;
+    if(person||_hadWlP) wl.person=person;
     return wl;
   }
   /* R237: 登记「报销收入」时自动抵扣未报销的垫付记录（按日期 FIFO），剩余部分才独立成行 */
   if(d.category==='报销收入'){ if(d.wanglaiRepay) return null; return wlAutoDeductReimburse(rec); }
-  /* R243: 登记「借款归还 / 人情归还」时自动冲抵未结清的借出 / 随礼（按日期 FIFO），已全部冲抵完不再新建往来行 */
-  if(m.repay){ if(d.wanglaiRepay) return null; return wlAutoRepayLoanGift(rec, m.kind); }
+  /* R249: 不再自动冲抵（用户改为「搜索往来对象看净额」）；保留往来对象在流水上，供标题/搜索/汇总使用，不做跨记录抵扣 */
+  if(m.repay){ if(person) d.wlPerson=person; return null; }
   wl={id:uid(),kind:m.kind,direction:direction,person:person,amount:Number(d.amount||0),date:rec.date,note:(d.note||'').trim(),account:(d.account||'').trim(),repaid:0,repayments:[],createdAt:Date.now(),moneyRecordIds:[rec.id]};
   wls.push(wl); d.wanglaiId=wl.id;
   return wl;
@@ -12608,42 +12660,20 @@ function wlAutoDeductReimburse(rec){
   pool.forEach(function(r){
     if(remaining<=0.001) return;
     var out=wlOutstanding(r), pay=Math.min(remaining,out); if(pay<=0.001) return;
-    var rp={id:uid(),amount:pay,date:rec.date,note:'报销抵扣',createdAt:Date.now(),moneyRecordId:rec.id};
+    var rp={id:uid(),amount:pay,date:rec.date,note:'报销',createdAt:Date.now(),moneyRecordId:rec.id};
     r.repaid=(Number(r.repaid)||0)+pay; r.repayments=r.repayments||[]; r.repayments.push(rp);
     paidIds.push(r.id); paidTotal+=pay; remaining-=pay;
   });
   d.wanglaiRepay=true; d.wanglaiIds=paidIds;
   var base=(d.note&&d.note.trim())?d.note.trim()+' ':'';
-  if(paidIds.length){ d.note=base+'[报销抵扣 '+paidIds.length+' 笔垫付 ¥'+paidTotal.toFixed(2)+']'; }
+  if(paidIds.length){ d.note=base+'报销 抵扣 '+paidIds.length+' 笔垫付 ¥'+paidTotal.toFixed(2); }
   if(remaining>0.001){
     var nr={id:uid(),kind:'reimburse',direction:'in',person:'',amount:remaining,date:rec.date,note:'报销余额（未对应垫付）',account:(d.account||'').trim(),repaid:0,repayments:[],createdAt:Date.now(),moneyRecordIds:[rec.id]};
     wls.push(nr); d.wanglaiIds=(d.wanglaiIds||[]).concat(nr.id);
   }
   return null;
 }
-/* R243: 收入「借款归还 / 人情归还」自动冲抵未结清的借出/随礼（按日期 FIFO）；主表单这条收入流水本身就是还款凭证，不再另建收入行；无未结清项时保持普通收入 */
-function wlAutoRepayLoanGift(rec, kind){
-  var d=rec.data, total=Number(d.amount||0);
-  var wls=state.settings.wanglaiRecords=state.settings.wanglaiRecords||[];
-  var pool=wls.filter(function(x){return x.kind===kind&&x.direction==='out'&&wlOutstanding(x)>0.001;})
-              .sort(function(a,b){return (a.date||'').localeCompare(b.date||'')||a.createdAt-b.createdAt;});
-  if(!pool.length) return null;
-  var remaining=total, paidIds=[], paidTotal=0;
-  var lbl=kind==='loan'?'借款':'人情';
-  pool.forEach(function(r){
-    if(remaining<=0.001) return;
-    var out=wlOutstanding(r), pay=Math.min(remaining,out); if(pay<=0.001) return;
-    var rp={id:uid(),amount:pay,date:rec.date,note:'还款抵扣',createdAt:Date.now(),moneyRecordId:rec.id};
-    r.repaid=(Number(r.repaid)||0)+pay; r.repayments=r.repayments||[]; r.repayments.push(rp);
-    r.moneyRecordIds=r.moneyRecordIds||[]; if(r.moneyRecordIds.indexOf(rec.id)<0) r.moneyRecordIds.push(rec.id);
-    paidIds.push(r.id); paidTotal+=pay; remaining-=pay;
-  });
-  if(!paidIds.length) return null;
-  d.wanglaiRepay=true; d.wanglaiIds=paidIds;
-  var base=(d.note&&d.note.trim())?d.note.trim()+' ':'';
-  d.note=base+'[还款抵扣 '+paidIds.length+' 笔'+lbl+' ¥'+paidTotal.toFixed(2)+']';
-  return null;
-}
+/* R249: 已移除 wlAutoRepayLoanGift —— 借款/人情收入不再跨记录自动冲抵（用户改为「搜索往来对象看净额」）；往来对象保留在流水 data.wlPerson 上 */
 
 
 function renderWanglai(){
@@ -14086,6 +14116,21 @@ function submitCycleForm(formEl){ if(!formEl) return; var d=Object.fromEntries(n
   window.sbConfirmDelete = sbConfirmDelete;
   /* R230: 暴露全局搜索函数到 window */
   window.globalSearchRecords = globalSearchRecords;
+  /* R246: 解析一笔流水关联的「往来对象」名称（来自其所关联往来账目的 person）；转账的对方即账户，已在账户/对方中匹配，此处仅处理记账往来 */
+  function moneyWanglaiPersons(r){
+    if(!r || r.type==='transfer') return [];
+    var d=r.data||{};
+    var ids=[];
+    if(Array.isArray(d.wanglaiIds)&&d.wanglaiIds.length) ids=ids.concat(d.wanglaiIds);
+    if(d.wanglaiId) ids.push(d.wanglaiId);
+    if(!ids.length) return d.wlPerson?[d.wlPerson]:[]; /* R248: 无往来关联时兜底读取 wlPerson（无可冲抵的还款/人情收入） */
+    var wls=state.settings.wanglaiRecords||[];
+    var seen={}, out=[];
+    ids.forEach(function(id){ var w=wls.find(function(x){return x.id===id;}); var p=w&&(w.person||''); if(p&&!seen[p]){ seen[p]=1; out.push(p); } });
+    if(!out.length&&d.wlPerson) out.push(d.wlPerson); /* R248: 关联存在但均无 person 时同样兜底 */
+    return out;
+  }
+  window.moneyWanglaiPersons = moneyWanglaiPersons;
   /* R231: 记账页流水搜索——处理函数暴露到 window（inline oninput 调用） */
   function moneySearchHandle(v){ renderMoney._search=(v||'').trim(); if(typeof renderMoney==='function') renderMoney(); }
   window.moneySearchHandle = moneySearchHandle;
